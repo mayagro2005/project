@@ -37,7 +37,7 @@ class App(tkinter.Tk):
         # canvas.create_image(0, 0, image=pic, anchor=NW)
         # place a button on the root window
 
-        self.welcome = Label(self, text="Welcome!", background="light blue",foreground="black", font=("Calibri",25))
+        self.welcome = Label(self, text="Welcome!", background="gold",foreground="black", font=("Calibri",25))
         self.welcome.place(x=300, y=200,width=200,height=70)
         self.btn_signup = Button(self, text='SIGN UP', background="white", foreground="black", font=("Calibri",15),command=self.open_register)
         self.btn_signup.place(x=320, y=400, width=140,height=50)
