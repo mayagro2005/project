@@ -11,20 +11,22 @@ import socket
 #should be whatever variable holds your main window
 #toplevel.title = 'Top Level'
 class menu(tkinter.Toplevel):
-    def __init__(self, parent):
+    def __init__(self, parent, firstname, lastname):
         super().__init__(parent)
         self.parent = parent
         self.geometry('1000x1000')
         self.title('add user/register')
         self.studentdb= students()
         self.teacherdb= teachers()
+        self.firstname = firstname
+        self.lastname = lastname
 
         self.create_gui()
         Button(self, text='Close', command=self.close).pack(expand=True, side = BOTTOM)
 
     def create_gui(self):
-        self.lbl_recognize = Label(self, width=20, text="Welcome ")
-        self.lbl_recognize.place(x=10, y=50)
+        self.lbl_welcome = Label(self, width=20, text="Welcome " + self.firstname + " " + self.lastname + " ", background="pink", foreground="black", font=("Calibri",15))
+        self.lbl_welcome.place(x=450, y=50, width=140, height=50)
         # self.recognize = Entry(self, width=20)
         # self.recognize.place(x=200, y=50)
         # phase 1 button
@@ -48,8 +50,21 @@ class menu(tkinter.Toplevel):
     #     self.password = Entry(self, width=20)
     #     self.password.place(x=150, y=250)
     #
-    #     self.buttonPlus = Button(self, text="Sign Up", command=self.handle_add_user, width=20, background="green")
-    #     self.buttonPlus.place(x=10, y=350)
+
+        self.buttondeletelesson = Button(self, text="DELETE LESSON", command=self.delete_lesson, width=20,
+                                         background="green")
+        self.buttondeletelesson.place(x=650, y=150)
+
+        self.buttoninsertlesson = Button(self, text="INSERT LESSON", command=self.insert_lesson, width=20, background="green")
+        self.buttoninsertlesson.place(x=250, y=150)
+
+    def insert_lesson(self):
+        pass
+    def delete_lesson(self):
+        pass
+
+
+
     #
     # def handle_add_user(self):
     #     self.client_handler = threading.Thread(target=self.register_user, args=())

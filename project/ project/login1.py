@@ -75,7 +75,7 @@ class Login(tkinter.Toplevel):
                 self.str.set(message)
                 print(self.str.get())
             else:
-                window = menu(self)
+                window = menu(self, self.firstname.get(), self.lastname.get())
                 window.grab_set()
                 self.withdraw()
                 # message2 = "welcome, you are loged"
