@@ -74,9 +74,13 @@ class Login(tkinter.Toplevel):
                 self.str.set(message)
                 print(self.str.get())
             else:
-                message2 = "welcome, you are loged"
-                self.str.set(message2)
-                print(self.str.get())
+                window = menu(self)
+                window.grab_set()
+                self.withdraw()
+                # message2 = "welcome, you are loged"
+                # self.str.set(message2)
+                # print(self.str.get())
+
             # arr = ["SignIn", "teacher", self.firstname.get(), self.lastname.get(), self.email.get(),
             #        self.password.get()]
             # str_insert = ",".join(arr)

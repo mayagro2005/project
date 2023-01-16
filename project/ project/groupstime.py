@@ -130,11 +130,11 @@ class groupstime(object):
 
 g = groupstime()
 # g.insert_group_time('2', '17:00', '18:30', "sunday")
-<<<<<<< HEAD
+
 g.get_all_groups_times()
-=======
+
 # g.get_all_groups_times()
->>>>>>> origin/main
+
 # g.get_group_name_by_time_id('1')
 # g.update_group_time('2', '18:00', '19:00', "monday", '2', '17:00', '18:30', "sunday")
 # g.get_group_by_day("monday")
