@@ -37,13 +37,13 @@ class App(tkinter.Tk):
         # canvas.create_image(0, 0, image=pic, anchor=NW)
         # place a button on the root window
 
-        self.welcome = Label(self, text="Welcome!", background="light blue")
-        self.welcome.place(x=350, y=200)
-        self.btn_signup = Button(self, text='Sign Up', command=self.open_register)
-        self.btn_signup.place(x=250, y=400)
+        self.welcome = Label(self, text="Welcome!", background="light blue",foreground="black", font=("Calibri",25))
+        self.welcome.place(x=300, y=200,width=200,height=70)
+        self.btn_signup = Button(self, text='SIGN UP', background="white", foreground="black", font=("Calibri",15),command=self.open_register)
+        self.btn_signup.place(x=320, y=400, width=140,height=50)
 
-        self.btn_signin = Button(self, text='Sign In', command=self.open_login)
-        self.btn_signin.place(x=450, y=400)
+        self.btn_signin = Button(self, text='SIGN IN',background="white", foreground="black", font=("Calibri",15), command=self.open_login)
+        self.btn_signin.place(x=320, y=470,width=140,height=50)
 
         self.handle_thread_socket()
 
