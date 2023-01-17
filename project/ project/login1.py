@@ -70,10 +70,22 @@ class Login(tkinter.Toplevel):
                 messagebox.showerror("please write details", "Error")
                 return
             print("SignIn")
-            if self.teacherdb.insert_teacher(self.firstname.get(), self.lastname.get(), self.email.get(), self.password.get()) != "exist":
+            arr = ["SignIn", "teacher", self.firstname.get(), self.lastname.get(), self.email.get(),
+                   self.password.get()]
+            str_insert = ",".join(arr)
+            print(str_insert)
+            self.parent.client_socket.send(str_insert.encode())
+            data = self.parent.client_socket.recv(1024).decode()
+            print(data)
+            if data != "exist":
                 message = "please register"
                 self.str.set(message)
                 print(self.str.get())
+
+            # if self.teacherdb.insert_teacher(self.firstname.get(), self.lastname.get(), self.email.get(), self.password.get()) != "exist":
+            #     message = "please register"
+            #     self.str.set(message)
+            #     print(self.str.get())
             else:
                 window = menu(self, self.firstname.get(), self.lastname.get())
                 window.grab_set()
@@ -89,22 +101,37 @@ class Login(tkinter.Toplevel):
             # self.parent.client_socket.send(str_insert.encode())
             # data = self.parent.client_socket.recv(1024).decode()
             # print(data)
-        else:
-            self.priceforayear = int(250)
+        elif self.recognize.get() == "student":
+            self.priceforayear = str(250)
             if len(self.email.get()) == 0 or len(self.password.get()) == 0 or len(self.firstname.get()) == 0 or len(
                     self.lastname.get()) == 0:
                 messagebox.showerror("please write details", "Error")
                 return
             print("SignIn")
-            if self.studentdb.insert_student(self.firstname.get(), self.lastname.get(), self.priceforayear, self.email.get(), self.password.get()) != "exist":
+            arr1 = ["SignIn", "student", self.firstname.get(), self.lastname.get(),self.priceforayear, self.email.get(),
+                   self.password.get()]
+            str_insert = ",".join(arr1)
+            print(str_insert)
+            self.parent.client_socket.send(str_insert.encode())
+            data = self.parent.client_socket.recv(1024).decode()
+            print(data)
+            if data != "exist":
                 message = "please register"
                 self.str.set(message)
                 print(self.str.get())
+            # if self.studentdb.insert_student(self.firstname.get(), self.lastname.get(), self.priceforayear, self.email.get(), self.password.get()) != "exist":
+            #     message = "please register"
+            #     self.str.set(message)
+            #     print(self.str.get())
             else:
                 message2 = "welcome, you are loged"
                 self.str.set(message2)
                 print(self.str.get())
         # Button(self, text='Close', command=self.close).pack(expand=True)
+        else:
+            tkinter.messagebox.showerror("error", "SIGN IN AS A TEACHER OR STUDENT!")
+            # print("function failed")
+            # return "failed"
 
     def close(self):
         self.parent.deiconify()

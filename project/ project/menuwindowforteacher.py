@@ -51,16 +51,16 @@ class menu(tkinter.Toplevel):
     #     self.password.place(x=150, y=250)
     #
 
-        self.buttondeletelesson = Button(self, text="DELETE LESSON", command=self.delete_lesson, width=20,height=30)
+        self.buttondeletelesson = Button(self, text="DELETE LESSON", command=self.delete_lesson, width=20)
         self.buttondeletelesson.place(x=700, y=150)
 
-        self.buttoninsertlesson = Button(self, text="INSERT LESSON", command=self.insert_lesson, width=20, height=30)
+        self.buttoninsertlesson = Button(self, text="INSERT LESSON", command=self.insert_lesson, width=20)
         self.buttoninsertlesson.place(x=50, y=150)
 
-        self.buttonpayment = Button(self, text="PAYMENT BOX", command=self.payment_box, width=20,height=30)
+        self.buttonpayment = Button(self, text="PAYMENT BOX", command=self.payment_box, width=20)
         self.buttonpayment.place(x=50, y=250)
 
-        self.buttonmessages = Button(self, text="MESSAGE BOX", command=self.message_box, width=20,height=30)
+        self.buttonmessages = Button(self, text="MESSAGE BOX", command=self.message_box, width=20)
         self.buttonmessages.place(x=700, y=250)
 
     def insert_lesson(self):

@@ -68,7 +68,7 @@ class Register(tkinter.Toplevel):
             self.parent.client_socket.send(str_insert.encode())
             data = self.parent.client_socket.recv(1024).decode()
             print(data)
-        else:
+        elif self.recognize.get() == "student":
             self.priceforayear = int(250)
             if len(self.email.get()) == 0 or len(self.password.get()) == 0 or len(self.firstname.get()) == 0 or len(self.lastname.get()) == 0:
                 messagebox.showerror("please write details", "Error")
@@ -81,6 +81,10 @@ class Register(tkinter.Toplevel):
             self.parent.client_socket.send(str_insert.encode())
             data = self.parent.client_socket.recv(1024).decode()
             print(data)
+        else:
+            tkinter.messagebox.showerror("error", "SIGN UP AS A TEACHER OR STUDENT!")
+            # print("function failed")
+            # return "failed"
 
 
 
