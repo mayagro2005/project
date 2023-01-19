@@ -24,9 +24,15 @@ class App(tkinter.Tk):
         super().__init__()
         self.geometry('800x800')
         self.title('Main Window')
-        self.configure(bg='pink')
+        # self.configure(bg='pink')
+        self.img = Image.open('fitness.png')
+        self.resized = self.img.resize((800,800), Image.LANCZOS)
+        self.image = ImageTk.PhotoImage(self.resized)
+        self.label_image = Label(self,image=self.image)
+        self.label_image.place(x=0,y=0)
+
         # image = Image.open("fitness.png")
-        # image = image.resize((800, 800), Image.Resampling.LANCZOS)
+        # image = image.resize((800, 800), Image.LANCZOS)
         # pic = ImageTk.PhotoImage(image)
         # # img = Image.open("/Users/mayagrossman/Documents/dog.png")
         # # bg = ImageTk.PhotoImage(img)
@@ -37,8 +43,8 @@ class App(tkinter.Tk):
         # canvas.create_image(0, 0, image=pic, anchor=NW)
         # place a button on the root window
 
-        self.welcome = Label(self, text="Welcome!", background="gold",foreground="black", font=("Calibri",25))
-        self.welcome.place(x=300, y=200,width=200,height=70)
+        self.welcome = Label(self, text="Welcome!", background="red",foreground="black", font=("Calibri",25))
+        self.welcome.place(x=300, y=50,width=200,height=70)
         self.btn_signup = Button(self, text='SIGN UP', background="white", foreground="black", font=("Calibri",15),command=self.open_register)
         self.btn_signup.place(x=320, y=400, width=140,height=50)
 
