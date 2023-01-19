@@ -22,11 +22,11 @@ from tkinter import ttk
 class App(tkinter.Tk):
     def __init__(self):
         super().__init__()
-        self.geometry('800x800')
+        self.geometry('900x800')
         self.title('Main Window')
         # self.configure(bg='pink')
         self.img = Image.open('fitness.png')
-        self.resized = self.img.resize((800,800), Image.LANCZOS)
+        self.resized = self.img.resize((900,800), Image.LANCZOS)
         self.image = ImageTk.PhotoImage(self.resized)
         self.label_image = Label(self,image=self.image)
         self.label_image.place(x=0,y=0)
@@ -44,12 +44,12 @@ class App(tkinter.Tk):
         # place a button on the root window
 
         self.welcome = Label(self, text="Welcome!", background="red",foreground="black", font=("Calibri",25))
-        self.welcome.place(x=300, y=50,width=200,height=70)
+        self.welcome.place(x=350, y=50,width=200,height=70)
         self.btn_signup = Button(self, text='SIGN UP', background="white", foreground="black", font=("Calibri",15),command=self.open_register)
-        self.btn_signup.place(x=320, y=400, width=140,height=50)
+        self.btn_signup.place(x=380, y=400, width=140,height=50)
 
         self.btn_signin = Button(self, text='SIGN IN',background="white", foreground="black", font=("Calibri",15), command=self.open_login)
-        self.btn_signin.place(x=320, y=470,width=140,height=50)
+        self.btn_signin.place(x=380, y=470,width=140,height=50)
 
         self.handle_thread_socket()
 
