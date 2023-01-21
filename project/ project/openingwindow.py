@@ -8,7 +8,6 @@ import socket
 import hashlib
 from login1 import Login
 from PIL import ImageTk, Image
-from tkinter import ttk
 
 
 from dbteachers import *

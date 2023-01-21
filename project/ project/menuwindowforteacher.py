@@ -64,7 +64,7 @@ class menu(tkinter.Toplevel):
     #     self.password.place(x=150, y=250)
     #
 
-        self.buttondeletelesson = Button(self, text="DELETE LESSON", background="red", foreground="black", font=("Calibri",13,'bold'),command=self.delete_lesson)
+        self.buttondeletelesson = Button(self, text="DELETE LESSON", background="#FA8072", foreground="black", font=("Calibri",13,'bold'),command=self.delete_lesson)
         self.buttondeletelesson.place(x=700, y=150,width=150,height=70)
 
         self.buttoninsertlesson = Button(self, text="INSERT LESSON",background="red", foreground="black", font=("Calibri",13,'bold'), command=self.insert_lesson)

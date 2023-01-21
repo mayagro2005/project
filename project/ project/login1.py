@@ -61,7 +61,7 @@ class Login(tkinter.Toplevel):
         self.password = Entry(self, width=20)
         self.password.place(x=150, y=250)
 
-        self.buttonPlus = Button(self, text="Sign In", command=self.handle_add_user, width=20, background="green")
+        self.buttonPlus = Button(self, text="Sign In", command=self.handle_add_user, width=20, background="#FA8072")
         self.buttonPlus.place(x=10, y=350)
 
         self.str = StringVar()
