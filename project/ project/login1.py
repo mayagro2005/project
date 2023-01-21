@@ -15,7 +15,7 @@ class Login(tkinter.Toplevel):
         super().__init__(parent)
         self.parent = parent
         self.geometry('1000x1000')
-        self.title('Toplevel Window 2')
+        self.title('LOGIN WINDOW')
         self.studentdb = students()
         self.teacherdb = teachers()
 

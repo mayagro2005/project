@@ -23,8 +23,8 @@ class App(tkinter.Tk):
     def __init__(self):
         super().__init__()
         self.geometry('900x800')
-        self.title('Main Window')
-        self.configure(bg='pink')
+        self.title('OPENING WINDOW')
+        self.configure(bg='#F3CCFF')
         # self.img = Image.open('run.png')
         # self.resized = self.img.resize((900,800), Image.LANCZOS)
         # self.image = ImageTk.PhotoImage(self.resized)
@@ -43,7 +43,7 @@ class App(tkinter.Tk):
         # canvas.create_image(0, 0, image=pic, anchor=NW)
         # place a button on the root window
 
-        self.welcome = Label(self, text="Welcome!", background="red",foreground="black", font=("Calibri",25))
+        self.welcome = Label(self, text="Welcome!", background="white",foreground="black", font=("Calibri",25))
         self.welcome.place(x=350, y=50,width=200,height=70)
         self.btn_signup = Button(self, text='SIGN UP', background="white", foreground="black", font=("Calibri",15),command=self.open_register)
         self.btn_signup.place(x=380, y=400, width=140,height=50)

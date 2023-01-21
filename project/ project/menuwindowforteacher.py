@@ -1,4 +1,5 @@
 import threading
+import tkinter as tk
 import tkinter
 from tkinter import *
 from tkinter import ttk, messagebox
@@ -7,6 +8,7 @@ from dbstudents import students
 import socket
 from rgb import rgbprint
 from message_box import Messages
+from payment_box import Payments
 #https://www.pythontutorial.net/tkinter/tkinter-toplevel/
 #toplevel = tk.Toplevel(window) #'toplevel' can be changed to anything,
 #it is just a variable to hold the top level, 'window'
@@ -17,7 +19,7 @@ class menu(tkinter.Toplevel):
         super().__init__(parent)
         self.parent = parent
         self.geometry('1000x1000')
-        self.title('add user/register')
+        self.title('MAIN WINDOW')
         self.studentdb= students()
         self.teacherdb= teachers()
         self.firstname = firstname
@@ -73,11 +75,18 @@ class menu(tkinter.Toplevel):
         self.buttonmessages = Button(self, text="MESSAGE BOX", command=self.message_box, width=20)
         self.buttonmessages.place(x=700, y=250)
 
-        self.btn_kidstennis = Button(self, text='KIDS TENNIS', background="#B5D5C5", foreground="black", font=("Calibri", 15),
-                                 command=self.open_tennis)
+        # self.btn_kidstennis.config(bg="#B5D5C5")
+        self.btn_kidstennis = Button(self, text='KIDS TENNIS', bg="#B5D5C5", foreground="black", font=("Calibri", 15),
+                                      command=self.open_tennis)
+        # self.btn_kidstennis = Button(self, text='KIDS TENNIS', foreground="black", font=("Calibri", 15),
+        #                          command=self.open_tennis)
+        # self.btn_kidstennis.place(x=120, y=400, width=120, height=120)
+        # style = ttk.Style()
+        # style.configure("TButton", background="#B5D5C5",foreground="black", font=("Calibri", 15))
+        # self.btn_kidstennis = ttk.Button(self.parent, text='KIDS TENNIS', style="TButton", command=self.open_tennis)
         self.btn_kidstennis.place(x=120, y=400, width=120, height=120)
 
-        self.btn_swimming = Button(self, text='SWIMMING', background="#B5D5C5", foreground="black", font=("Calibri", 15),
+        self.btn_swimming = Button(self, text='SWIMMING', bg="#B5D5C5", foreground="black", font=("Calibri", 15),
                                  command=self.open_swimming)
         self.btn_swimming.place(x=270, y=400, width=120, height=120)
 
@@ -121,7 +130,8 @@ class menu(tkinter.Toplevel):
     def delete_lesson(self):
         pass
     def payment_box(self):
-        pass
+        window = Payments(self)
+        window.grab_set()
     def message_box(self):
         window = Messages(self)
         window.grab_set()

@@ -28,7 +28,7 @@ class Messages(tkinter.Toplevel):
         # self.close_button.grid(row=100, column=0, sticky='s')
 
     def create_gui(self):
-        self.lbl_welcome = Label(self, text="Hello! this is your message box ",background="light blue", foreground="black", font=("Calibri",12))
+        self.lbl_welcome = Label(self, text="Hello! this is your message box ",background="light blue", foreground="black", font=("Calibri",14))
         self.lbl_welcome.place(x=160, y=20)
         # self.recognize = Entry(self, width=20)
         # self.recognize.place(x=200, y=50)
@@ -38,8 +38,10 @@ class Messages(tkinter.Toplevel):
         self.writemessage.place(x=290, y=400)
         self.send_message_button = Button(self, text='Send', command=self.handle_send_message)
         self.send_message_button.place(x=190,y=430)
-        self.message_label = Entry(self, width=30)
+        self.message_label = Entry(self, width=30,foreground="red")
         self.message_label.place(x=120,y=100)
+        self.message_label.insert(0, "received messages")
+        self.message_label.config(state='readonly')
         # self.message_label = StringVar()
 
 
@@ -56,9 +58,18 @@ class Messages(tkinter.Toplevel):
         print(data)
         self.handle_received_message(data)
 
+    # def handle_received_message(self, message):
+    #     print(message)
+    #     self.message_label.delete(0, END)
+    #     self.message_label.insert(0,message)
     def handle_received_message(self, message):
-        print(message)
-        self.message_label.insert(0,message)
+        self.update_message_label(message)
+
+    def update_message_label(self, message):
+        self.message_label.config(state='normal')
+        self.message_label.delete(0, END)
+        self.message_label.insert(0, message)
+        self.message_label.config(state='readonly')
 
     def close(self):
         self.parent.deiconify()

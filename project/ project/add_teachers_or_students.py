@@ -15,7 +15,7 @@ class Register(tkinter.Toplevel):
         super().__init__(parent)
         self.parent = parent
         self.geometry('1000x1000')
-        self.title('add user/register')
+        self.title('REGISTER WINDOW')
         self.studentdb= students()
         self.teacherdb= teachers()
 
