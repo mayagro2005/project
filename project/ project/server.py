@@ -92,6 +92,20 @@ class Server(object):
                        elif server_data:
                            client_socket.send("not exist".encode())
 
+                   elif arr != None and arr[0] == "Send" and arr[1] == "Message":
+                       print("message excepted")
+                       print(arr)
+                       print("sertver data:", server_data)
+                       if server_data != " ":
+                           client_socket.send("glad you wrote a message".encode())
+                       else:
+                           client_socket.send("you can write messages".encode())
+
+
+
+
+
+
 
 
 

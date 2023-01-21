@@ -6,6 +6,7 @@ from dbteachers import teachers
 from dbstudents import students
 import socket
 from rgb import rgbprint
+from message_box import Messages
 #https://www.pythontutorial.net/tkinter/tkinter-toplevel/
 #toplevel = tk.Toplevel(window) #'toplevel' can be changed to anything,
 #it is just a variable to hold the top level, 'window'
@@ -23,7 +24,8 @@ class menu(tkinter.Toplevel):
         self.lastname = lastname
 
         self.create_gui()
-        Button(self, text='Close', command=self.close).pack(expand=True, side = BOTTOM)
+        # Button(self, text='Close', command=self.close).pack(expand=True, side = BOTTOM)
+        Button(self, text='Close', command=self.close).pack(side=tkinter.BOTTOM, fill=tkinter.X)
 
 
 
@@ -73,46 +75,46 @@ class menu(tkinter.Toplevel):
 
         self.btn_kidstennis = Button(self, text='KIDS TENNIS', background="#B5D5C5", foreground="black", font=("Calibri", 15),
                                  command=self.open_tennis)
-        self.btn_kidstennis.place(x=120, y=500, width=120, height=120)
+        self.btn_kidstennis.place(x=120, y=400, width=120, height=120)
 
         self.btn_swimming = Button(self, text='SWIMMING', background="#B5D5C5", foreground="black", font=("Calibri", 15),
                                  command=self.open_swimming)
-        self.btn_swimming.place(x=270, y=500, width=120, height=120)
+        self.btn_swimming.place(x=270, y=400, width=120, height=120)
 
         self.btn_yoga = Button(self, text='YOGA', background="#5BC0F8", foreground="black", font=("Calibri", 15),
                                    command=self.open_yoga)
-        self.btn_yoga.place(x=420, y=500, width=120, height=120)
+        self.btn_yoga.place(x=420, y=400, width=120, height=120)
 
         self.btn_basketball = Button(self, text='BASKETBALL', background="#ADA2FF", foreground="black", font=("Calibri", 15),
                                command=self.open_basketball)
-        self.btn_basketball.place(x=570, y=500, width=120, height=120)
+        self.btn_basketball.place(x=570, y=400, width=120, height=120)
 
         self.btn_dancing = Button(self, text='DANCING', background="#F8F988", foreground="black",
                                      font=("Calibri", 15),
                                      command=self.open_dancing)
-        self.btn_dancing.place(x=720, y=500, width=120, height=120)
+        self.btn_dancing.place(x=720, y=400, width=120, height=120)
 
         self.btn_adultstennis = Button(self, text='ADULTS TENNIS', background="#DC3535", foreground="black", font=("Calibri", 15),
                                  command=self.open_adultstennis)
-        self.btn_adultstennis.place(x=120, y=720, width=120, height=120)
+        self.btn_adultstennis.place(x=120, y=620, width=120, height=120)
 
         self.btn_pingpong = Button(self, text='PING PONG', background="#E97777", foreground="black", font=("Calibri", 15),
                                    command=self.open_pingpong)
-        self.btn_pingpong.place(x=270, y=720, width=120, height=120)
+        self.btn_pingpong.place(x=270, y=620, width=120, height=120)
 
         self.btn_fitness = Button(self, text='FITNESS', background="#4649FF", foreground="black", font=("Calibri", 15),
                                command=self.open_fitness)
-        self.btn_fitness.place(x=420, y=720, width=120, height=120)
+        self.btn_fitness.place(x=420, y=620, width=120, height=120)
 
         self.btn_pilates = Button(self, text='PILATES', background="#FFF6BF", foreground="black",
                                      font=("Calibri", 15),
                                      command=self.open_pilates)
-        self.btn_pilates.place(x=570, y=720, width=120, height=120)
+        self.btn_pilates.place(x=570, y=620, width=120, height=120)
 
         self.btn_boxing = Button(self, text='BOXING', background="#E8AA42", foreground="black",
                                   font=("Calibri", 15),
                                   command=self.open_boxing)
-        self.btn_boxing.place(x=720, y=720, width=120, height=120)
+        self.btn_boxing.place(x=720, y=620, width=120, height=120)
 
     def insert_lesson(self):
         pass
@@ -121,7 +123,9 @@ class menu(tkinter.Toplevel):
     def payment_box(self):
         pass
     def message_box(self):
-        pass
+        window = Messages(self)
+        window.grab_set()
+        # self.withdraw()
     def open_tennis(self):
         pass
     def open_swimming(self):
