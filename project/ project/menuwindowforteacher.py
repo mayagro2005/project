@@ -37,8 +37,8 @@ class menu(tkinter.Toplevel):
 
 
     def create_gui(self):
-        self.lbl_welcome = Label(self, width=20, text="Welcome " + self.firstname + " " + self.lastname + " ", background="pink", foreground="black", font=("Calibri",15))
-        self.lbl_welcome.place(x=450, y=50, width=140, height=50)
+        self.lbl_welcome = Label(self, width=20, text="Welcome " + self.firstname + " " + self.lastname + " ", background="pink", foreground="black", font=("Times New Roman",17,'bold'))
+        self.lbl_welcome.place(x=420, y=50, width=160, height=50)
         # self.recognize = Entry(self, width=20)
         # self.recognize.place(x=200, y=50)
         # phase 1 button
@@ -63,17 +63,17 @@ class menu(tkinter.Toplevel):
     #     self.password.place(x=150, y=250)
     #
 
-        self.buttondeletelesson = Button(self, text="DELETE LESSON", command=self.delete_lesson, width=20)
-        self.buttondeletelesson.place(x=700, y=150)
+        self.buttondeletelesson = Button(self, text="DELETE LESSON", background="red", foreground="black", font=("Calibri",13,'bold'),command=self.delete_lesson)
+        self.buttondeletelesson.place(x=700, y=150,width=150,height=70)
 
-        self.buttoninsertlesson = Button(self, text="INSERT LESSON", command=self.insert_lesson, width=20)
-        self.buttoninsertlesson.place(x=50, y=150)
+        self.buttoninsertlesson = Button(self, text="INSERT LESSON",background="red", foreground="black", font=("Calibri",13,'bold'), command=self.insert_lesson)
+        self.buttoninsertlesson.place(x=50, y=150,width=150,height=70)
 
-        self.buttonpayment = Button(self, text="PAYMENT BOX", command=self.payment_box, width=20)
-        self.buttonpayment.place(x=50, y=250)
+        self.buttonupdatelesson = Button(self, text="UPDATE LESSON",background="red", foreground="black", font=("Calibri",13,'bold'),command=self.updatelesson)
+        self.buttonupdatelesson.place(x=50, y=250,width=150,height=70)
 
-        self.buttonmessages = Button(self, text="MESSAGE BOX", command=self.message_box, width=20)
-        self.buttonmessages.place(x=700, y=250)
+        self.buttonmessages = Button(self, text="MESSAGE BOX",background="red", foreground="black", font=("Calibri",13,'bold'), command=self.message_box)
+        self.buttonmessages.place(x=700, y=250,width=150,height=70)
 
         # self.btn_kidstennis.config(bg="#B5D5C5")
         self.btn_kidstennis = Button(self, text='KIDS TENNIS', bg="#B5D5C5", foreground="black", font=("Calibri", 15),
@@ -129,9 +129,11 @@ class menu(tkinter.Toplevel):
         pass
     def delete_lesson(self):
         pass
-    def payment_box(self):
-        window = Payments(self)
-        window.grab_set()
+    # def payment_box(self):
+    #     window = Payments(self)
+    #     window.grab_set()
+    def updatelesson(self):
+        pass
     def message_box(self):
         window = Messages(self)
         window.grab_set()

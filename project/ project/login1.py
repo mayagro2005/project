@@ -23,17 +23,30 @@ class Login(tkinter.Toplevel):
         Button(self, text='Close', command=self.close).pack(expand=True, side=BOTTOM)
 
     def create_gui(self):
-        self.lbl_recognize = Label(self, width=20, text="Are you teacher or student? ")
+        # self.lbl_recognize = Label(self, width=20, text="Are you teacher or student? ")
+        # self.lbl_recognize.place(x=10, y=50)
+        # self.recognize = Entry(self, width=20)
+        # self.recognize.place(x=200, y=50)
+        self.lbl_recognize = Label(self, text="Are you a teacher or student?")
         self.lbl_recognize.place(x=10, y=50)
-        self.recognize = Entry(self, width=20)
-        self.recognize.place(x=200, y=50)
+
+        self.var = StringVar()
+        self.var.set("teacher")
+
+        self.teacher_radiobutton = Radiobutton(self, text="Teacher", variable=self.var, value="teacher")
+        self.teacher_radiobutton.place(x=200, y=50)
+
+        self.student_radiobutton = Radiobutton(self, text="Student", variable=self.var, value="student")
+        self.student_radiobutton.place(x=290, y=50)
+
+
         # phase 1 button
-        self.lbl_firstname = Label(self, width=10, text="firstname :")
+        self.lbl_firstname = Label(self, width=10, text="first name :")
         self.lbl_firstname.place(x=10, y=100)
         self.firstname = Entry(self, width=20)
         self.firstname.place(x=150, y=100)
 
-        self.lbl_lastname = Label(self, width=10, text="lastname :")
+        self.lbl_lastname = Label(self, width=10, text="last name :")
         self.lbl_lastname.place(x=10, y=150)
         self.lastname = Entry(self, width=20)
         self.lastname.place(x=150, y=150)
@@ -64,74 +77,79 @@ class Login(tkinter.Toplevel):
 
 
     def signin_user(self):
-        if self.recognize.get() == "teacher":
-            if len(self.email.get()) == 0 or len(self.password.get()) == 0 or len(self.firstname.get()) == 0 or len(
-                    self.lastname.get()) == 0:
-                messagebox.showerror("please write details", "Error")
-                return
-            print("SignIn")
-            arr = ["SignIn", "teacher", self.firstname.get(), self.lastname.get(), self.email.get(),
-                   self.password.get()]
-            str_insert = ",".join(arr)
-            print(str_insert)
-            self.parent.client_socket.send(str_insert.encode())
-            data = self.parent.client_socket.recv(1024).decode()
-            print(data)
-            if data != "exist":
-                message = "please register"
-                self.str.set(message)
-                print(self.str.get())
+        try:
+            if self.var.get() == "teacher":
+                if len(self.email.get()) == 0 or len(self.password.get()) == 0 or len(self.firstname.get()) == 0 or len(
+                        self.lastname.get()) == 0:
+                    messagebox.showerror("please write details", "Error")
+                    return
+                print("SignIn")
+                arr = ["SignIn", "teacher", self.firstname.get(), self.lastname.get(), self.email.get(),
+                       self.password.get()]
+                str_insert = ",".join(arr)
+                print(str_insert)
+                self.parent.client_socket.send(str_insert.encode())
+                data = self.parent.client_socket.recv(1024).decode()
+                print(data)
+                if data != "exist":
+                    message = "please register"
+                    self.str.set(message)
+                    print(self.str.get())
 
-            # if self.teacherdb.insert_teacher(self.firstname.get(), self.lastname.get(), self.email.get(), self.password.get()) != "exist":
-            #     message = "please register"
-            #     self.str.set(message)
-            #     print(self.str.get())
-            else:
-                window = menu(self, self.firstname.get(), self.lastname.get())
-                window.grab_set()
-                self.withdraw()
-                # message2 = "welcome, you are loged"
-                # self.str.set(message2)
-                # print(self.str.get())
+                # if self.teacherdb.insert_teacher(self.firstname.get(), self.lastname.get(), self.email.get(), self.password.get()) != "exist":
+                #     message = "please register"
+                #     self.str.set(message)
+                #     print(self.str.get())
+                else:
+                    window = menu(self, self.firstname.get(), self.lastname.get())
+                    window.grab_set()
+                    self.withdraw()
+                    # message2 = "welcome, you are loged"
+                    # self.str.set(message2)
+                    # print(self.str.get())
 
-            # arr = ["SignIn", "teacher", self.firstname.get(), self.lastname.get(), self.email.get(),
-            #        self.password.get()]
-            # str_insert = ",".join(arr)
-            # print(str_insert)
-            # self.parent.client_socket.send(str_insert.encode())
-            # data = self.parent.client_socket.recv(1024).decode()
-            # print(data)
-        elif self.recognize.get() == "student":
-            self.priceforayear = str(250)
-            if len(self.email.get()) == 0 or len(self.password.get()) == 0 or len(self.firstname.get()) == 0 or len(
-                    self.lastname.get()) == 0:
-                messagebox.showerror("please write details", "Error")
-                return
-            print("SignIn")
-            arr1 = ["SignIn", "student", self.firstname.get(), self.lastname.get(),self.priceforayear, self.email.get(),
-                   self.password.get()]
-            str_insert = ",".join(arr1)
-            print(str_insert)
-            self.parent.client_socket.send(str_insert.encode())
-            data = self.parent.client_socket.recv(1024).decode()
-            print(data)
-            if data != "exist":
-                message = "please register"
-                self.str.set(message)
-                print(self.str.get())
-            # if self.studentdb.insert_student(self.firstname.get(), self.lastname.get(), self.priceforayear, self.email.get(), self.password.get()) != "exist":
-            #     message = "please register"
-            #     self.str.set(message)
-            #     print(self.str.get())
+                # arr = ["SignIn", "teacher", self.firstname.get(), self.lastname.get(), self.email.get(),
+                #        self.password.get()]
+                # str_insert = ",".join(arr)
+                # print(str_insert)
+                # self.parent.client_socket.send(str_insert.encode())
+                # data = self.parent.client_socket.recv(1024).decode()
+                # print(data)
+            elif self.var.get() == "student":
+                self.priceforayear = str(250)
+                if len(self.email.get()) == 0 or len(self.password.get()) == 0 or len(self.firstname.get()) == 0 or len(
+                        self.lastname.get()) == 0:
+                    messagebox.showerror("please write details", "Error")
+                    return
+                print("SignIn")
+                arr1 = ["SignIn", "student", self.firstname.get(), self.lastname.get(), self.priceforayear,
+                        self.email.get(),
+                        self.password.get()]
+                str_insert = ",".join(arr1)
+                print(str_insert)
+                self.parent.client_socket.send(str_insert.encode())
+                data = self.parent.client_socket.recv(1024).decode()
+                print(data)
+                if data != "exist":
+                    message = "please register"
+                    self.str.set(message)
+                    print(self.str.get())
+                # if self.studentdb.insert_student(self.firstname.get(), self.lastname.get(), self.priceforayear, self.email.get(), self.password.get()) != "exist":
+                #     message = "please register"
+                #     self.str.set(message)
+                #     print(self.str.get())
+                else:
+                    message2 = "welcome, you are loged"
+                    self.str.set(message2)
+                    print(self.str.get())
+            # Button(self, text='Close', command=self.close).pack(expand=True)
             else:
-                message2 = "welcome, you are loged"
-                self.str.set(message2)
-                print(self.str.get())
-        # Button(self, text='Close', command=self.close).pack(expand=True)
-        else:
-            tkinter.messagebox.showerror("error", "SIGN IN AS A TEACHER OR STUDENT!")
-            # print("function failed")
-            # return "failed"
+                tkinter.messagebox.showerror("error", "SIGN IN AS A TEACHER OR STUDENT!")
+                # print("function failed")
+                # return "failed"
+        except:
+            return False
+
 
     def close(self):
         self.parent.deiconify()
