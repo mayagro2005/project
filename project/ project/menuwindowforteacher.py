@@ -1,6 +1,7 @@
 import threading
 import tkinter as tk
 import tkinter
+from tkinter import ttk
 from tkinter import *
 from tkinter import ttk, messagebox
 from dbteachers import teachers

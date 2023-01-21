@@ -22,7 +22,8 @@ class Server(object):
            # Create a TCP/IP socket
            self.sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
            self.sock.bind((self.ip, self.port))
-           self.sock.listen(3)
+           # self.sock.listen(3)
+           self.sock.listen(0)#This will allow the server to listen to an unlimited or a large number of clients at the same time.
 
            while True:
                print('waiting for a new client')
@@ -121,7 +122,7 @@ class Server(object):
                    break
 
 if __name__ == '__main__':
-   ip = '127.0.0.1'
+   ip = '0.0.0.0'
    port = 1803
    s = Server(ip, port)
    s.start()
