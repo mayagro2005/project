@@ -60,6 +60,11 @@ class Register(tkinter.Toplevel):
         self.buttonPlus = Button(self, text="Sign Up", command=self.handle_add_user, width=20, background="green")
         self.buttonPlus.place(x=10, y=350)
 
+        self.str = StringVar()
+        self.str.set("")
+        self.labellogin = Label(self, textvariable=self.str, background="light blue")
+        self.labellogin.place(x=200, y=450)
+
     def handle_add_user(self):
         self.client_handler = threading.Thread(target=self.register_user, args=())
         self.client_handler.daemon = True
@@ -80,6 +85,14 @@ class Register(tkinter.Toplevel):
                 self.parent.client_socket.send(str_insert.encode())
                 data = self.parent.client_socket.recv(1024).decode()
                 print(data)
+                if data == "success register":
+                    message = "you signed up, please go to sign in"
+                    self.str.set(message)
+                    print(self.str.get())
+                elif data == "failed register":
+                    message = "register failed, try again"
+                    self.str.set(message)
+                    print(self.str.get())
             elif self.var.get() == "student":
                 self.priceforayear = int(250)
                 if len(self.email.get()) == 0 or len(self.password.get()) == 0 or len(self.firstname.get()) == 0 or len(
@@ -95,6 +108,14 @@ class Register(tkinter.Toplevel):
                 self.parent.client_socket.send(str_insert.encode())
                 data = self.parent.client_socket.recv(1024).decode()
                 print(data)
+                if data == "success register":
+                    message = "you signed up, please go to sign in"
+                    self.str.set(message)
+                    print(self.str.get())
+                elif data == "failed register":
+                    message = "register failed, try again"
+                    self.str.set(message)
+                    print(self.str.get())
             else:
                 tkinter.messagebox.showerror("error", "SIGN UP AS A TEACHER OR STUDENT!")
                 # print("function failed")
