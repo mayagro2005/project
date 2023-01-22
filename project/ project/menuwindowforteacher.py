@@ -10,6 +10,7 @@ import socket
 from rgb import rgbprint
 from message_box import Messages
 from payment_box import Payments
+from tkmacosx import Button
 #https://www.pythontutorial.net/tkinter/tkinter-toplevel/
 #toplevel = tk.Toplevel(window) #'toplevel' can be changed to anything,
 #it is just a variable to hold the top level, 'window'

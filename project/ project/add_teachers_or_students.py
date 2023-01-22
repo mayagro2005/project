@@ -4,7 +4,7 @@ from tkinter import *
 from tkinter import ttk, messagebox
 from dbteachers import teachers
 from dbstudents import students
-
+from tkmacosx import Button
 #https://www.pythontutorial.net/tkinter/tkinter-toplevel/
 #toplevel = tk.Toplevel(window) #'toplevel' can be changed to anything,
 #it is just a variable to hold the top level, 'window'
