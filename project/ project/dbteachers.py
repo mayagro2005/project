@@ -47,13 +47,39 @@ class teachers(object):
             return arr_teachers
         except:
             return False
+    # def insert_teacher(self, firstname, lastname, email, password):
+    #     conn = sqlite3.connect('test.db')
+    #     print("Opened database successfully")
+    #
+    #     str_check = f"SELECT * from {self.__tablename} where '{email}' = {self.__email} and " \
+    #                 f"'{password}' = {self.__password}"
+    #     print(str_check)
+    #     cursor = conn.execute(str_check)
+    #     row = cursor.fetchall()
+    #     if row:
+    #         print("Exist")
+    #         return "exist"
+    #     else:
+    #         try:
+    #             # salt = 'GROSSMAN'
+    #             # salt_password = hashlib.md5(salt.encode('utf-8') + password.encode('utf-8')).hexdigest()
+    #             # print(salt_password)
+    #             str_insert = "INSERT INTO " + self.__tablename + " (" + self.__firstname + "," + self.__lastname + "," + self.__email + "," + self.__password + \
+    #                          ") VALUES (" + "'" + firstname + "'" + "," + "'" + lastname + "'" + "," + "'" + email + "'" + "," + "'" + password + "');"
+    #             print(str_insert)
+    #             conn.execute(str_insert)
+    #             conn.commit()
+    #             conn.close()
+    #             print("Record created successfully");
+    #             return True
+    #         except:
+    #             print("Failed to insert user")
+    #             return False
     def insert_teacher(self, firstname, lastname, email, password):
         conn = sqlite3.connect('test.db')
         print("Opened database successfully")
 
-        str_check = f"SELECT * from {self.__tablename} where '{email}' = {self.__email} and " \
-                    f"'{password}' = {self.__password}"
-        print(str_check)
+        str_check = f"SELECT * from {self.__tablename} where {self.__email} = '{email}' and {self.__password} = '{password}'"
         cursor = conn.execute(str_check)
         row = cursor.fetchall()
         if row:
@@ -61,12 +87,7 @@ class teachers(object):
             return "exist"
         else:
             try:
-                # salt = 'GROSSMAN'
-                # salt_password = hashlib.md5(salt.encode('utf-8') + password.encode('utf-8')).hexdigest()
-                # print(salt_password)
-                str_insert = "INSERT INTO " + self.__tablename + " (" + self.__firstname + "," + self.__lastname + "," + self.__email + "," + self.__password + \
-                             ") VALUES (" + "'" + firstname + "'" + "," + "'" + lastname + "'" + "," + "'" + email + "'" + "," + "'" + password + "');"
-                print(str_insert)
+                str_insert = f"INSERT INTO {self.__tablename} ({self.__firstname}, {self.__lastname}, {self.__email}, {self.__password}) VALUES ('{firstname}', '{lastname}', '{email}', '{password}');"
                 conn.execute(str_insert)
                 conn.commit()
                 conn.close()
@@ -75,6 +96,7 @@ class teachers(object):
             except:
                 print("Failed to insert user")
                 return False
+
 
     def delete_teacher(self, firstname, lastname, email, password):
         try:
@@ -259,7 +281,7 @@ class teachers(object):
 
 t=teachers()
 # t.get_teacher_by_group_name("swimming")
-# t.insert_teacher("Maya", "grossman", "we12.com", 'fgh1234')
+t.insert_teacher("lilya", "qwew", "qwe56", 'zxc567')
 # t.insert_teacher("gaya", "tyu", "re34.com", '1234')
 # t.insert_teacher("anna", "sdxcf", "dgfcgv123.com", 'qwr567')
 # t.insert_teacher("vb", "zsdfv", "d36677.com", '23456sdfg7')

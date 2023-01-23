@@ -39,8 +39,8 @@ class menu(tkinter.Toplevel):
 
 
     def create_gui(self):
-        self.lbl_welcome = Label(self, text="Welcome " + self.firstname + " " + self.lastname + " ", background="pink", foreground="black", font=("Times New Roman",17,'bold'))
-        self.lbl_welcome.place(x=420, y=50, width=180, height=50)
+        self.lbl_welcome = Label(self, text="Welcome " + self.firstname + " " + self.lastname + " ", background="#5BC0F8", foreground="black", font=("Times New Roman",17,'bold'),highlightcolor="red")
+        self.lbl_welcome.place(x=400, y=50, width=180, height=50)
         # self.recognize = Entry(self, width=20)
         # self.recognize.place(x=200, y=50)
         # phase 1 button
@@ -65,17 +65,17 @@ class menu(tkinter.Toplevel):
     #     self.password.place(x=150, y=250)
     #
 
-        self.buttondeletelesson = Button(self, text="DELETE LESSON", background="#FA8072", foreground="black", font=("Calibri",13,'bold'),command=self.delete_lesson)
-        self.buttondeletelesson.place(x=700, y=150,width=150,height=70)
+        self.buttondeletelesson = Button(self, text="DELETE LESSON", background="#ECE8DD", foreground="black", font=("Calibri",13,'bold'),command=self.delete_lesson)
+        self.buttondeletelesson.place(x=720, y=150,width=150,height=70)
 
-        self.buttoninsertlesson = Button(self, text="INSERT LESSON",background="red", foreground="black", font=("Calibri",13,'bold'), command=self.insert_lesson)
+        self.buttoninsertlesson = Button(self, text="INSERT LESSON",background="#ECE8DD", foreground="black", font=("Calibri",13,'bold'), command=self.insert_lesson)
         self.buttoninsertlesson.place(x=50, y=150,width=150,height=70)
 
-        self.buttonupdatelesson = Button(self, text="UPDATE LESSON",background="red", foreground="black", font=("Calibri",13,'bold'),command=self.updatelesson)
+        self.buttonupdatelesson = Button(self, text="UPDATE LESSON",background="#ECE8DD", foreground="black", font=("Calibri",13,'bold'),command=self.updatelesson)
         self.buttonupdatelesson.place(x=50, y=250,width=150,height=70)
 
-        self.buttonmessages = Button(self, text="MESSAGE BOX",background="red", foreground="black", font=("Calibri",13,'bold'), command=self.message_box)
-        self.buttonmessages.place(x=700, y=250,width=150,height=70)
+        self.buttonmessages = Button(self, text="MESSAGE BOX",background="#ECE8DD", foreground="black", font=("Calibri",13,'bold'), command=self.message_box)
+        self.buttonmessages.place(x=720, y=250,width=150,height=70)
 
         # self.btn_kidstennis.config(bg="#B5D5C5")
         self.btn_kidstennis = Button(self, text='KIDS TENNIS', bg="#B5D5C5", foreground="black", font=("Calibri", 15),
@@ -88,11 +88,11 @@ class menu(tkinter.Toplevel):
         # self.btn_kidstennis = ttk.Button(self.parent, text='KIDS TENNIS', style="TButton", command=self.open_tennis)
         self.btn_kidstennis.place(x=120, y=400, width=120, height=120)
 
-        self.btn_swimming = Button(self, text='SWIMMING', bg="#B5D5C5", foreground="black", font=("Calibri", 15),
+        self.btn_swimming = Button(self, text='SWIMMING', bg="#FFE9B1", foreground="black", font=("Calibri", 15),
                                  command=self.open_swimming)
         self.btn_swimming.place(x=270, y=400, width=120, height=120)
 
-        self.btn_yoga = Button(self, text='YOGA', background="#5BC0F8", foreground="black", font=("Calibri", 15),
+        self.btn_yoga = Button(self, text='YOGA', background="#FFD4D4", foreground="black", font=("Calibri", 15),
                                    command=self.open_yoga)
         self.btn_yoga.place(x=420, y=400, width=120, height=120)
 
@@ -105,15 +105,15 @@ class menu(tkinter.Toplevel):
                                      command=self.open_dancing)
         self.btn_dancing.place(x=720, y=400, width=120, height=120)
 
-        self.btn_adultstennis = Button(self, text='ADULTS TENNIS', background="#DC3535", foreground="black", font=("Calibri", 15),
+        self.btn_adultstennis = Button(self, text='ADULTS TENNIS', background="#91D8E4", foreground="black", font=("Calibri", 15),
                                  command=self.open_adultstennis)
         self.btn_adultstennis.place(x=120, y=620, width=120, height=120)
 
-        self.btn_pingpong = Button(self, text='PING PONG', background="#E97777", foreground="black", font=("Calibri", 15),
+        self.btn_pingpong = Button(self, text='PING PONG', background="#82AAE3", foreground="black", font=("Calibri", 15),
                                    command=self.open_pingpong)
         self.btn_pingpong.place(x=270, y=620, width=120, height=120)
 
-        self.btn_fitness = Button(self, text='FITNESS', background="#4649FF", foreground="black", font=("Calibri", 15),
+        self.btn_fitness = Button(self, text='FITNESS', background="#B5D5C5", foreground="black", font=("Calibri", 15),
                                command=self.open_fitness)
         self.btn_fitness.place(x=420, y=620, width=120, height=120)
 
@@ -122,7 +122,7 @@ class menu(tkinter.Toplevel):
                                      command=self.open_pilates)
         self.btn_pilates.place(x=570, y=620, width=120, height=120)
 
-        self.btn_boxing = Button(self, text='BOXING', background="#E8AA42", foreground="black",
+        self.btn_boxing = Button(self, text='BOXING', background="#FFE1E1", foreground="black",
                                   font=("Calibri", 15),
                                   command=self.open_boxing)
         self.btn_boxing.place(x=720, y=620, width=120, height=120)

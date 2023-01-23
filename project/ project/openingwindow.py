@@ -3,7 +3,7 @@ import tkinter
 from tkinter import *
 from add_teachers_or_students import Register
 # from login import Login
-from tkinter import ttk, messagebox
+from tkinter import ttk, messagebox, font
 import socket
 import hashlib
 from login1 import Login
@@ -46,10 +46,24 @@ class App(tkinter.Tk):
 
         self.welcome = Label(self, text="Welcome!", background="white",foreground="black", font=("Calibri",25))
         self.welcome.place(x=350, y=50,width=200,height=70)
-        self.btn_signup = Button(self, text='SIGN UP', background="white", foreground="black", font=("Calibri",15),command=self.open_register)
+        # self.btn_signup = Button(self, text='SIGN UP', background="white", foreground="black", font=("Calibri",15),command=self.open_register)
+        self.btn_signup= Button(self, text='SIGN UP', activeforeground='#EE3B3B', overrelief='flat', relief='flat', borderwidth=2,
+                    highlightthickness=1, font=font.Font(family='SignPainter', size=30, weight='bold', slant='roman'),
+                    focuscolor='#556B2F', highlightbackground='#CD5555', foreground='#1F1F1F', background='#7A7A7A',
+                    overbackground='#000000', overforeground='#00C78C', activebackground=('#BA55D3', '#D4D4D4'),
+                    borderless=1,command=self.open_register)
         self.btn_signup.place(x=380, y=400, width=140,height=50)
 
-        self.btn_signin = Button(self, text='SIGN IN',background="white", foreground="black", font=("Calibri",15), command=self.open_login)
+        # self.btn_signin = Button(self, text='SIGN IN',background="white", foreground="black", font=("Calibri",15), command=self.open_login)
+        self.btn_signin = Button(self, text='SIGN IN', activeforeground='#EE3B3B', overrelief='flat', relief='flat',
+                                 borderwidth=2,
+                                 highlightthickness=1,
+                                 font=font.Font(family='SignPainter', size=30, weight='bold', slant='roman'),
+                                 focuscolor='#556B2F', highlightbackground='#CD5555', foreground='#1F1F1F',
+                                 background='#7A7A7A',
+                                 overbackground='#000000', overforeground='#00C78C',
+                                 activebackground=('#BA55D3', '#D4D4D4'),
+                                 borderless=1, command=self.open_login)
         self.btn_signin.place(x=380, y=470,width=140,height=50)
 
         self.handle_thread_socket()

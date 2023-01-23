@@ -30,6 +30,9 @@ class Register(tkinter.Toplevel):
         self.var = StringVar()
         self.var.set("teacher")
 
+        self.message_label = None
+
+
         self.teacher_radiobutton = Radiobutton(self, text="Teacher", variable=self.var, value="teacher")
         self.teacher_radiobutton.place(x=200, y=50)
 
@@ -57,12 +60,12 @@ class Register(tkinter.Toplevel):
         self.password = Entry(self, width=20)
         self.password.place(x=150, y=250)
 
-        self.buttonPlus = Button(self, text="Sign Up", command=self.handle_add_user, width=20, background="green")
-        self.buttonPlus.place(x=10, y=350)
+        self.buttonPlus = Button(self, text="Sign Up", command=self.handle_add_user, width=60, background="white")
+        self.buttonPlus.place(x=50, y=350)
 
         self.str = StringVar()
         self.str.set("")
-        self.labellogin = Label(self, textvariable=self.str, background="light blue")
+        self.labellogin = Label(self, textvariable=self.str, foreground="red")
         self.labellogin.place(x=200, y=450)
 
     def handle_add_user(self):
@@ -89,10 +92,20 @@ class Register(tkinter.Toplevel):
                     message = "you signed up, please go to sign in"
                     self.str.set(message)
                     print(self.str.get())
+                    # self.message_label.config(text = "you signed up, please go to sign in", foreground = "red")
+
                 elif data == "failed register":
+                    # self.message_label.config(text="register failed, try again", foreground="red")
                     message = "register failed, try again"
                     self.str.set(message)
                     print(self.str.get())
+                elif data == "exist":
+                    message = "you already have a user, go sign in"
+                    self.str.set(message)
+                    print(self.str.get())
+                    # self.message_label.config(text="you already have a user, go sign in", foreground="red")
+
+
             elif self.var.get() == "student":
                 self.priceforayear = int(250)
                 if len(self.email.get()) == 0 or len(self.password.get()) == 0 or len(self.firstname.get()) == 0 or len(
@@ -109,13 +122,20 @@ class Register(tkinter.Toplevel):
                 data = self.parent.client_socket.recv(1024).decode()
                 print(data)
                 if data == "success register":
+                    # self.message_label.config(text="you signed up, please go to sign in", foreground="red")
                     message = "you signed up, please go to sign in"
                     self.str.set(message)
                     print(self.str.get())
                 elif data == "failed register":
+                    # self.message_label.config(text="register failed, try again", foreground="red")
                     message = "register failed, try again"
                     self.str.set(message)
                     print(self.str.get())
+                elif data == "exist":
+                    message = "you already have a user, go sign in"
+                    self.str.set(message)
+                    print(self.str.get())
+                    # self.message_label.config(text="you already have a user, go sign in", foreground="red")
             else:
                 tkinter.messagebox.showerror("error", "SIGN UP AS A TEACHER OR STUDENT!")
                 # print("function failed")
