@@ -107,7 +107,7 @@ class Register(tkinter.Toplevel):
 
 
             elif self.var.get() == "student":
-                self.priceforayear = int(250)
+                self.priceforayear = str(250)
                 if len(self.email.get()) == 0 or len(self.password.get()) == 0 or len(self.firstname.get()) == 0 or len(
                         self.lastname.get()) == 0:
                     messagebox.showerror("please write details", "Error")
@@ -121,18 +121,19 @@ class Register(tkinter.Toplevel):
                 self.parent.client_socket.send(str_insert.encode())
                 data = self.parent.client_socket.recv(1024).decode()
                 print(data)
-                if data == "success register":
+                if data == "exist":
                     # self.message_label.config(text="you signed up, please go to sign in", foreground="red")
+                    message = "you already have a user, go sign in"
+                    self.str.set(message)
+                    print(self.str.get())
+                elif data == "success register":
+                    # self.message_label.config(text="register failed, try again", foreground="red")
                     message = "you signed up, please go to sign in"
                     self.str.set(message)
                     print(self.str.get())
+                    "success register"
                 elif data == "failed register":
-                    # self.message_label.config(text="register failed, try again", foreground="red")
                     message = "register failed, try again"
-                    self.str.set(message)
-                    print(self.str.get())
-                elif data == "exist":
-                    message = "you already have a user, go sign in"
                     self.str.set(message)
                     print(self.str.get())
                     # self.message_label.config(text="you already have a user, go sign in", foreground="red")

@@ -58,24 +58,26 @@ class Server(object):
                        print(arr)
                        server_data=self.teacherdb.insert_teacher(arr[2], arr[3], arr[4], arr[5])
                        print("sertver data:",server_data)
-                       if server_data == True:
-                           client_socket.send("success register".encode())
-                       elif server_data == False:
-                           client_socket.send("failed register".encode())
-                       elif server_data == "exist":
+                       if server_data == "exist":
                            client_socket.send("exist".encode())
+                       elif server_data:
+                           client_socket.send("success register".encode())
+                       elif not server_data:
+                           client_socket.send("failed register".encode())
 
-                   elif arr!=None and arr[0]=="SignUp" and arr[1] == "student" and len(arr)==7:
+
+                   elif arr != None and arr[0] == "SignUp" and arr[1] == "student" and len(arr) == 7:
                        print("sign up student")
                        print(arr)
                        server_data = self.studentdb.insert_student(arr[2], arr[3], arr[4], arr[5], arr[6])
                        print("sertver data:", server_data)
-                       if server_data == True:
-                           client_socket.send("success register".encode())
-                       elif server_data == False:
-                           client_socket.send("failed register".encode())
-                       elif server_data == "exist":
+                       if server_data == "exist":
                            client_socket.send("exist".encode())
+                       elif server_data:
+                           client_socket.send("success register".encode())
+                       elif not server_data:
+                           client_socket.send("failed register".encode())
+
 
 
                    elif arr != None and arr[0] == "SignIn" and arr[1] == "teacher" and len(arr) == 6:
@@ -127,7 +129,7 @@ class Server(object):
                    break
 
 if __name__ == '__main__':
-   ip = '0.0.0.0'
+   ip = '127.0.0.1'
    port = 1803
    s = Server(ip, port)
    s.start()
