@@ -10,7 +10,7 @@ from login1 import Login
 from PIL import ImageTk, Image
 from tkmacosx import Button
 
-
+SIZE = 8
 from dbteachers import *
 from dbstudents import *
 from tkinter import ttk
@@ -26,6 +26,7 @@ class App(tkinter.Tk):
         self.geometry('900x800')
         self.title('OPENING WINDOW')
         self.configure(bg='#F3CCFF')
+        self.format = 'utf-8'
         # self.img = Image.open('run.png')
         # self.resized = self.img.resize((900,800), Image.LANCZOS)
         # self.image = ImageTk.PhotoImage(self.resized)
@@ -121,6 +122,43 @@ class App(tkinter.Tk):
         window = Login(self)
         window.grab_set()
         self.withdraw()
+
+    def send_msg(self, data, client_socket):
+        try:
+            print("The message is: " + str(data))
+            length = str(len(data)).zfill(SIZE)
+            length = length.encode()
+            print(length)
+            if type(data) != bytes:
+                data = data.encode()
+            print(data)
+            msg = length + data
+            print("message with lenght is " + str(msg))
+            client_socket.send(msg)
+        except:
+            print("error with sending msg")
+
+    def recv_msg(self, client_socket, ret_type="string"):
+        try:
+            length = client_socket.recv(SIZE).decode(self.format)
+            if not length:
+                print("no length!")
+                return None
+            print("The length is " + length)
+            data = client_socket.recv(int(length))
+            if not data:
+                print("no data!")
+                return None
+            print("the data is: " + str(data))
+            if ret_type == "string":
+                data = data.decode(self.format)
+            print(data)
+            return data
+        except:
+            print("error with receiving msg")
+
+
+
     def handle_thread_socket(self):
         client_handler = threading.Thread(target=self.create_socket, args=())
         client_handler.daemon = True
@@ -129,7 +167,8 @@ class App(tkinter.Tk):
     def create_socket(self):
         self.client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.client_socket.connect(('127.0.0.1', 1803))
-        data = self.client_socket.recv(1024).decode()
+        # data = self.client_socket.recv(1024).decode()
+        data = self.recv_msg(self.client_socket)
         print("data"+data)
         print("hi", self.client_socket)
 
