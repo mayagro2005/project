@@ -1,6 +1,7 @@
 import sqlite3
 import hashlib
-
+from dbteachers import teachers
+from groups import groups
 class groupstime(object):
     def __init__(self, tablename = "groupstime", timeId = "timeId", groupId = "groupId", startH = "startH", endH = "endH", lessonDay = "lessonDay"):
         self.__tablename = tablename
@@ -9,6 +10,8 @@ class groupstime(object):
         self.__startH = startH
         self.__endH = endH
         self.__lessonDay = lessonDay
+        self.teachers = teachers
+
 
 
         conn = sqlite3.connect('test.db')
@@ -54,7 +57,7 @@ class groupstime(object):
         row = cursor.fetchall()
         if row:
             print("Group time already exists")
-            return False
+            return "exist"
         else:
             try:
                 str_insert = f"INSERT INTO {self.__tablename} ({self.__groupId}, {self.__startH}, {self.__endH}, {self.__lessonDay})" \
@@ -70,25 +73,28 @@ class groupstime(object):
                 return False
 
     def delete_group_time(self, groupId, startH, endH, lessonDay):
-        conn = sqlite3.connect('test.db')
-        print("Opened database successfully")
-        str_check = f"SELECT * from {self.__tablename} where {self.__groupId} = {groupId} and " \
-                    f"{self.__startH} = {startH} and {self.__endH} = {endH} and {self.__lessonDay} = {lessonDay}"
-        cursor = conn.execute(str_check)
-        row = cursor.fetchall()
-        if row:
-            try:
-                str_delete = f"DELETE from {self.__tablename} where {self.__groupId} = {groupId} and " \
-                             f"{self.__startH} = {startH} and {self.__endH} = {endH} and {self.__lessonDay} = {lessonDay}"
-                conn.execute(str_delete)
-                conn.commit()
-                conn.close()
-                print("Record deleted successfully")
-                return "Success"
-            except:
-                return "Failed to delete record"
-        else:
-            return "Record not found"
+        try:
+            conn = sqlite3.connect('test.db')
+            print("Opened database successfully")
+            str_check = f"SELECT * from {self.__tablename} where {self.__groupId} = {groupId} and " \
+                        f"{self.__startH} = {startH} and {self.__endH} = {endH} and {self.__lessonDay} = {lessonDay}"
+            cursor = conn.execute(str_check)
+            row = cursor.fetchall()
+            if row:
+                try:
+                    str_delete = f"DELETE from {self.__tablename} where {self.__groupId} = {groupId} and " \
+                                 f"{self.__startH} = {startH} and {self.__endH} = {endH} and {self.__lessonDay} = {lessonDay}"
+                    conn.execute(str_delete)
+                    conn.commit()
+                    conn.close()
+                    print("Record deleted successfully")
+                    return "Success"
+                except:
+                    return "Failed to delete record"
+            else:
+                return "not found"
+        except:
+            return "failed"
 
 
 
@@ -128,13 +134,17 @@ class groupstime(object):
             return None
 
 
+
+
+
+
+
 g = groupstime()
 # g.insert_group_time('2', '17:00', '18:30', "sunday")
 
-g.get_all_groups_times()
-
 # g.get_all_groups_times()
 
+# g.get_all_groups_times()
 # g.get_group_name_by_time_id('1')
 # g.update_group_time('2', '18:00', '19:00', "monday", '2', '17:00', '18:30', "sunday")
 # g.get_group_by_day("monday")

@@ -3,6 +3,8 @@ import socket
 import threading
 from dbteachers import teachers
 from dbstudents import students
+from groups import groups
+from groupstime import groupstime
 
 cores = multiprocessing.cpu_count()
 print(cores)
@@ -18,6 +20,8 @@ class Server(object):
        self.studentdb = students()
        self.teacherdb = teachers()
        self.format = 'utf-8'
+       self.dbgroups = groups()
+       self.dbgroupstime = groupstime()
 
    def start(self):
        try:
@@ -128,6 +132,41 @@ class Server(object):
                    #     print("get_all_users")
                    #     server_data=self.userDb.select_all_users()
                    #     server_data = ",".join(server_data) # convert data to string
+                   elif arr != None and arr[0] == "Insertlesson" and len(arr) == 7:
+                       print("insert lesson")
+                       print(arr)
+                       arr_teachers = self.teacherdb.get_teacher_by_email_and_password(arr[5], arr[6])
+                       server_data = self.dbgroups.insert_group(arr_teachers[0],arr[1])
+                       if server_data != False:
+                           group = self.dbgroups.get_group_by_teacherId(arr_teachers[0])
+                           groupid = group[0]
+                           timeofgroup = self.dbgroupstime.insert_group_time(groupid,arr[2],arr[3],arr[4])
+                           if timeofgroup == "exist":
+                               self.send_msg("exist", client_socket)
+                           elif timeofgroup:
+                               self.send_msg("inserted", client_socket)
+                           elif not timeofgroup:
+                               self.send_msg("not inserted", client_socket)
+                       else:
+                           self.send_msg("not inserted", client_socket)
+
+                   elif arr != None and arr[0] == "deletelesson" and len(arr) == 7:
+                       print("delete lesson")
+                       print(arr)
+                       arr_teachers = self.teacherdb.get_teacher_by_email_and_password(arr[5], arr[6])
+                       server_data = self.dbgroups.insert_group(arr_teachers[0], arr[1])
+                       if server_data != False:
+                           group = self.dbgroups.get_group_by_teacherId(arr_teachers[0])
+                           groupid = group[0]
+                           timeofgroup = self.dbgroupstime.delete_group_time(groupid, arr[2], arr[3], arr[4])
+                           if timeofgroup == "not found":
+                               self.send_msg("not found", client_socket)
+                           elif timeofgroup == "Success":
+                               self.send_msg("Success", client_socket)
+                           elif timeofgroup == "Failed to delete record":
+                               self.send_msg("Failed to delete record", client_socket)
+                       else:
+                           self.send_msg("not inserted", client_socket)
                    else:
                        server_data = "False"
                except:

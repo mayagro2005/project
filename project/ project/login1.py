@@ -2,8 +2,8 @@ import threading
 import tkinter
 from tkinter import *
 from tkinter import ttk, messagebox
-from dbteachers import teachers
-from dbstudents import students
+# from dbteachers import teachers
+# from dbstudents import students
 from menuwindowforteacher import menu
 from tkmacosx import Button
 #https://www.pythontutorial.net/tkinter/tkinter-toplevel/
@@ -17,8 +17,6 @@ class Login(tkinter.Toplevel):
         self.parent = parent
         self.geometry('1000x1000')
         self.title('LOGIN WINDOW')
-        self.studentdb = students()
-        self.teacherdb = teachers()
 
         self.create_gui()
         Button(self, text='Close', command=self.close).pack(expand=True, side=BOTTOM)
@@ -102,7 +100,7 @@ class Login(tkinter.Toplevel):
                 #     self.str.set(message)
                 #     print(self.str.get())
                 else:
-                    window = menu(self, self.firstname.get(), self.lastname.get())
+                    window = menu(self, self.firstname.get(), self.lastname.get(), self.email.get(), self.password.get())
                     window.grab_set()
                     self.withdraw()
                     # message2 = "welcome, you are loged"

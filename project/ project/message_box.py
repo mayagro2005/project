@@ -54,8 +54,8 @@ class Messages(tkinter.Toplevel):
         arr = ["Send", "Message", self.writemessage.get()]
         str_insert = ",".join(arr)
         print(str_insert)
-        self.parent.parent.parent.client_socket.send(str_insert.encode())
-        data = self.parent.parent.parent.client_socket.recv(1024).decode()
+        self.parent.parent.parent.send_msg(str_insert, self.parent.parent.parent.client_socket)
+        data = self.parent.parent.parent.recv_msg(self.parent.parent.parent.client_socket)
         print(data)
         self.handle_received_message(data)
 

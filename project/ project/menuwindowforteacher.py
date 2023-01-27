@@ -4,28 +4,28 @@ import tkinter
 from tkinter import ttk
 from tkinter import *
 from tkinter import ttk, messagebox
-from dbteachers import teachers
-from dbstudents import students
 import socket
 from rgb import rgbprint
 from message_box import Messages
 from payment_box import Payments
 from tkmacosx import Button
+from insert_lesson_window import insert_lesson
+from delete_lesson_window import delete_lesson
 #https://www.pythontutorial.net/tkinter/tkinter-toplevel/
 #toplevel = tk.Toplevel(window) #'toplevel' can be changed to anything,
 #it is just a variable to hold the top level, 'window'
 #should be whatever variable holds your main window
 #toplevel.title = 'Top Level'
 class menu(tkinter.Toplevel):
-    def __init__(self, parent, firstname, lastname):
+    def __init__(self, parent, firstname, lastname, email, password):
         super().__init__(parent)
         self.parent = parent
         self.geometry('1000x1000')
         self.title('MAIN WINDOW')
-        self.studentdb= students()
-        self.teacherdb= teachers()
         self.firstname = firstname
         self.lastname = lastname
+        self.email = email
+        self.password = password
 
         self.create_gui()
         # Button(self, text='Close', command=self.close).pack(expand=True, side = BOTTOM)
@@ -128,9 +128,11 @@ class menu(tkinter.Toplevel):
         self.btn_boxing.place(x=720, y=620, width=120, height=120)
 
     def insert_lesson(self):
-        pass
+        window = insert_lesson(self,self.email,self.password)
+        window.grab_set()
     def delete_lesson(self):
-        pass
+        window = delete_lesson(self, self.email, self.password)
+        window.grab_set()
     # def payment_box(self):
     #     window = Payments(self)
     #     window.grab_set()

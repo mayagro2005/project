@@ -247,7 +247,6 @@ class teachers(object):
                 # return [row[0], row[1], row[2], row[3], row[4]]
                 arr_teachers.append(str_rows)
                 print(arr_teachers)
-
                 return arr_teachers
 
             else:
@@ -281,7 +280,7 @@ class teachers(object):
 
 t=teachers()
 # t.get_teacher_by_group_name("swimming")
-t.insert_teacher("lilya", "qwew", "qwe56", 'zxc567')
+# t.insert_teacher("lilya", "qwew", "qwe56", 'zxc567')
 # t.insert_teacher("gaya", "tyu", "re34.com", '1234')
 # t.insert_teacher("anna", "sdxcf", "dgfcgv123.com", 'qwr567')
 # t.insert_teacher("vb", "zsdfv", "d36677.com", '23456sdfg7')
@@ -290,7 +289,7 @@ t.insert_teacher("lilya", "qwew", "qwe56", 'zxc567')
 # t.get_teacher_by_email("d3.com")
 # t.get_all_teachers()
 # t.update_teacher("ddf", "sdfvb", "qdwf.com", '64897', "gaya", "tyu", "re34.com", '1234')
-# t.get_teacher_by_email_and_password("dgfcgv123.com", 'qwr567')
+t.get_teacher_by_email_and_password("dgfcgv123.com", 'qwr567')
 
 
 

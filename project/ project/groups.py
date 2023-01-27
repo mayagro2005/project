@@ -55,7 +55,7 @@ class groups(object):
         row = cursor.fetchall()
         if row:
             print("Group already exists")
-            return False
+            return "exist"
         else:
             try:
                 # Insert the group into the table
@@ -103,11 +103,10 @@ class groups(object):
 
 
 
-    def delete_group(self, groupId, teacherId, nameofgroup):
+    def delete_group(self, teacherId, nameofgroup):
         try:
             conn = sqlite3.connect('test.db')
-            str_delete = "DELETE  from " + self.__tablename + " where " + self.__groupId + "=" + "'"+str(groupId)+"'" +\
-                         ' and ' + self.__teacherId + "=" + "'"+str(teacherId)+ "'" + ' and ' + self.__nameofgroup + "=" + "'"+str(nameofgroup) + "'"
+            str_delete = "DELETE  from " + self.__tablename + " where " + self.__teacherId + "=" + "'"+str(teacherId)+ "'" + ' and ' + self.__nameofgroup + "=" + "'"+str(nameofgroup) + "'"
             print(str_delete)
             conn.execute(str_delete)
             conn.commit()
@@ -350,7 +349,7 @@ class groups(object):
 
 
 g = groups()
-# g.insert_group('3',"dance")
+# g.insert_group(3,"dance")
 # s.insert_student("dcf", "qwey", '250', "mha.com", '9o234')
 # s.insert_student("bgka", "xgnhn", '250', "afgj678.com", 'fg098i')
 # s.insert_student("aaaa", "sdfghjhn", '2650', "afzxcv.com", 'qwe3i')
@@ -359,7 +358,7 @@ g = groups()
 # s.get_student_by_email("mha.com")
 # g.get_all_groups()
 # g.get_group_by_id('1')
-# g.get_group_by_teacherId('2')
+g.get_group_by_teacherId('3')
 # g.update_group('4', "swimming", '2', "tennis")
 # s.update_student("sdfh", "mnw", '300', "fgh6", 'xcvb7', "aaaa", "sdfghjhn", '2650', "afzxcv.com", 'qwe3i')
 # s.get_student_by_email_and_password("mha.com", '9o234')
