@@ -20,8 +20,6 @@ class Messages(tkinter.Toplevel):
         self.title('MESSAGE BOX')
         self.studentdb= students()
         self.teacherdb= teachers()
-
-
         self.create_gui()
         # Button(self, text='Close', command=self.close).pack(expand=True, side = BOTTOM)
         Button(self, text='Close', command=self.close).pack(side=tkinter.BOTTOM, fill=tkinter.X)

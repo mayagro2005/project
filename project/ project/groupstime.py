@@ -103,14 +103,21 @@ class groupstime(object):
             return None
 
     def update_group_time(self, groupId, startH, endH, lessonDay, groupId1, startH1, endH1, lessonDay1):
-        conn = sqlite3.connect('test.db')
-        str_update = f"UPDATE {self.__tablename} SET {self.__groupId} = '{groupId}', {self.__startH} = '{startH}', {self.__endH} = '{endH}', {self.__lessonDay} = '{lessonDay}' WHERE {self.__groupId} = '{groupId1}' AND {self.__startH} = '{startH1}' AND {self.__endH} = '{endH1}' AND {self.__lessonDay} = '{lessonDay1}'"
         try:
-            print(str_update)
-            conn.execute(str_update)
-            conn.commit()
-            print("Record updated successfully")
-            return True
+            conn = sqlite3.connect('test.db')
+            cursor = conn.cursor()
+            check_query = f"SELECT * FROM {self.__tablename} WHERE {self.__groupId} = '{groupId1}' AND {self.__startH} = '{startH1}' AND {self.__endH} = '{endH1}' AND {self.__lessonDay} = '{lessonDay1}'"
+            cursor.execute(check_query)
+            result = cursor.fetchone()
+            if result:
+                str_update = f"UPDATE {self.__tablename} SET {self.__groupId} = '{groupId}', {self.__startH} = '{startH}', {self.__endH} = '{endH}', {self.__lessonDay} = '{lessonDay}' WHERE {self.__groupId} = '{groupId1}' AND {self.__startH} = '{startH1}' AND {self.__endH} = '{endH1}' AND {self.__lessonDay} = '{lessonDay1}'"
+                conn.execute(str_update)
+                conn.commit()
+                print("Record updated successfully")
+                return True
+            else:
+                print("Record does not exist")
+                return "Record does not exist"
         except:
             return False
 
@@ -134,12 +141,13 @@ class groupstime(object):
 g = groupstime()
 # g.delete_group_time('8',"18:00","19:00","thursday")
 # g.insert_group_time('2', '17:00', '18:30', "sunday")
-
+# g.insert_group_time('1','18:00','20:00',"tuesday")
+# g.insert_group_time('7','18:30','19:30',"tuesday")
 # g.get_all_groups_times()
 
 # g.get_all_groups_times()
 # g.get_group_name_by_time_id('1')
-# g.update_group_time('2', '18:00', '19:00', "monday", '2', '17:00', '18:30', "sunday")
+# g.update_group_time('7', '18:30', '19:30', "monday", '7','18:30','19:30',"tuesday")
 # g.get_group_by_day("monday")
 
 

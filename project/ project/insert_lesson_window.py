@@ -13,12 +13,13 @@ class insert_lesson(tkinter.Toplevel):
         super().__init__(parent)
         self.parent = parent
         self.geometry('600x600')
-        self.title('LOGIN WINDOW')
+        self.title('INSERT LESSON WINDOW')
         self.email = email
         self.password = password
 
         self.create_gui()
-        Button(self, text='Close', command=self.close).pack(expand=True, side=BOTTOM)
+        Button(self, text='Close', command=self.close).pack(side=tkinter.BOTTOM, fill=tkinter.X)
+        # Button(self, text='Close', command=self.close).pack(expand=True, side=BOTTOM)
 
     def create_gui(self):
         self.lbl_nameofgroup = Label(self, width=10, text="name of group ")
@@ -59,8 +60,8 @@ class insert_lesson(tkinter.Toplevel):
         # self.password = Entry(self, width=20)
         # self.password.place(x=150, y=250)
 
-        self.buttonPlus = Button(self, text="INSERT LESSON", command=self.insertlesson, width=100, background="white")
-        self.buttonPlus.place(x=50, y=350)
+        self.buttonPlus = Button(self, text="INSERT LESSON", command=self.insertlesson, background="white")
+        self.buttonPlus.place(x=250, y=400, width=120, height=50)
 
         # self.str = StringVar()
         # self.str.set("")

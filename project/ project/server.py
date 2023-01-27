@@ -169,7 +169,33 @@ class Server(object):
                            elif timeofgroup == "Failed to delete record":
                                self.send_msg("Failed to delete record", client_socket)
                        else:
-                           self.send_msg("not inserted", client_socket)
+                           self.send_msg("Failed to delete record", client_socket)
+
+                   elif arr != None and arr[0] == "updatelesson" and len(arr) == 10:
+                       print("update lesson")
+                       print(arr)
+                       arr_teachers = self.teacherdb.get_teacher_by_email_and_password(arr[8], arr[9])
+                       print(arr_teachers)
+                       teacherid = arr_teachers[0]
+                       server_data = self.dbgroups.insert_group(teacherid, arr[1])
+                       if server_data != False:
+                           group = self.dbgroups.get_group_by_teacherId(teacherid)
+                           groupid = group[0]
+                           timeofgroup = self.dbgroupstime.update_group_time(groupid, arr[2], arr[3], arr[4], groupid,arr[5],arr[6],arr[7])
+                           if timeofgroup == "Record does not exist":
+                               self.send_msg("not exist", client_socket)
+                           elif timeofgroup:
+                               self.send_msg("Success", client_socket)
+                           elif not timeofgroup:
+                               self.send_msg("Failed", client_socket)
+                       else:
+                           self.send_msg("Failed", client_socket)
+
+
+
+
+
+
                    else:
                        server_data = "False"
                except:
