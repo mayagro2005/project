@@ -11,6 +11,7 @@ from payment_box import Payments
 from tkmacosx import Button
 from insert_lesson_window import insert_lesson
 from delete_lesson_window import delete_lesson
+from update_lesson_window import update_lesson
 #https://www.pythontutorial.net/tkinter/tkinter-toplevel/
 #toplevel = tk.Toplevel(window) #'toplevel' can be changed to anything,
 #it is just a variable to hold the top level, 'window'
@@ -137,7 +138,8 @@ class menu(tkinter.Toplevel):
     #     window = Payments(self)
     #     window.grab_set()
     def updatelesson(self):
-        pass
+        window = update_lesson(self, self.email, self.password)
+        window.grab_set()
     def message_box(self):
         window = Messages(self)
         window.grab_set()

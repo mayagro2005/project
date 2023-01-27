@@ -75,27 +75,19 @@ class groupstime(object):
     def delete_group_time(self, groupId, startH, endH, lessonDay):
         try:
             conn = sqlite3.connect('test.db')
-            print("Opened database successfully")
-            str_check = f"SELECT * from {self.__tablename} where {self.__groupId} = {groupId} and " \
-                        f"{self.__startH} = {startH} and {self.__endH} = {endH} and {self.__lessonDay} = {lessonDay}"
-            cursor = conn.execute(str_check)
-            row = cursor.fetchall()
+            cursor = conn.cursor()
+            cursor.execute("SELECT * FROM {} WHERE {} = ? AND {} = ? AND {} = ? AND {} = ?".format(self.__tablename, self.__groupId, self.__startH, self.__endH, self.__lessonDay), (groupId, startH, endH, lessonDay))
+            row = cursor.fetchone()
             if row:
-                try:
-                    str_delete = f"DELETE from {self.__tablename} where {self.__groupId} = {groupId} and " \
-                                 f"{self.__startH} = {startH} and {self.__endH} = {endH} and {self.__lessonDay} = {lessonDay}"
-                    conn.execute(str_delete)
-                    conn.commit()
-                    conn.close()
-                    print("Record deleted successfully")
-                    return "Success"
-                except:
-                    return "Failed to delete record"
+                cursor.execute("DELETE FROM {} WHERE {} = ? AND {} = ? AND {} = ? AND {} = ?".format(self.__tablename, self.__groupId, self.__startH, self.__endH, self.__lessonDay), (groupId, startH, endH, lessonDay))
+                conn.commit()
+                print("Success")
+                return "Success"
             else:
+                print("not found")
                 return "not found"
         except:
-            return "failed"
-
+            return "Failed to delete record"
 
 
     def get_group_name_by_time_id(self, timeId):
@@ -140,6 +132,7 @@ class groupstime(object):
 
 
 g = groupstime()
+# g.delete_group_time('8',"18:00","19:00","thursday")
 # g.insert_group_time('2', '17:00', '18:30', "sunday")
 
 # g.get_all_groups_times()
@@ -148,4 +141,5 @@ g = groupstime()
 # g.get_group_name_by_time_id('1')
 # g.update_group_time('2', '18:00', '19:00', "monday", '2', '17:00', '18:30', "sunday")
 # g.get_group_by_day("monday")
+
 

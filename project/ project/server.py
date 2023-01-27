@@ -136,9 +136,10 @@ class Server(object):
                        print("insert lesson")
                        print(arr)
                        arr_teachers = self.teacherdb.get_teacher_by_email_and_password(arr[5], arr[6])
-                       server_data = self.dbgroups.insert_group(arr_teachers[0],arr[1])
+                       teacherid = arr_teachers[0]
+                       server_data = self.dbgroups.insert_group(teacherid,arr[1])
                        if server_data != False:
-                           group = self.dbgroups.get_group_by_teacherId(arr_teachers[0])
+                           group = self.dbgroups.get_group_by_teacherId(teacherid)
                            groupid = group[0]
                            timeofgroup = self.dbgroupstime.insert_group_time(groupid,arr[2],arr[3],arr[4])
                            if timeofgroup == "exist":
@@ -154,9 +155,11 @@ class Server(object):
                        print("delete lesson")
                        print(arr)
                        arr_teachers = self.teacherdb.get_teacher_by_email_and_password(arr[5], arr[6])
-                       server_data = self.dbgroups.insert_group(arr_teachers[0], arr[1])
+                       print(arr_teachers)
+                       teacherid = arr_teachers[0]
+                       server_data = self.dbgroups.insert_group(teacherid, arr[1])
                        if server_data != False:
-                           group = self.dbgroups.get_group_by_teacherId(arr_teachers[0])
+                           group = self.dbgroups.get_group_by_teacherId(teacherid)
                            groupid = group[0]
                            timeofgroup = self.dbgroupstime.delete_group_time(groupid, arr[2], arr[3], arr[4])
                            if timeofgroup == "not found":

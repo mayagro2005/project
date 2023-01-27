@@ -8,7 +8,7 @@ from tkmacosx import Button
 #it is just a variable to hold the top level, 'window'
 #should be whatever variable holds your main window
 #toplevel.title = 'Top Level'
-class insert_lesson(tkinter.Toplevel):
+class update_lesson(tkinter.Toplevel):
     def __init__(self, parent, email, password):
         super().__init__(parent)
         self.parent = parent

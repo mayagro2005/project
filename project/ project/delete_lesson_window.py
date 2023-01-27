@@ -24,7 +24,7 @@ class delete_lesson(tkinter.Toplevel):
         self.lbl_nameofgroup = Label(self, width=10, text="name of group ")
         self.lbl_nameofgroup.place(x=10, y=50)
         self.nameofgroup = Entry(self, width=20)
-        self.nameofgroup.place(x=200, y=50)
+        self.nameofgroup.place(x=150, y=50)
         # self.lbl_recognize = Label(self, text="Are you a teacher or student?")
         # self.lbl_recognize.place(x=10, y=50)
 
@@ -93,6 +93,7 @@ class delete_lesson(tkinter.Toplevel):
             arr1 = [self.nameofgroup.get(), self.startH.get(), self.endH.get(),
                        self.lessonday.get(), self.email,self.password]
             print(arr1)
+            return True
         except:
             return False
 

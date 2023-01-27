@@ -241,11 +241,10 @@ class teachers(object):
             print(strsql)
             cursor = conn.execute(strsql)
             row = cursor.fetchone()
-            arr_teachers = []
             if row:
                 str_rows = str(row[0]) + " " + str(row[1]) + " " + str(row[2]) + " " + str(row[3]) + " " + str(row[4])
                 # return [row[0], row[1], row[2], row[3], row[4]]
-                arr_teachers.append(str_rows)
+                arr_teachers = str_rows.split(" ")
                 print(arr_teachers)
                 return arr_teachers
 
@@ -289,7 +288,12 @@ t=teachers()
 # t.get_teacher_by_email("d3.com")
 # t.get_all_teachers()
 # t.update_teacher("ddf", "sdfvb", "qdwf.com", '64897', "gaya", "tyu", "re34.com", '1234')
-t.get_teacher_by_email_and_password("dgfcgv123.com", 'qwr567')
+# t.get_teacher_by_email_and_password("dgfcgv123.com", 'qwr567')
+arr_teachers = t.get_teacher_by_email_and_password("qwe56", 'zxc567')
+print(arr_teachers[0])
+
+
+
 
 
 
