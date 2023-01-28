@@ -40,8 +40,18 @@ class menu(tkinter.Toplevel):
 
 
     def create_gui(self):
-        self.lbl_welcome = Label(self, text="Welcome " + self.firstname + " " + self.lastname + " ", background="#5BC0F8", foreground="black", font=("Times New Roman",17,'bold'),highlightcolor="red")
-        self.lbl_welcome.place(x=400, y=50, width=180, height=50)
+        # self.lbl_welcome = Label(self, text="Welcome " + self.firstname + " " + self.lastname + " ", background="#5BC0F8", foreground="black", font=("Times New Roman",17,'bold'),highlightcolor="red")
+        # self.lbl_welcome.place(x=400, y=50, width=180, height=50)
+        self.lbl_welcome = Label(self, text="Welcome " + self.firstname + " " + self.lastname + " ",
+                                 background="#5BC0F8", foreground="black", font=("Montserrat", 25, 'bold'),
+                                 highlightcolor="red", relief="solid", bd=5)
+        self.lbl_welcome.place(x=300, y=50, width=380, height=70)
+
+        # self.lbl_welcome = Label(self, text="Welcome " + self.firstname + " " + self.lastname + " ",
+        #                          background="#5BC0F8", foreground="black", font=("Montserrat", 25, 'italic'),
+        #                          highlightcolor="red", relief="solid", bd=5)
+        # self.lbl_welcome.place(x=300, y=50, width=380, height=70)
+
         # self.recognize = Entry(self, width=20)
         # self.recognize.place(x=200, y=50)
         # phase 1 button
