@@ -31,17 +31,7 @@ class update_lesson(tkinter.Toplevel):
         self.lbl_nameofgroup.place(x=220, y=20)
         self.nameofgroup = Entry(self, width=10)
         self.nameofgroup.place(x=330, y=20)
-        # self.lbl_recognize = Label(self, text="Are you a teacher or student?")
-        # self.lbl_recognize.place(x=10, y=50)
 
-        # self.var = StringVar()
-        # self.var.set("teacher")
-        #
-        # self.teacher_radiobutton = Radiobutton(self, text="Teacher", variable=self.var, value="teacher")
-        # self.teacher_radiobutton.place(x=200, y=50)
-        #
-        # self.student_radiobutton = Radiobutton(self, text="Student", variable=self.var, value="student")
-        # self.student_radiobutton.place(x=290, y=50)
 
 
         # phase 1 button
@@ -60,26 +50,17 @@ class update_lesson(tkinter.Toplevel):
         self.lessonday1 = Entry(self, width=10)
         self.lessonday1.place(x=120, y=230)
 
-        # self.lbl_password = Label(self, width=10, text="password :")
-        # self.lbl_password.place(x=10, y=250)
-        # self.password = Entry(self, width=20)
-        # self.password.place(x=150, y=250)
+
 
         self.buttonPlus = Button(self, text="UPDATE LESSON", command=self.updatelesson, background="white")
         self.buttonPlus.place(x=250, y=400,width=120, height=50)
 
-        # self.str = StringVar()
-        # self.str.set("")
-        # self.labellogin = Label(self, textvariable=self.str, foreground="red")
-        # self.labellogin.place(x=200, y=450)
+
         self.lbl_update = Label(self, text="write the updated "
                                            "\n details below: ", background="light blue",
                                 foreground="black", font=("Calibri", 14))
         self.lbl_update.place(x=280, y=70)
-        # self.lbl_nameofgroup = Label(self, width=10, text="name of group ")
-        # self.lbl_nameofgroup.place(x=280, y=80)
-        # self.nameofgroup = Entry(self, width=10)
-        # self.nameofgroup.place(x=390, y=80)
+
 
         # phase 1 button
         self.lbl_startH = Label(self, width=10, text="start hour")

@@ -42,10 +42,10 @@ class menu(tkinter.Toplevel):
     def create_gui(self):
         # self.lbl_welcome = Label(self, text="Welcome " + self.firstname + " " + self.lastname + " ", background="#5BC0F8", foreground="black", font=("Times New Roman",17,'bold'),highlightcolor="red")
         # self.lbl_welcome.place(x=400, y=50, width=180, height=50)
-        self.lbl_welcome = Label(self, text="Welcome " + self.firstname + " " + self.lastname + " ",
-                                 background="#5BC0F8", foreground="black", font=("Montserrat", 25, 'bold'),
-                                 highlightcolor="red", relief="solid", bd=5)
-        self.lbl_welcome.place(x=300, y=50, width=380, height=70)
+        # self.lbl_welcome = Label(self, text="Welcome " + self.firstname + " " + self.lastname + " ",
+        #                          background="#5BC0F8", foreground="black", font=("Montserrat", 25, 'bold'),
+        #                          highlightcolor="red", relief="solid", bd=5)
+        # self.lbl_welcome.place(x=300, y=50, width=380, height=70)
 
         # self.lbl_welcome = Label(self, text="Welcome " + self.firstname + " " + self.lastname + " ",
         #                          background="#5BC0F8", foreground="black", font=("Montserrat", 25, 'italic'),
@@ -76,66 +76,133 @@ class menu(tkinter.Toplevel):
     #     self.password.place(x=150, y=250)
     #
 
-        self.buttondeletelesson = Button(self, text="DELETE LESSON", background="#ECE8DD", foreground="black", font=("Calibri",13,'bold'),command=self.delete_lesson)
-        self.buttondeletelesson.place(x=720, y=150,width=150,height=70)
-
-        self.buttoninsertlesson = Button(self, text="INSERT LESSON",background="#ECE8DD", foreground="black", font=("Calibri",13,'bold'), command=self.insert_lesson)
-        self.buttoninsertlesson.place(x=50, y=150,width=150,height=70)
-
-        self.buttonupdatelesson = Button(self, text="UPDATE LESSON",background="#ECE8DD", foreground="black", font=("Calibri",13,'bold'),command=self.updatelesson)
-        self.buttonupdatelesson.place(x=50, y=250,width=150,height=70)
-
-        self.buttonmessages = Button(self, text="MESSAGE BOX",background="#ECE8DD", foreground="black", font=("Calibri",13,'bold'), command=self.message_box)
-        self.buttonmessages.place(x=720, y=250,width=150,height=70)
-
-        # self.btn_kidstennis.config(bg="#B5D5C5")
-        self.btn_kidstennis = Button(self, text='KIDS TENNIS', bg="#B5D5C5", foreground="black", font=("Calibri", 15),
-                                      command=self.open_tennis)
+        # self.buttondeletelesson = Button(self, text="DELETE LESSON", background="#ECE8DD", foreground="black", font=("Calibri",13,'bold'),command=self.delete_lesson)
+        # self.buttondeletelesson.place(x=720, y=150,width=150,height=70)
+        #
+        # self.buttoninsertlesson = Button(self, text="INSERT LESSON",background="#ECE8DD", foreground="black", font=("Calibri",13,'bold'), command=self.insert_lesson)
+        # self.buttoninsertlesson.place(x=50, y=150,width=150,height=70)
+        #
+        # self.buttonupdatelesson = Button(self, text="UPDATE LESSON",background="#ECE8DD", foreground="black", font=("Calibri",13,'bold'),command=self.updatelesson)
+        # self.buttonupdatelesson.place(x=50, y=250,width=150,height=70)
+        #
+        # self.buttonmessages = Button(self, text="MESSAGE BOX",background="#ECE8DD", foreground="black", font=("Calibri",13,'bold'), command=self.message_box)
+        # self.buttonmessages.place(x=720, y=250,width=150,height=70)
+        #
+        # # self.btn_kidstennis.config(bg="#B5D5C5")
+        # self.btn_kidstennis = Button(self, text='KIDS TENNIS', bg="#B5D5C5", foreground="black", font=("Calibri", 15),
+        #                               command=self.open_tennis)
         # self.btn_kidstennis = Button(self, text='KIDS TENNIS', foreground="black", font=("Calibri", 15),
         #                          command=self.open_tennis)
         # self.btn_kidstennis.place(x=120, y=400, width=120, height=120)
         # style = ttk.Style()
         # style.configure("TButton", background="#B5D5C5",foreground="black", font=("Calibri", 15))
         # self.btn_kidstennis = ttk.Button(self.parent, text='KIDS TENNIS', style="TButton", command=self.open_tennis)
+        # self.btn_kidstennis.place(x=120, y=400, width=120, height=120)
+        #
+        # self.btn_swimming = Button(self, text='SWIMMING', bg="#FFE9B1", foreground="black", font=("Calibri", 15),
+        #                          command=self.open_swimming)
+        # self.btn_swimming.place(x=270, y=400, width=120, height=120)
+        #
+        # self.btn_yoga = Button(self, text='YOGA', background="#FFD4D4", foreground="black", font=("Calibri", 15),
+        #                            command=self.open_yoga)
+        # self.btn_yoga.place(x=420, y=400, width=120, height=120)
+        #
+        # self.btn_basketball = Button(self, text='BASKETBALL', background="#ADA2FF", foreground="black", font=("Calibri", 15),
+        #                        command=self.open_basketball)
+        # self.btn_basketball.place(x=570, y=400, width=120, height=120)
+        #
+        # self.btn_dancing = Button(self, text='DANCING', background="#F8F988", foreground="black",
+        #                              font=("Calibri", 15),
+        #                              command=self.open_dancing)
+        # self.btn_dancing.place(x=720, y=400, width=120, height=120)
+        #
+        # self.btn_adultstennis = Button(self, text='ADULTS TENNIS', background="#91D8E4", foreground="black", font=("Calibri", 15),
+        #                          command=self.open_adultstennis)
+        # self.btn_adultstennis.place(x=120, y=620, width=120, height=120)
+        #
+        # self.btn_pingpong = Button(self, text='PING PONG', background="#82AAE3", foreground="black", font=("Calibri", 15),
+        #                            command=self.open_pingpong)
+        # self.btn_pingpong.place(x=270, y=620, width=120, height=120)
+        #
+        # self.btn_fitness = Button(self, text='FITNESS', background="#B5D5C5", foreground="black", font=("Calibri", 15),
+        #                        command=self.open_fitness)
+        # self.btn_fitness.place(x=420, y=620, width=120, height=120)
+        #
+        # self.btn_pilates = Button(self, text='PILATES', background="#FFF6BF", foreground="black",
+        #                              font=("Calibri", 15),
+        #                              command=self.open_pilates)
+        # self.btn_pilates.place(x=570, y=620, width=120, height=120)
+        #
+        # self.btn_boxing = Button(self, text='BOXING', background="#FFE1E1", foreground="black",
+        #                           font=("Calibri", 15),
+        #                           command=self.open_boxing)
+        # self.btn_boxing.place(x=720, y=620, width=120, height=120)
+
+        self.lbl_welcome = Label(self, text="Welcome " + self.firstname + " " + self.lastname + " ",
+                                 background="#5BC0F8", foreground="white", font=("Montserrat", 25, 'bold'),
+                                 highlightcolor="red", relief="solid", bd=5)
+        self.lbl_welcome.place(x=300, y=50, width=380, height=70)
+
+        self.buttondeletelesson = Button(self, text="DELETE LESSON", background="#ECE8DD", foreground="black",
+                                         font=("Calibri", 13, 'bold'), command=self.delete_lesson)
+        self.buttondeletelesson.place(x=720, y=150, width=150, height=70)
+
+        self.buttoninsertlesson = Button(self, text="INSERT LESSON", background="#ECE8DD", foreground="black",
+                                         font=("Calibri", 13, 'bold'), command=self.insert_lesson)
+        self.buttoninsertlesson.place(x=50, y=150, width=150, height=70)
+
+        self.buttonupdatelesson = Button(self, text="UPDATE LESSON", background="#ECE8DD", foreground="black",
+                                         font=("Calibri", 13, 'bold'), command=self.updatelesson)
+        self.buttonupdatelesson.place(x=50, y=250, width=150, height=70)
+
+        self.buttonmessages = Button(self, text="MESSAGE BOX", background="#ECE8DD", foreground="black",
+                                     font=("Calibri", 13, 'bold'), command=self.message_box)
+        self.buttonmessages.place(x=720, y=250, width=150, height=70)
+
+        self.btn_kidstennis = Button(self, text='KIDS TENNIS', bg="#B5D5C5", foreground="white", font=("Calibri", 15),
+                                     command=self.open_tennis)
         self.btn_kidstennis.place(x=120, y=400, width=120, height=120)
 
         self.btn_swimming = Button(self, text='SWIMMING', bg="#FFE9B1", foreground="black", font=("Calibri", 15),
-                                 command=self.open_swimming)
+                                   command=self.open_swimming)
         self.btn_swimming.place(x=270, y=400, width=120, height=120)
 
         self.btn_yoga = Button(self, text='YOGA', background="#FFD4D4", foreground="black", font=("Calibri", 15),
-                                   command=self.open_yoga)
+                               command=self.open_yoga)
         self.btn_yoga.place(x=420, y=400, width=120, height=120)
 
-        self.btn_basketball = Button(self, text='BASKETBALL', background="#ADA2FF", foreground="black", font=("Calibri", 15),
-                               command=self.open_basketball)
+        self.btn_basketball = Button(self, text='BASKETBALL', background="#ADA2FF", foreground="white",
+                                     font=("Calibri", 15),
+                                     command=self.open_basketball)
         self.btn_basketball.place(x=570, y=400, width=120, height=120)
 
         self.btn_dancing = Button(self, text='DANCING', background="#F8F988", foreground="black",
-                                     font=("Calibri", 15),
-                                     command=self.open_dancing)
+                                  font=("Calibri", 15),
+                                  command=self.open_dancing)
         self.btn_dancing.place(x=720, y=400, width=120, height=120)
 
-        self.btn_adultstennis = Button(self, text='ADULTS TENNIS', background="#91D8E4", foreground="black", font=("Calibri", 15),
-                                 command=self.open_adultstennis)
+        self.btn_adultstennis = Button(self, text='ADULTS TENNIS', background="#91D8E4", foreground="black",
+                                       font=("Calibri", 15),
+                                       command=self.open_adultstennis)
         self.btn_adultstennis.place(x=120, y=620, width=120, height=120)
 
-        self.btn_pingpong = Button(self, text='PING PONG', background="#82AAE3", foreground="black", font=("Calibri", 15),
+        self.btn_pingpong = Button(self, text='PING PONG', background="#82AAE3", foreground="black",
+                                   font=("Calibri", 15),
                                    command=self.open_pingpong)
         self.btn_pingpong.place(x=270, y=620, width=120, height=120)
 
         self.btn_fitness = Button(self, text='FITNESS', background="#B5D5C5", foreground="black", font=("Calibri", 15),
-                               command=self.open_fitness)
+                                  command=self.open_fitness)
         self.btn_fitness.place(x=420, y=620, width=120, height=120)
 
         self.btn_pilates = Button(self, text='PILATES', background="#FFF6BF", foreground="black",
-                                     font=("Calibri", 15),
-                                     command=self.open_pilates)
+                                  font=("Calibri", 15),
+                                  command=self.open_pilates)
         self.btn_pilates.place(x=570, y=620, width=120, height=120)
 
         self.btn_boxing = Button(self, text='BOXING', background="#FFE1E1", foreground="black",
-                                  font=("Calibri", 15),
-                                  command=self.open_boxing)
+                                 font=("Calibri", 15),
+                                 command=self.open_boxing)
         self.btn_boxing.place(x=720, y=620, width=120, height=120)
 
     def insert_lesson(self):

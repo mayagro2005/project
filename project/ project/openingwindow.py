@@ -45,27 +45,43 @@ class App(tkinter.Tk):
         # canvas.create_image(0, 0, image=pic, anchor=NW)
         # place a button on the root window
 
-        self.welcome = Label(self, text="Welcome!", background="white",foreground="black", font=("Calibri",25))
-        self.welcome.place(x=350, y=50,width=200,height=70)
-        # self.btn_signup = Button(self, text='SIGN UP', background="white", foreground="black", font=("Calibri",15),command=self.open_register)
-        self.btn_signup= Button(self, text='SIGN UP', activeforeground='#EE3B3B', overrelief='flat', relief='flat', borderwidth=2,
-                    highlightthickness=1, font=font.Font(family='SignPainter', size=30, weight='bold', slant='roman'),
-                    focuscolor='#556B2F', highlightbackground='#CD5555', foreground='#1F1F1F', background='#7A7A7A',
-                    overbackground='#000000', overforeground='#00C78C', activebackground=('#BA55D3', '#D4D4D4'),
-                    borderless=1,command=self.open_register)
-        self.btn_signup.place(x=380, y=400, width=140,height=50)
+        # self.welcome = Label(self, text="Welcome", background="white",foreground="black", font=("Calibri",25))
+        # self.welcome.place(x=350, y=50,width=200,height=70)
+        # # self.btn_signup = Button(self, text='SIGN UP', background="white", foreground="black", font=("Calibri",15),command=self.open_register)
+        # self.btn_signup= Button(self, text='SIGN UP', activeforeground='#EE3B3B', overrelief='flat', relief='flat', borderwidth=2,
+        #             highlightthickness=1, font=font.Font(family='SignPainter', size=30, weight='bold', slant='roman'),
+        #             focuscolor='#556B2F', highlightbackground='#CD5555', foreground='#1F1F1F', background='#7A7A7A',
+        #             overbackground='#000000', overforeground='#00C78C', activebackground=('#BA55D3', '#D4D4D4'),
+        #             borderless=1,command=self.open_register)
+        # self.btn_signup.place(x=380, y=400, width=140,height=50)
+        #
+        # # self.btn_signin = Button(self, text='SIGN IN',background="white", foreground="black", font=("Calibri",15), command=self.open_login)
+        # self.btn_signin = Button(self, text='SIGN IN', activeforeground='#EE3B3B', overrelief='flat', relief='flat',
+        #                          borderwidth=2,
+        #                          highlightthickness=1,
+        #                          font=font.Font(family='SignPainter', size=30, weight='bold', slant='roman'),
+        #                          focuscolor='#556B2F', highlightbackground='#CD5555', foreground='#1F1F1F',
+        #                          background='#7A7A7A',
+        #                          overbackground='#000000', overforeground='#00C78C',
+        #                          activebackground=('#BA55D3', '#D4D4D4'),
+        #                          borderless=1, command=self.open_login)
+        # self.btn_signin.place(x=380, y=470,width=140,height=50)
+        self.welcome = Label(self, text="Welcome", background="white", foreground="black", font=("Calibri", 40, "bold"))
+        self.welcome.config(bd=5, relief="groove")
+        self.welcome.config(highlightbackground="black", highlightcolor="black", highlightthickness=2)
+        self.welcome.place(x=300, y=50, width=300, height=100)
 
-        # self.btn_signin = Button(self, text='SIGN IN',background="white", foreground="black", font=("Calibri",15), command=self.open_login)
-        self.btn_signin = Button(self, text='SIGN IN', activeforeground='#EE3B3B', overrelief='flat', relief='flat',
-                                 borderwidth=2,
-                                 highlightthickness=1,
-                                 font=font.Font(family='SignPainter', size=30, weight='bold', slant='roman'),
-                                 focuscolor='#556B2F', highlightbackground='#CD5555', foreground='#1F1F1F',
-                                 background='#7A7A7A',
-                                 overbackground='#000000', overforeground='#00C78C',
-                                 activebackground=('#BA55D3', '#D4D4D4'),
-                                 borderless=1, command=self.open_login)
-        self.btn_signin.place(x=380, y=470,width=140,height=50)
+        self.btn_signup = Button(self, text='SIGN UP', activeforeground='#EE3B3B', font=("Calibri", 25, "bold"),
+                                 command=self.open_register)
+        self.btn_signup.config(bg='#7A7A7A', fg='white', bd=5, relief="raised", highlightbackground="black",
+                               highlightcolor="black", highlightthickness=2)
+        self.btn_signup.place(x=340, y=400, width=200, height=70)
+
+        self.btn_signin = Button(self, text='SIGN IN', activeforeground='#EE3B3B', font=("Calibri", 25, "bold"),
+                                 command=self.open_login)
+        self.btn_signin.config(bg='#7A7A7A', fg='white', bd=5, relief="raised", highlightbackground="black",
+                               highlightcolor="black", highlightthickness=2)
+        self.btn_signin.place(x=340, y=500, width=200, height=70)
 
         self.handle_thread_socket()
 
@@ -166,7 +182,7 @@ class App(tkinter.Tk):
 
     def create_socket(self):
         self.client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        self.client_socket.connect(('127.0.0.1', 1804))
+        self.client_socket.connect(('127.0.0.1', 1805))
         # data = self.client_socket.recv(1024).decode()
         data = self.recv_msg(self.client_socket)
         print("data"+data)
