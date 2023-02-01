@@ -102,6 +102,23 @@ class groupstime(object):
             print("there is no group")
             return None
 
+    def delete_group_by_timeid(self,timeId):
+        try:
+            conn = sqlite3.connect('test.db')
+            cursor = conn.cursor()
+            cursor.execute("SELECT * FROM groupstime WHERE timeId = ?", (timeId,))
+            row = cursor.fetchone()
+            if row:
+                cursor.execute("DELETE FROM groupstime WHERE timeId = ?", (timeId,))
+                conn.commit()
+                print("Success")
+                return "Success"
+            else:
+                print("not found")
+                return "not found"
+        except:
+            return "Failed to delete record"
+
     def update_group_time(self, groupId, startH, endH, lessonDay, groupId1, startH1, endH1, lessonDay1):
         try:
             conn = sqlite3.connect('test.db')
@@ -139,6 +156,7 @@ class groupstime(object):
 
 
 g = groupstime()
+g.delete_group_by_timeid(5)
 # g.delete_group_time('8',"18:00","19:00","thursday")
 # g.insert_group_time('2', '17:00', '18:30', "sunday")
 # g.insert_group_time('1','18:00','20:00',"tuesday")
@@ -147,7 +165,7 @@ g = groupstime()
 
 # g.get_all_groups_times()
 # g.get_group_name_by_time_id('1')
-# g.update_group_time('7', '18:30', '19:30', "monday", '7','18:30','19:30',"tuesday")
+# g.update_group_time('2', '18:30', '19:30', "Monday", '2','18:00','19:00',"monday")
 # g.get_group_by_day("monday")
 
 
