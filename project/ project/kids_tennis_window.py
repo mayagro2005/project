@@ -9,32 +9,38 @@ class tennis_lesson(tkinter.Toplevel):
         super().__init__(parent)
         self.parent = parent
         self.title('INSERT LESSON WINDOW')
-        self.ListData = [
-            ("START HOUR", "END HOUR", "LESSON DAY"),
-        ]
         self.create_table()
+        self.after(500, self.update_table)
+        Button(self, text='Close', command=self.close).pack(side=tkinter.BOTTOM, fill=tkinter.X)
 
     def create_table(self):
-        totalrow = len(self.ListData)
-        totalcolum = len(self.ListData[0])
-        for i in range(totalrow):
-            for j in range(totalcolum):
-                self.e = Entry(width=22, fg='blue',font=('Arial', 15, 'bold'))
-                self.e.grid(row=i,column=j)
-                self.e.insert(END,self.ListData[i][j])
+        self.tree = ttk.Treeview(self, columns=("START HOUR", "END HOUR", "LESSON DAY"), show="headings")
+        self.tree.column("START HOUR", width=150, anchor='center')
+        self.tree.column("END HOUR", width=150, anchor='center')
+        self.tree.column("LESSON DAY", width=150, anchor='center')
+        self.tree.heading("START HOUR", text="START HOUR")
+        self.tree.heading("END HOUR", text="END HOUR")
+        self.tree.heading("LESSON DAY", text="LESSON DAY")
+        self.tree.pack(fill=BOTH, expand=True)
 
     def update_table(self):
         data = self.parent.parent.parent.recv_msg(self.parent.parent.parent.client_socket)
-        arr = data.split(",")
-        if arr != None and arr[0] == "Addgroup" and arr[1] == "kids tennis" and len(arr) == 5:
-            self.update_table(data)
-            self.ListData.append((arr[2], arr[3], arr[4]))
-            self.create_table()
+        if data is not None and data != '':
+            arr = data.split(",")
+            if arr != None and arr[0] == "Addgroup" and arr[1] == "kids tennis" and len(arr) == 5:
+                self.tree.insert("", END, values=(arr[2], arr[3], arr[4]))
+            elif arr != None and arr[0] == "Deletegroup" and arr[1] == "kids tennis" and len(arr) == 5:
+                for item in self.tree.get_children():
+                    if self.tree.item(item)["values"] == (arr[2], arr[3], arr[4]):
+                        self.tree.delete(item)
+                        break
+            elif arr != None and arr[0] == "Updategroup" and arr[1] == "kids tennis" and len(arr) == 8:
+                for item in self.tree.get_children():
+                    if self.tree.item(item)["values"] == (arr[5], arr[6], arr[7]):
+                        self.tree.item(item, values=(arr[2], arr[3], arr[4]))
+                        break
+        self.after(500, self.update_table)
 
-
-
-
-
-
-
-
+    def close(self):
+        self.parent.deiconify()
+        self.destroy()

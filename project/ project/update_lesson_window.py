@@ -99,11 +99,15 @@ class update_lesson(tkinter.Toplevel):
                 messagebox.showerror("notification", "the lesson you want to update doesnt exist")
             elif data == "Success":
                 messagebox.showinfo("notification", "lesson updated successfully")
+                arr = ["Updategroup", self.nameofgroup.get(), self.startH.get(), self.endH.get(),
+                       self.lessonday.get(), self.startH1.get(), self.endH1.get(),
+                       self.lessonday1.get()]
+                str_insert = ",".join(arr)
+                print(str_insert)
+                self.parent.parent.parent.send_msg(str_insert, self.parent.parent.parent.client_socket)
             elif data == "Failed":
                 messagebox.showerror("notification", "Error, please try again")
-            arr1 = [self.nameofgroup.get(), self.startH.get(), self.endH.get(),
-                       self.lessonday.get(), self.email,self.password]
-            print(arr1)
+
             return True
         except:
             return False

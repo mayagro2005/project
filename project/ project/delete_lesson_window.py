@@ -22,43 +22,35 @@ class delete_lesson(tkinter.Toplevel):
         # Button(self, text='Close', command=self.close).pack(expand=True, side=BOTTOM)
 
     def create_gui(self):
-        self.lbl_nameofgroup = Label(self, width=10, text="name of group ")
-        self.lbl_nameofgroup.place(x=10, y=50)
-        self.nameofgroup = Entry(self, width=20)
-        self.nameofgroup.place(x=150, y=50)
-        # self.lbl_recognize = Label(self, text="Are you a teacher or student?")
-        # self.lbl_recognize.place(x=10, y=50)
+        self.nameofgroup_var = StringVar()
+        self.lbl_nameofgroup = Label(self, text="Name of Group", font=("Helvetica", 16, "bold"))
+        self.lbl_nameofgroup.pack(pady=20)
+        self.nameofgroup = OptionMenu(self, self.nameofgroup_var,
+                                      *["kids tennis", "swimming", "yoga", "basketball", "dancing", "adults tennis",
+                                        "ping pong", "fitness", "pilates", "boxing"])
+        self.nameofgroup.config(font=("Helvetica", 14), width=20)
+        self.nameofgroup.pack()
 
-        # self.var = StringVar()
-        # self.var.set("teacher")
-        #
-        # self.teacher_radiobutton = Radiobutton(self, text="Teacher", variable=self.var, value="teacher")
-        # self.teacher_radiobutton.place(x=200, y=50)
-        #
-        # self.student_radiobutton = Radiobutton(self, text="Student", variable=self.var, value="student")
-        # self.student_radiobutton.place(x=290, y=50)
+        # Start Hour
+        self.lbl_startH = Label(self, text="Start Hour", font=("Helvetica", 16, "bold"))
+        self.lbl_startH.pack(pady=20)
+        self.startH = Entry(self, font=("Helvetica", 14), width=20)
+        self.startH.pack()
 
+        # End Hour
+        self.lbl_endH = Label(self, text="End Hour", font=("Helvetica", 16, "bold"))
+        self.lbl_endH.pack(pady=20)
+        self.endH = Entry(self, font=("Helvetica", 14), width=20)
+        self.endH.pack()
 
-        # phase 1 button
-        self.lbl_startH = Label(self, width=10, text="start hour")
-        self.lbl_startH.place(x=10, y=100)
-        self.startH = Entry(self, width=20)
-        self.startH.place(x=150, y=100)
-
-        self.lbl_endH = Label(self, width=10, text="end hour")
-        self.lbl_endH.place(x=10, y=150)
-        self.endH = Entry(self, width=20)
-        self.endH.place(x=150, y=150)
-
-        self.lbl_lessonday = Label(self, width=10, text="lesson day")
-        self.lbl_lessonday.place(x=10, y=200)
-        self.lessonday = Entry(self, width=20)
-        self.lessonday.place(x=150, y=200)
-
-        # self.lbl_password = Label(self, width=10, text="password :")
-        # self.lbl_password.place(x=10, y=250)
-        # self.password = Entry(self, width=20)
-        # self.password.place(x=150, y=250)
+        self.lessonday_var = StringVar()
+        # Lesson Day
+        self.lbl_lessonday = Label(self, text="Lesson Day", font=("Helvetica", 16, "bold"))
+        self.lbl_lessonday.pack(pady=20)
+        self.lessonday = OptionMenu(self, self.lessonday_var,
+                                    *["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday"])
+        self.lessonday.config(font=("Helvetica", 14), width=20)
+        self.lessonday.pack()
 
         self.buttonPlus = Button(self, text="DELETE LESSON", command=self.deletelesson, background="white")
         self.buttonPlus.place(x=250, y=400, width=120, height=50)
@@ -73,13 +65,13 @@ class delete_lesson(tkinter.Toplevel):
 
     def deletelesson(self):
         try:
-            if len(self.nameofgroup.get()) == 0 or len(self.startH.get()) == 0 or len(self.endH.get()) == 0 or len(
-                        self.lessonday.get()) == 0:
+            if len(self.nameofgroup_var.get()) == 0 or len(self.startH.get()) == 0 or len(self.endH.get()) == 0 or len(
+                        self.lessonday_var.get()) == 0:
                 messagebox.showerror("please write details", "Error")
                 return
             print("DELETE LESSON")
-            arr = ["deletelesson", self.nameofgroup.get(), self.startH.get(), self.endH.get(),
-                       self.lessonday.get(), self.email,self.password]
+            arr = ["deletelesson", self.nameofgroup_var.get(), self.startH.get(), self.endH.get(),
+                       self.lessonday_var.get(), self.email,self.password]
             str_insert = ",".join(arr)
             print(str_insert)
             self.parent.parent.parent.send_msg(str_insert, self.parent.parent.parent.client_socket)
@@ -89,11 +81,14 @@ class delete_lesson(tkinter.Toplevel):
                 messagebox.showerror("notification", "lesson doesnt exist")
             elif data == "Success":
                 messagebox.showinfo("notification", "lesson deleted successfully")
+                arr1 = ["Deletegroup", self.nameofgroup_var.get(), self.startH.get(), self.endH.get(),
+                        self.lessonday_var.get()]
+                print(arr1)
+                str_delete1 = ",".join(arr1)
+                print(str_delete1)
+                self.parent.parent.parent.send_msg(str_delete1, self.parent.parent.parent.client_socket)
             elif data == "Failed to delete record":
                 messagebox.showerror("notification", "Error, please try again")
-            arr1 = [self.nameofgroup.get(), self.startH.get(), self.endH.get(),
-                       self.lessonday.get(), self.email,self.password]
-            print(arr1)
             return True
         except:
             return False

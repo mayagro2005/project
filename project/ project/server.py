@@ -196,6 +196,22 @@ class Server(object):
                        print(str_addgroup)
                        self.send_msg(str_addgroup, client_socket)
 
+                   elif arr != None and arr[0] == "Deletegroup" and len(arr) == 5:
+                       print("Delete group")
+                       print(arr)
+                       str_deletegroup = ",".join(arr)
+                       print(str_deletegroup)
+                       self.send_msg(str_deletegroup, client_socket)
+
+                   elif arr != None and arr[0] == "Updategroup" and len(arr) == 8:
+                       print("Update group")
+                       print(arr)
+                       str_updategroup = ",".join(arr)
+                       print(str_updategroup)
+                       self.send_msg(str_updategroup, client_socket)
+
+
+
 
 
 

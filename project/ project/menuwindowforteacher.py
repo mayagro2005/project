@@ -28,6 +28,7 @@ class menu(tkinter.Toplevel):
         self.lastname = lastname
         self.email = email
         self.password = password
+        self.kids_tennis_window = None
 
         self.create_gui()
         # Button(self, text='Close', command=self.close).pack(expand=True, side = BOTTOM)
@@ -118,6 +119,7 @@ class menu(tkinter.Toplevel):
         window = Messages(self)
         window.grab_set()
         # self.withdraw()
+
     def open_tennis(self):
         window = tennis_lesson(self)
         window.grab_set()
