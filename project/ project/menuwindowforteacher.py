@@ -12,6 +12,7 @@ from tkmacosx import Button
 from insert_lesson_window import insert_lesson
 from delete_lesson_window import delete_lesson
 from update_lesson_window import update_lesson
+from kids_tennis_window import tennis_lesson
 #https://www.pythontutorial.net/tkinter/tkinter-toplevel/
 #toplevel = tk.Toplevel(window) #'toplevel' can be changed to anything,
 #it is just a variable to hold the top level, 'window'
@@ -31,13 +32,6 @@ class menu(tkinter.Toplevel):
         self.create_gui()
         # Button(self, text='Close', command=self.close).pack(expand=True, side = BOTTOM)
         Button(self, text='Close', command=self.close).pack(side=tkinter.BOTTOM, fill=tkinter.X)
-
-
-
-
-
-
-
 
     def create_gui(self):
 
@@ -125,7 +119,8 @@ class menu(tkinter.Toplevel):
         window.grab_set()
         # self.withdraw()
     def open_tennis(self):
-        pass
+        window = tennis_lesson(self)
+        window.grab_set()
     def open_swimming(self):
         pass
     def open_yoga(self):

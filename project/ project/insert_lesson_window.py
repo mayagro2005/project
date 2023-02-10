@@ -76,11 +76,14 @@ class insert_lesson(tkinter.Toplevel):
                 messagebox.showinfo("notification", "lesson already exists")
             elif data == "inserted":
                 messagebox.showinfo("notification", "lesson inserted successfully")
+                arr1 = ["Addgroup",self.nameofgroup_var.get(), self.startH.get(), self.endH.get(),
+                        self.lessonday_var.get()]
+                print(arr1)
+                str_insert1 = ",".join(arr1)
+                print(str_insert1)
+                self.parent.parent.parent.send_msg(str_insert1, self.parent.parent.parent.client_socket)
             elif data == "not inserted":
                 messagebox.showerror("notification", "Error, please try again")
-            arr1 = [self.nameofgroup_var.get(), self.startH.get(), self.endH.get(),
-                       self.lessonday_var.get(), self.email,self.password]
-            print(arr1)
             return True
         except:
             return False

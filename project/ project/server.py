@@ -188,8 +188,16 @@ class Server(object):
                                self.send_msg("Success", client_socket)
                            elif not timeofgroup:
                                self.send_msg("Failed", client_socket)
-                       else:
-                           self.send_msg("Failed", client_socket)
+
+                   elif arr != None and arr[0] == "Addgroup" and len(arr) == 5:
+                       print("Add group")
+                       print(arr)
+                       str_addgroup = ",".join(arr)
+                       print(str_addgroup)
+                       self.send_msg(str_addgroup, client_socket)
+
+
+
 
 
 
