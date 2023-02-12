@@ -139,9 +139,8 @@ class Server(object):
                        teacherid = arr_teachers[0]
                        server_data = self.dbgroups.insert_group(teacherid,arr[1])
                        if server_data != False:
-                           group = self.dbgroups.get_group_by_teacherId(teacherid)
-                           groupid = group[0]
-                           timeofgroup = self.dbgroupstime.insert_group_time(groupid,arr[2],arr[3],arr[4])
+                           group = self.dbgroups.get_group_id_by_name(arr[1])
+                           timeofgroup = self.dbgroupstime.insert_group_time(group,arr[2],arr[3],arr[4])
                            if timeofgroup == "exist":
                                self.send_msg("exist", client_socket)
                            elif timeofgroup:
@@ -159,9 +158,8 @@ class Server(object):
                        teacherid = arr_teachers[0]
                        server_data = self.dbgroups.insert_group(teacherid, arr[1])
                        if server_data != False:
-                           group = self.dbgroups.get_group_by_teacherId(teacherid)
-                           groupid = group[0]
-                           timeofgroup = self.dbgroupstime.delete_group_time(groupid, arr[2], arr[3], arr[4])
+                           group = self.dbgroups.get_group_id_by_name(arr[1])
+                           timeofgroup = self.dbgroupstime.delete_group_time(group, arr[2], arr[3], arr[4])
                            if timeofgroup == "not found":
                                self.send_msg("not found", client_socket)
                            elif timeofgroup == "Success":
@@ -179,9 +177,9 @@ class Server(object):
                        teacherid = arr_teachers[0]
                        server_data = self.dbgroups.insert_group(teacherid, arr[1])
                        if server_data != False:
-                           group = self.dbgroups.get_group_by_teacherId(teacherid)
-                           groupid = group[0]
-                           timeofgroup = self.dbgroupstime.update_group_time(groupid, arr[2], arr[3], arr[4], groupid,arr[5],arr[6],arr[7])
+                           group = self.dbgroups.get_group_id_by_name(arr[1])
+                           # groupid = group[0]
+                           timeofgroup = self.dbgroupstime.update_group_time(group, arr[2], arr[3], arr[4], group,arr[5],arr[6],arr[7])
                            if timeofgroup == "Record does not exist":
                                self.send_msg("not exist", client_socket)
                            elif timeofgroup:
@@ -209,6 +207,16 @@ class Server(object):
                        str_updategroup = ",".join(arr)
                        print(str_updategroup)
                        self.send_msg(str_updategroup, client_socket)
+
+                   elif arr != None and arr[0] == "kids tennis" and len(arr) == 1:
+                       print("kids tennis")
+                       print(arr)
+                       arrgroupstime = self.dbgroupstime.get_all_groups_times()
+                       print(arrgroupstime)
+                       strgroupstime = ",".join(arrgroupstime)
+                       print(strgroupstime)
+                       self.send_msg(strgroupstime, client_socket)
+
 
 
 
@@ -264,6 +272,6 @@ class Server(object):
 
 if __name__ == '__main__':
    ip = '127.0.0.1'
-   port = 1805
+   port = 1807
    s = Server(ip, port)
    s.start()

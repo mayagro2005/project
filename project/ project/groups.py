@@ -317,7 +317,6 @@ class groups(object):
                 # return [row[0], row[1], row[2], row[3], row[4]]
                 arr_students.append(str_rows)
                 print(arr_students)
-
                 return arr_students
 
             else:
@@ -327,6 +326,24 @@ class groups(object):
             conn.close()
         except:
             return False
+
+    def get_group_id_by_name(self, nameofgroup):
+        try:
+            conn = sqlite3.connect('test.db')
+            print("Opened database successfully")
+            str_select = f"SELECT {self.__groupId} from {self.__tablename} where {self.__nameofgroup} = '{nameofgroup}'"
+            print(str_select)
+            cursor = conn.execute(str_select)
+            row = cursor.fetchone()
+            if row:
+                print(row[0])
+                return row[0]
+            else:
+                print("Group not found")
+                return False
+        except:
+            return "failed"
+
 
     def __str__(self):
         return "table  name is ", self.__tablename
@@ -357,8 +374,9 @@ g = groups()
 # s.get_student_by_email("mha.com")
 # g.get_all_groups()
 # g.get_group_by_id('1')
-arr = g.get_group_by_teacherId('3')
-print(arr[0])
+# arr = g.get_group_by_teacherId('3')
+# print(arr[0])
+g.get_group_id_by_name("dance")
 # g.update_group('4', "swimming", '2', "tennis")
 # s.update_student("sdfh", "mnw", '300', "fgh6", 'xcvb7', "aaaa", "sdfghjhn", '2650', "afzxcv.com", 'qwe3i')
 # s.get_student_by_email_and_password("mha.com", '9o234')

@@ -37,15 +37,16 @@ class groupstime(object):
         groups_times = []
         for row in rows:
             groups_times.append({
-                "timeId": row[0],
+                # "timeId": row[0],
                 "groupId": row[1],
                 "startH": row[2],
                 "endH": row[3],
                 "lessonDay": row[4]
             })
-        print(groups_times)
-        return groups_times
-
+        arr_groups_times = [[group_time["groupId"], group_time["startH"], group_time["endH"], group_time["lessonDay"]]
+                            for group_time in groups_times]
+        print(arr_groups_times)
+        return arr_groups_times
 
     def insert_group_time(self, groupId, startH, endH, lessonDay):
         conn = sqlite3.connect('test.db')
@@ -156,13 +157,13 @@ class groupstime(object):
 
 
 g = groupstime()
-g.delete_group_by_timeid(5)
+# g.delete_group_by_timeid(5)
 # g.delete_group_time('8',"18:00","19:00","thursday")
 # g.insert_group_time('2', '17:00', '18:30', "sunday")
 # g.insert_group_time('1','18:00','20:00',"tuesday")
 # g.insert_group_time('7','18:30','19:30',"tuesday")
 # g.get_all_groups_times()
-
+g.get_all_groups_times()
 # g.get_all_groups_times()
 # g.get_group_name_by_time_id('1')
 # g.update_group_time('2', '18:30', '19:30', "Monday", '2','18:00','19:00',"monday")

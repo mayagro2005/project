@@ -26,7 +26,7 @@ class insert_lesson(tkinter.Toplevel):
         self.lbl_nameofgroup = Label(self, text="Name of Group", font=("Helvetica", 16, "bold"))
         self.lbl_nameofgroup.pack(pady=20)
         self.nameofgroup = OptionMenu(self, self.nameofgroup_var,
-                                    *["kids tennis", "swimming", "yoga", "basketball", "dancing","adults tennis","ping pong","fitness","pilates","boxing"])
+                                    *["kids tennis", "swimming", "yoga", "basketball", "dance","adults tennis","ping pong","fitness","pilates","boxing"])
         self.nameofgroup.config(font=("Helvetica", 14), width=20)
         self.nameofgroup.pack()
 
