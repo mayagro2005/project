@@ -103,6 +103,31 @@ class groupstime(object):
             print("there is no group")
             return None
 
+    def get_details_by_group_id(self, groupId):
+        try:
+            conn = sqlite3.connect('test.db')
+            str_select = f"SELECT startH, endH, lessonDay FROM {self.__tablename} WHERE {self.__groupId} = '{groupId}'"
+            cursor = conn.execute(str_select)
+            rows = cursor.fetchall()
+            if rows:
+                results = []
+                for row in rows:
+                    results.append({
+                        "startH": row[0],
+                        "endH": row[1],
+                        "lessonDay": row[2]})
+                arr_groups_times = [
+                    [row["startH"], row["endH"], row["lessonDay"]]
+                    for row in results]
+                print(arr_groups_times)
+                return arr_groups_times
+            else:
+                print("there is no group")
+                return "there is no group"
+        except:
+            print("error")
+            return "error"
+
     def delete_group_by_timeid(self,timeId):
         try:
             conn = sqlite3.connect('test.db')
@@ -163,7 +188,9 @@ g = groupstime()
 # g.insert_group_time('1','18:00','20:00',"tuesday")
 # g.insert_group_time('7','18:30','19:30',"tuesday")
 # g.get_all_groups_times()
-g.get_all_groups_times()
+# g.get_all_groups_times()
+arr = g.get_details_by_group_id('7')
+print(arr[0][0])
 # g.get_all_groups_times()
 # g.get_group_name_by_time_id('1')
 # g.update_group_time('2', '18:30', '19:30', "Monday", '2','18:00','19:00',"monday")

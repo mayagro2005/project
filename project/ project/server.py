@@ -211,23 +211,17 @@ class Server(object):
                    elif arr != None and arr[0] == "kids tennis" and len(arr) == 1:
                        print("kids tennis")
                        print(arr)
-                       arrgroupstime = self.dbgroupstime.get_all_groups_times()
-                       print(arrgroupstime)
-                       strgroupstime = ",".join(arrgroupstime)
-                       print(strgroupstime)
-                       self.send_msg(strgroupstime, client_socket)
-
-
-
-
-
-
-
-
-
-
-
-
+                       groupId = self.dbgroups.get_group_id_by_name(arr[0])
+                       print(groupId)
+                       arrgroupstime = self.dbgroupstime.get_details_by_group_id(groupId)
+                       if arrgroupstime == "there is no group":
+                           self.send_msg("there is no group", client_socket)
+                       elif arrgroupstime == "error":
+                           self.send_msg("error", client_socket)
+                       else:
+                           strgroupstime = ",".join(arrgroupstime)
+                           print(strgroupstime)
+                           self.send_msg(strgroupstime, client_socket)
                    else:
                        server_data = "False"
                except:

@@ -124,12 +124,12 @@ class update_lesson(tkinter.Toplevel):
                 messagebox.showerror("notification", "the lesson you want to update doesnt exist")
             elif data == "Success":
                 messagebox.showinfo("notification", "lesson updated successfully")
-                # arr = ["Updategroup", self.nameofgroup_var.get(), self.startH.get(), self.endH.get(),
-                #        self.lessonday_var.get(), self.startH1.get(), self.endH1.get(),
-                #        self.lessonday_var1.get()]
-                # str_insert = ",".join(arr)
-                # print(str_insert)
-                # self.parent.parent.parent.send_msg(str_insert, self.parent.parent.parent.client_socket)
+                arr = ["Updategroup", self.nameofgroup_var.get(), self.startH.get(), self.endH.get(),
+                       self.lessonday_var.get(), self.startH1.get(), self.endH1.get(),
+                       self.lessonday_var1.get()]
+                str_insert = ",".join(arr)
+                print(str_insert)
+                self.parent.parent.parent.send_msg(str_insert, self.parent.parent.parent.client_socket)
             elif data == "Failed":
                 messagebox.showerror("notification", "Error, please try again")
 

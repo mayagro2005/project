@@ -11,6 +11,7 @@ class tennis_lesson(tkinter.Toplevel):
         self.title('INSERT LESSON WINDOW')
         self.create_table()
         self.handle_thread_socket()
+        self.handle_thread_socket1()
         # self.after(500, self.update_table)
         #Button(self, text='Close', command=self.close).pack(side=tkinter.BOTTOM, fill=tkinter.X)
 
@@ -24,12 +25,26 @@ class tennis_lesson(tkinter.Toplevel):
         self.tree.heading("LESSON DAY", text="LESSON DAY")
         self.tree.pack(fill=BOTH, expand=True)
 
+    def handle_thread_socket(self):
+        client_handler = threading.Thread(target=self.show_info, args=())
+        client_handler.daemon = True
+        client_handler.start()
+
     def show_info(self):
+        self.parent.parent.parent.send_msg("kids tennis", self.parent.parent.parent.client_socket)
         data = self.parent.parent.parent.recv_msg(self.parent.parent.parent.client_socket)
         if data is not None and data != '':
-            arr = data.split(",")
+            if data == "there is no group" or data == "error":
+                pass
+            else:
+                arr = data.split(",")
+                for i in range(len(arr)):
+                    values = arr[i].split(" ")
+                    self.tree.insert("", END, values=(values[0], values[1], values[2]))
 
-    def handle_thread_socket(self):
+
+
+    def handle_thread_socket1(self):
         client_handler = threading.Thread(target=self.update_table, args=())
         client_handler.daemon = True
         client_handler.start()

@@ -154,6 +154,24 @@ class App(tkinter.Tk):
         except:
             print("error with sending msg")
 
+    # def recv_msg(self, client_socket, ret_type="string"):
+    #     try:
+    #         length = client_socket.recv(SIZE).decode(self.format)
+    #         if not length:
+    #             print("no length!")
+    #             return None
+    #         print("The length is " + length)
+    #         data = client_socket.recv(int(length))
+    #         if not data:
+    #             print("no data!")
+    #             return None
+    #         print("the data is: " + str(data))
+    #         if ret_type == "string":
+    #             data = data.decode(self.format)
+    #         print(data)
+    #         return data
+    #     except:
+    #         print("error with receiving msg")
     def recv_msg(self, client_socket, ret_type="string"):
         try:
             length = client_socket.recv(SIZE).decode(self.format)
@@ -161,6 +179,9 @@ class App(tkinter.Tk):
                 print("no length!")
                 return None
             print("The length is " + length)
+            if not length.isdigit():
+                print("error: message length is not a valid integer")
+                return None
             data = client_socket.recv(int(length))
             if not data:
                 print("no data!")
@@ -172,8 +193,6 @@ class App(tkinter.Tk):
             return data
         except:
             print("error with receiving msg")
-
-
 
     def handle_thread_socket(self):
         client_handler = threading.Thread(target=self.create_socket, args=())
