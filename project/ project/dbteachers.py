@@ -277,7 +277,7 @@ class teachers(object):
         return "table  name is ", self.__tablename
 
 
-t=teachers()
+# t=teachers()
 # t.get_teacher_by_group_name("swimming")
 # t.insert_teacher("lilya", "qwew", "qwe56", 'zxc567')
 # t.insert_teacher("gaya", "tyu", "re34.com", '1234')
@@ -289,8 +289,8 @@ t=teachers()
 # t.get_all_teachers()
 # t.update_teacher("ddf", "sdfvb", "qdwf.com", '64897', "gaya", "tyu", "re34.com", '1234')
 # t.get_teacher_by_email_and_password("dgfcgv123.com", 'qwr567')
-arr_teachers = t.get_teacher_by_email_and_password("qwe56", 'zxc567')
-print(arr_teachers[0])
+# arr_teachers = t.get_teacher_by_email_and_password("qwe56", 'zxc567')
+# print(arr_teachers[0])
 
 
 

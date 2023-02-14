@@ -1,3 +1,4 @@
+import struct
 import threading
 import tkinter
 from tkinter import *
@@ -10,7 +11,7 @@ from login1 import Login
 from PIL import ImageTk, Image
 from tkmacosx import Button
 
-SIZE = 8
+SIZE = 12
 from dbteachers import *
 from dbstudents import *
 from tkinter import ttk
@@ -154,24 +155,7 @@ class App(tkinter.Tk):
         except:
             print("error with sending msg")
 
-    # def recv_msg(self, client_socket, ret_type="string"):
-    #     try:
-    #         length = client_socket.recv(SIZE).decode(self.format)
-    #         if not length:
-    #             print("no length!")
-    #             return None
-    #         print("The length is " + length)
-    #         data = client_socket.recv(int(length))
-    #         if not data:
-    #             print("no data!")
-    #             return None
-    #         print("the data is: " + str(data))
-    #         if ret_type == "string":
-    #             data = data.decode(self.format)
-    #         print(data)
-    #         return data
-    #     except:
-    #         print("error with receiving msg")
+
     def recv_msg(self, client_socket, ret_type="string"):
         try:
             length = client_socket.recv(SIZE).decode(self.format)
@@ -179,9 +163,6 @@ class App(tkinter.Tk):
                 print("no length!")
                 return None
             print("The length is " + length)
-            if not length.isdigit():
-                print("error: message length is not a valid integer")
-                return None
             data = client_socket.recv(int(length))
             if not data:
                 print("no data!")
@@ -193,6 +174,40 @@ class App(tkinter.Tk):
             return data
         except:
             print("error with receiving msg")
+    # Sender
+    # def send_msg(self, data, client_socket):
+    #     try:
+    #         print("the message is: " + str(data))
+    #         if type(data) != bytes:
+    #             data = data.encode()
+    #         length = len(data)
+    #         length = struct.pack("!I", length)
+    #         msg = length + data
+    #         print("message with length is " + str(msg))
+    #         client_socket.sendall(msg)
+    #     except Exception as e:
+    #         print("Error with sending message:", e)
+    #
+    # # Receiver
+    # def recv_msg(self, client_socket, ret_type="string"):
+    #     try:
+    #         length = client_socket.recv(4)
+    #         if not length:
+    #             print("no length!")
+    #             return None
+    #         length, = struct.unpack("!I", length)
+    #         print("The length is " + str(length))
+    #         data = client_socket.recv(length)
+    #         if not data:
+    #             print("no data!")
+    #             return None
+    #         print("the data is: " + str(data))
+    #         if ret_type == "string":
+    #             data = data.decode(self.format)
+    #         print(data)
+    #         return data
+    #     except:
+    #         print("error with receiving msg")
 
     def handle_thread_socket(self):
         client_handler = threading.Thread(target=self.create_socket, args=())
@@ -201,7 +216,7 @@ class App(tkinter.Tk):
 
     def create_socket(self):
         self.client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        self.client_socket.connect(('127.0.0.1', 1807))
+        self.client_socket.connect(('127.0.0.1', 1815))
         # data = self.client_socket.recv(1024).decode()
         data = self.recv_msg(self.client_socket)
         print("data"+data)

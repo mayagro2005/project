@@ -125,8 +125,8 @@ class groupstime(object):
                 print("there is no group")
                 return "there is no group"
         except:
-            print("error")
-            return "error"
+            print("error on get_details_by_group_id")
+            return "error on get_details_by_group_id"
 
     def delete_group_by_timeid(self,timeId):
         try:
@@ -181,16 +181,16 @@ class groupstime(object):
 
 
 
-g = groupstime()
+# g = groupstime()
 # g.delete_group_by_timeid(5)
 # g.delete_group_time('8',"18:00","19:00","thursday")
-# g.insert_group_time('2', '17:00', '18:30', "sunday")
+# g.insert_group_time('8', '17:30', '18:30', "Sunday")
 # g.insert_group_time('1','18:00','20:00',"tuesday")
 # g.insert_group_time('7','18:30','19:30',"tuesday")
 # g.get_all_groups_times()
 # g.get_all_groups_times()
-arr = g.get_details_by_group_id('7')
-print(arr[0][0])
+# g.get_details_by_group_id('8')
+# print(arr[0][0])
 # g.get_all_groups_times()
 # g.get_group_name_by_time_id('1')
 # g.update_group_time('2', '18:30', '19:30', "Monday", '2','18:00','19:00',"monday")

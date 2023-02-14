@@ -1,5 +1,6 @@
 import multiprocessing
 import socket
+import struct
 import threading
 from dbteachers import teachers
 from dbstudents import students
@@ -9,7 +10,7 @@ from groupstime import groupstime
 cores = multiprocessing.cpu_count()
 print(cores)
 
-SIZE = 8
+SIZE = 12
 
 class Server(object):
    def __init__(self, ip, port):
@@ -214,18 +215,28 @@ class Server(object):
                        groupId = self.dbgroups.get_group_id_by_name(arr[0])
                        print(groupId)
                        arrgroupstime = self.dbgroupstime.get_details_by_group_id(groupId)
+                       print(arrgroupstime, "server_kids_tennis")
                        if arrgroupstime == "there is no group":
+                           print("there is no group","server_kids_tennis")
                            self.send_msg("there is no group", client_socket)
                        elif arrgroupstime == "error":
+                           print("error","server_kids_tennis")
                            self.send_msg("error", client_socket)
                        else:
-                           strgroupstime = ",".join(arrgroupstime)
-                           print(strgroupstime)
-                           self.send_msg(strgroupstime, client_socket)
+                           print("defult else")
+                           print(arrgroupstime)
+                           arrgroup = []
+                           for el in arrgroupstime:
+                               strgroupstime = ",".join(el)
+                               arrgroup.append(strgroupstime)
+                           print(arrgroup)
+                           arrgroup = "*".join(arrgroup)
+                           print(arrgroup)
+                           self.send_msg(arrgroup, client_socket)
                    else:
                        server_data = "False"
                except:
-                   print("error")
+                   print("error on server error except")
                    not_crash = False
                    break
 
@@ -243,6 +254,8 @@ class Server(object):
            client_socket.send(msg)
        except:
            print("error with sending msg")
+
+
 
    def recv_msg(self, client_socket, ret_type="string"):
        try:
@@ -262,10 +275,44 @@ class Server(object):
            return data
        except:
            print("error with receiving msg")
+   # Sender
+   # def send_msg(self, data, client_socket):
+   #     try:
+   #         print("the message is: " + str(data))
+   #         if type(data) != bytes:
+   #             data = data.encode()
+   #         length = len(data)
+   #         length = struct.pack("!I", length)
+   #         msg = length + data
+   #         print("message with length is " + str(msg))
+   #         client_socket.sendall(msg)
+   #     except Exception as e:
+   #         print("Error with sending message:", e)
+   #
+   # # Receiver
+   # def recv_msg(self, client_socket, ret_type="string"):
+   #     try:
+   #         length = client_socket.recv(4)
+   #         if not length:
+   #             print("no length!")
+   #             return None
+   #         length, = struct.unpack("!I", length)
+   #         print("The length is " + str(length))
+   #         data = client_socket.recv(length)
+   #         if not data:
+   #             print("no data!")
+   #             return None
+   #         print("the data is: " + str(data))
+   #         if ret_type == "string":
+   #             data = data.decode(self.format)
+   #         print(data)
+   #         return data
+   #     except:
+   #         print("error with receiving msg")
 
 
 if __name__ == '__main__':
    ip = '127.0.0.1'
-   port = 1807
+   port = 1815
    s = Server(ip, port)
    s.start()

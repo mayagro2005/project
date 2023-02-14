@@ -10,10 +10,10 @@ class tennis_lesson(tkinter.Toplevel):
         self.parent = parent
         self.title('INSERT LESSON WINDOW')
         self.create_table()
-        self.handle_thread_socket()
-        self.handle_thread_socket1()
+
+        # self.handle_thread_socket1()
         # self.after(500, self.update_table)
-        #Button(self, text='Close', command=self.close).pack(side=tkinter.BOTTOM, fill=tkinter.X)
+        Button(self, text='Close', command=self.close).pack(side=tkinter.BOTTOM, fill=tkinter.X)
 
     def create_table(self):
         self.tree = ttk.Treeview(self, columns=("START HOUR", "END HOUR", "LESSON DAY"), show="headings")
@@ -24,23 +24,28 @@ class tennis_lesson(tkinter.Toplevel):
         self.tree.heading("END HOUR", text="END HOUR")
         self.tree.heading("LESSON DAY", text="LESSON DAY")
         self.tree.pack(fill=BOTH, expand=True)
+        self.show_info()
 
-    def handle_thread_socket(self):
-        client_handler = threading.Thread(target=self.show_info, args=())
-        client_handler.daemon = True
-        client_handler.start()
+    # def handle_thread_socket(self):
+    #     client_handler = threading.Thread(target=self.show_info, args=())
+    #     client_handler.daemon = True
+    #     client_handler.start()
 
     def show_info(self):
+        print(self.parent.parent.parent.client_socket)
         self.parent.parent.parent.send_msg("kids tennis", self.parent.parent.parent.client_socket)
         data = self.parent.parent.parent.recv_msg(self.parent.parent.parent.client_socket)
+        print(data)
         if data is not None and data != '':
             if data == "there is no group" or data == "error":
                 pass
             else:
-                arr = data.split(",")
-                for i in range(len(arr)):
-                    values = arr[i].split(" ")
-                    self.tree.insert("", END, values=(values[0], values[1], values[2]))
+                arr = data.split("*")
+                print(arr)
+                for el in arr:
+                    element = el.split(",")
+                    self.tree.insert("", END, values=(element[0], element[1], element[2]))
+
 
 
 
@@ -97,6 +102,6 @@ class tennis_lesson(tkinter.Toplevel):
     #                     break
     #     self.after(500, self.update_table)
 
-    #def close(self):
-        #self.parent.deiconify()
-        #self.destroy()
+    def close(self):
+        self.parent.deiconify()
+        self.destroy()

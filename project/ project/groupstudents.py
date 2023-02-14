@@ -164,10 +164,10 @@ class groupstudents(object):
 
 
 
-g = groupstudents()
+# g = groupstudents()
 # g.insert_student_to_group('5', '1')
 # g.delete_student_from_group('4','1')
 # g.get_students_by_group_id('1')
 # g.get_all_groupsstudents()
 # g.get_student_names_by_group_id('1')
-g.get_student_name_by_group_name("swimming")
+# g.get_student_name_by_group_name("swimming")

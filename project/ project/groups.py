@@ -364,7 +364,7 @@ class groups(object):
         return arr
 
 
-g = groups()
+# g = groups()
 # g.insert_group(3,"dance")
 # s.insert_student("dcf", "qwey", '250', "mha.com", '9o234')
 # s.insert_student("bgka", "xgnhn", '250', "afgj678.com", 'fg098i')
@@ -376,7 +376,7 @@ g = groups()
 # g.get_group_by_id('1')
 # arr = g.get_group_by_teacherId('3')
 # print(arr[0])
-g.get_group_id_by_name("kids tennis")
+# g.get_group_id_by_name("kids tennis")
 # g.update_group('4', "swimming", '2', "tennis")
 # s.update_student("sdfh", "mnw", '300', "fgh6", 'xcvb7', "aaaa", "sdfghjhn", '2650', "afzxcv.com", 'qwe3i')
 # s.get_student_by_email_and_password("mha.com", '9o234')
