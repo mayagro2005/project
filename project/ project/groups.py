@@ -365,6 +365,7 @@ class groups(object):
 
 
 # g = groups()
+# g.delete_group_by_Id('6')
 # g.insert_group(3,"dance")
 # s.insert_student("dcf", "qwey", '250', "mha.com", '9o234')
 # s.insert_student("bgka", "xgnhn", '250', "afgj678.com", 'fg098i')
