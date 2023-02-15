@@ -188,26 +188,26 @@ class Server(object):
                            elif not timeofgroup:
                                self.send_msg("Failed", client_socket)
 
-                   elif arr != None and arr[0] == "Addgroup" and len(arr) == 5:
-                       print("Add group")
-                       print(arr)
-                       str_addgroup = ",".join(arr)
-                       print(str_addgroup)
-                       self.send_msg(str_addgroup, client_socket)
-
-                   elif arr != None and arr[0] == "Deletegroup" and len(arr) == 5:
-                       print("Delete group")
-                       print(arr)
-                       str_deletegroup = ",".join(arr)
-                       print(str_deletegroup)
-                       self.send_msg(str_deletegroup, client_socket)
-
-                   elif arr != None and arr[0] == "Updategroup" and len(arr) == 8:
-                       print("Update group")
-                       print(arr)
-                       str_updategroup = ",".join(arr)
-                       print(str_updategroup)
-                       self.send_msg(str_updategroup, client_socket)
+                   # elif arr != None and arr[0] == "Addgroup" and len(arr) == 5:
+                   #     print("Add group")
+                   #     print(arr)
+                   #     str_addgroup = ",".join(arr)
+                   #     print(str_addgroup)
+                   #     self.send_msg(str_addgroup, client_socket)
+                   #
+                   # elif arr != None and arr[0] == "Deletegroup" and len(arr) == 5:
+                   #     print("Delete group")
+                   #     print(arr)
+                   #     str_deletegroup = ",".join(arr)
+                   #     print(str_deletegroup)
+                   #     self.send_msg(str_deletegroup, client_socket)
+                   #
+                   # elif arr != None and arr[0] == "Updategroup" and len(arr) == 8:
+                   #     print("Update group")
+                   #     print(arr)
+                   #     str_updategroup = ",".join(arr)
+                   #     print(str_updategroup)
+                   #     self.send_msg(str_updategroup, client_socket)
 
                    elif arr != None and arr[0] == "kids tennis" and len(arr) == 1:
                        print("kids tennis")
@@ -233,6 +233,233 @@ class Server(object):
                            arrgroup = "*".join(arrgroup)
                            print(arrgroup)
                            self.send_msg(arrgroup, client_socket)
+
+                   elif arr != None and arr[0] == "swimming" and len(arr) == 1:
+                       print("swimming")
+                       print(arr)
+                       groupId = self.dbgroups.get_group_id_by_name(arr[0])
+                       print(groupId)
+                       arrgroupstime = self.dbgroupstime.get_details_by_group_id(groupId)
+                       print(arrgroupstime, "server_swimming")
+                       if arrgroupstime == "there is no group":
+                           print("there is no group","server_swimming")
+                           self.send_msg("there is no group", client_socket)
+                       elif arrgroupstime == "error":
+                           print("error","server_swimming")
+                           self.send_msg("error", client_socket)
+                       else:
+                           print("defult else")
+                           print(arrgroupstime)
+                           arrgroup = []
+                           for el in arrgroupstime:
+                               strgroupstime = ",".join(el)
+                               arrgroup.append(strgroupstime)
+                           print(arrgroup)
+                           arrgroup = "*".join(arrgroup)
+                           print(arrgroup)
+                           self.send_msg(arrgroup, client_socket)
+
+                   elif arr != None and arr[0] == "yoga" and len(arr) == 1:
+                       print("yoga")
+                       print(arr)
+                       groupId = self.dbgroups.get_group_id_by_name(arr[0])
+                       print(groupId)
+                       arrgroupstime = self.dbgroupstime.get_details_by_group_id(groupId)
+                       print(arrgroupstime, "server_yoga")
+                       if arrgroupstime == "there is no group":
+                           print("there is no group","server_yoga")
+                           self.send_msg("there is no group", client_socket)
+                       elif arrgroupstime == "error":
+                           print("error","server_yoga")
+                           self.send_msg("error", client_socket)
+                       else:
+                           print("defult else")
+                           print(arrgroupstime)
+                           arrgroup = []
+                           for el in arrgroupstime:
+                               strgroupstime = ",".join(el)
+                               arrgroup.append(strgroupstime)
+                           print(arrgroup)
+                           arrgroup = "*".join(arrgroup)
+                           print(arrgroup)
+                           self.send_msg(arrgroup, client_socket)
+
+                   elif arr != None and arr[0] == "basketball" and len(arr) == 1:
+                       print("basketball")
+                       print(arr)
+                       groupId = self.dbgroups.get_group_id_by_name(arr[0])
+                       print(groupId)
+                       arrgroupstime = self.dbgroupstime.get_details_by_group_id(groupId)
+                       print(arrgroupstime, "server_basketball")
+                       if arrgroupstime == "there is no group":
+                           print("there is no group","server_basketball")
+                           self.send_msg("there is no group", client_socket)
+                       elif arrgroupstime == "error":
+                           print("error","server_basketball")
+                           self.send_msg("error", client_socket)
+                       else:
+                           print("defult else")
+                           print(arrgroupstime)
+                           arrgroup = []
+                           for el in arrgroupstime:
+                               strgroupstime = ",".join(el)
+                               arrgroup.append(strgroupstime)
+                           print(arrgroup)
+                           arrgroup = "*".join(arrgroup)
+                           print(arrgroup)
+                           self.send_msg(arrgroup, client_socket)
+
+                   elif arr != None and arr[0] == "dance" and len(arr) == 1:
+                       print("dance")
+                       print(arr)
+                       groupId = self.dbgroups.get_group_id_by_name(arr[0])
+                       print(groupId)
+                       arrgroupstime = self.dbgroupstime.get_details_by_group_id(groupId)
+                       print(arrgroupstime, "server_dance")
+                       if arrgroupstime == "there is no group":
+                           print("there is no group","server_dance")
+                           self.send_msg("there is no group", client_socket)
+                       elif arrgroupstime == "error":
+                           print("error","server_dance")
+                           self.send_msg("error", client_socket)
+                       else:
+                           print("defult else")
+                           print(arrgroupstime)
+                           arrgroup = []
+                           for el in arrgroupstime:
+                               strgroupstime = ",".join(el)
+                               arrgroup.append(strgroupstime)
+                           print(arrgroup)
+                           arrgroup = "*".join(arrgroup)
+                           print(arrgroup)
+                           self.send_msg(arrgroup, client_socket)
+
+                   elif arr != None and arr[0] == "adults tennis" and len(arr) == 1:
+                       print("adults tennis")
+                       print(arr)
+                       groupId = self.dbgroups.get_group_id_by_name(arr[0])
+                       print(groupId)
+                       arrgroupstime = self.dbgroupstime.get_details_by_group_id(groupId)
+                       print(arrgroupstime, "server_adults_tennis")
+                       if arrgroupstime == "there is no group":
+                           print("there is no group","server_adults_tennis")
+                           self.send_msg("there is no group", client_socket)
+                       elif arrgroupstime == "error":
+                           print("error","server_adults_tennis")
+                           self.send_msg("error", client_socket)
+                       else:
+                           print("defult else")
+                           print(arrgroupstime)
+                           arrgroup = []
+                           for el in arrgroupstime:
+                               strgroupstime = ",".join(el)
+                               arrgroup.append(strgroupstime)
+                           print(arrgroup)
+                           arrgroup = "*".join(arrgroup)
+                           print(arrgroup)
+                           self.send_msg(arrgroup, client_socket)
+
+                   elif arr != None and arr[0] == "ping pong" and len(arr) == 1:
+                       print("ping pong")
+                       print(arr)
+                       groupId = self.dbgroups.get_group_id_by_name(arr[0])
+                       print(groupId)
+                       arrgroupstime = self.dbgroupstime.get_details_by_group_id(groupId)
+                       print(arrgroupstime, "server_ping_pong")
+                       if arrgroupstime == "there is no group":
+                           print("there is no group","server_ping_pong")
+                           self.send_msg("there is no group", client_socket)
+                       elif arrgroupstime == "error":
+                           print("error","server_ping_pong")
+                           self.send_msg("error", client_socket)
+                       else:
+                           print("defult else")
+                           print(arrgroupstime)
+                           arrgroup = []
+                           for el in arrgroupstime:
+                               strgroupstime = ",".join(el)
+                               arrgroup.append(strgroupstime)
+                           print(arrgroup)
+                           arrgroup = "*".join(arrgroup)
+                           print(arrgroup)
+                           self.send_msg(arrgroup, client_socket)
+
+                   elif arr != None and arr[0] == "fitness" and len(arr) == 1:
+                       print("fitness")
+                       print(arr)
+                       groupId = self.dbgroups.get_group_id_by_name(arr[0])
+                       print(groupId)
+                       arrgroupstime = self.dbgroupstime.get_details_by_group_id(groupId)
+                       print(arrgroupstime, "server_fitness")
+                       if arrgroupstime == "there is no group":
+                           print("there is no group","server_fitness")
+                           self.send_msg("there is no group", client_socket)
+                       elif arrgroupstime == "error":
+                           print("error","server_fitness")
+                           self.send_msg("error", client_socket)
+                       else:
+                           print("defult else")
+                           print(arrgroupstime)
+                           arrgroup = []
+                           for el in arrgroupstime:
+                               strgroupstime = ",".join(el)
+                               arrgroup.append(strgroupstime)
+                           print(arrgroup)
+                           arrgroup = "*".join(arrgroup)
+                           print(arrgroup)
+                           self.send_msg(arrgroup, client_socket)
+
+                   elif arr != None and arr[0] == "pilates" and len(arr) == 1:
+                       print("pilates")
+                       print(arr)
+                       groupId = self.dbgroups.get_group_id_by_name(arr[0])
+                       print(groupId)
+                       arrgroupstime = self.dbgroupstime.get_details_by_group_id(groupId)
+                       print(arrgroupstime, "server_pilates")
+                       if arrgroupstime == "there is no group":
+                           print("there is no group","server_pilates")
+                           self.send_msg("there is no group", client_socket)
+                       elif arrgroupstime == "error":
+                           print("error","server_pilates")
+                           self.send_msg("error", client_socket)
+                       else:
+                           print("defult else")
+                           print(arrgroupstime)
+                           arrgroup = []
+                           for el in arrgroupstime:
+                               strgroupstime = ",".join(el)
+                               arrgroup.append(strgroupstime)
+                           print(arrgroup)
+                           arrgroup = "*".join(arrgroup)
+                           print(arrgroup)
+                           self.send_msg(arrgroup, client_socket)
+
+                   elif arr != None and arr[0] == "boxing" and len(arr) == 1:
+                       print("boxing")
+                       print(arr)
+                       groupId = self.dbgroups.get_group_id_by_name(arr[0])
+                       print(groupId)
+                       arrgroupstime = self.dbgroupstime.get_details_by_group_id(groupId)
+                       print(arrgroupstime, "server_boxing")
+                       if arrgroupstime == "there is no group":
+                           print("there is no group","server_boxing")
+                           self.send_msg("there is no group", client_socket)
+                       elif arrgroupstime == "error":
+                           print("error","server_boxing")
+                           self.send_msg("error", client_socket)
+                       else:
+                           print("defult else")
+                           print(arrgroupstime)
+                           arrgroup = []
+                           for el in arrgroupstime:
+                               strgroupstime = ",".join(el)
+                               arrgroup.append(strgroupstime)
+                           print(arrgroup)
+                           arrgroup = "*".join(arrgroup)
+                           print(arrgroup)
+                           self.send_msg(arrgroup, client_socket)
+
+
                    else:
                        server_data = "False"
                except:

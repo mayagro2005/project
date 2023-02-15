@@ -4,11 +4,11 @@ from tkinter import *
 from tkinter import ttk, messagebox
 from tkmacosx import Button
 
-class kids_tennis_lesson(tkinter.Toplevel):
+class basketball_lesson(tkinter.Toplevel):
     def __init__(self, parent):
         super().__init__(parent)
         self.parent = parent
-        self.title('KIDS TENNIS LESSON WINDOW')
+        self.title('BASKETBALL LESSON WINDOW')
         self.create_table()
 
         # self.handle_thread_socket1()
@@ -31,7 +31,7 @@ class kids_tennis_lesson(tkinter.Toplevel):
 
     def show_info(self):
         print(self.parent.parent.parent.client_socket)
-        self.parent.parent.parent.send_msg("kids tennis", self.parent.parent.parent.client_socket)
+        self.parent.parent.parent.send_msg("basketball", self.parent.parent.parent.client_socket)
         data = self.parent.parent.parent.recv_msg(self.parent.parent.parent.client_socket)
         print(data)
         if data is not None and data != '':

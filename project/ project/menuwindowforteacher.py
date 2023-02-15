@@ -12,7 +12,16 @@ from tkmacosx import Button
 from insert_lesson_window import insert_lesson
 from delete_lesson_window import delete_lesson
 from update_lesson_window import update_lesson
-from kids_tennis_window import tennis_lesson
+from kids_tennis_window import kids_tennis_lesson
+from adults_tennis_window import adults_tennis_lesson
+from basketball_window import basketball_lesson
+from boxing_window import boxing_lesson
+from dance_window import dance_lesson
+from fitness_window import fitness_lesson
+from pilates_window import pilates_lesson
+from ping_pong_window import ping_pong_lesson
+from swimming_window import swimming_lesson
+from yoga_window import yoga_lesson
 #https://www.pythontutorial.net/tkinter/tkinter-toplevel/
 #toplevel = tk.Toplevel(window) #'toplevel' can be changed to anything,
 #it is just a variable to hold the top level, 'window'
@@ -121,26 +130,35 @@ class menu(tkinter.Toplevel):
         # self.withdraw()
 
     def open_tennis(self):
-        window = tennis_lesson(self)
+        window = kids_tennis_lesson(self)
         window.grab_set()
     def open_swimming(self):
-        pass
+        window = swimming_lesson(self)
+        window.grab_set()
     def open_yoga(self):
-        pass
+        window = yoga_lesson(self)
+        window.grab_set()
     def open_basketball(self):
-        pass
+        window = basketball_lesson(self)
+        window.grab_set()
     def open_dancing(self):
-        pass
+        window = dance_lesson(self)
+        window.grab_set()
     def open_adultstennis(self):
-        pass
+        window = adults_tennis_lesson(self)
+        window.grab_set()
     def open_pingpong(self):
-        pass
+        window = ping_pong_lesson(self)
+        window.grab_set()
     def open_fitness(self):
-        pass
+        window = fitness_lesson(self)
+        window.grab_set()
     def open_pilates(self):
-        pass
+        window = pilates_lesson(self)
+        window.grab_set()
     def open_boxing(self):
-        pass
+        window = boxing_lesson(self)
+        window.grab_set()
 
 
 

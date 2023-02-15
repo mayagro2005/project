@@ -29,7 +29,7 @@ class update_lesson(tkinter.Toplevel):
         self.lbl_update1.place(x=10, y=70)
         self.nameofgroup_var = StringVar()
         self.lbl_nameofgroup1 = Label(self, width=20, text="Name of group",font=("Helvetica", 16, "bold"))
-        self.lbl_nameofgroup1.place(x=190, y=20)
+        self.lbl_nameofgroup1.place(x=160, y=20)
         self.nameofgroup = OptionMenu(self, self.nameofgroup_var,
                                       *["kids tennis", "swimming", "yoga", "basketball", "dance", "adults tennis",
                                         "ping pong", "fitness", "pilates", "boxing"])
@@ -124,12 +124,12 @@ class update_lesson(tkinter.Toplevel):
                 messagebox.showerror("notification", "the lesson you want to update doesnt exist")
             elif data == "Success":
                 messagebox.showinfo("notification", "lesson updated successfully")
-                arr = ["Updategroup", self.nameofgroup_var.get(), self.startH.get(), self.endH.get(),
-                       self.lessonday_var.get(), self.startH1.get(), self.endH1.get(),
-                       self.lessonday_var1.get()]
-                str_insert = ",".join(arr)
-                print(str_insert)
-                self.parent.parent.parent.send_msg(str_insert, self.parent.parent.parent.client_socket)
+                # arr = ["Updategroup", self.nameofgroup_var.get(), self.startH.get(), self.endH.get(),
+                #        self.lessonday_var.get(), self.startH1.get(), self.endH1.get(),
+                #        self.lessonday_var1.get()]
+                # str_insert = ",".join(arr)
+                # print(str_insert)
+                # self.parent.parent.parent.send_msg(str_insert, self.parent.parent.parent.client_socket)
             elif data == "Failed":
                 messagebox.showerror("notification", "Error, please try again")
 

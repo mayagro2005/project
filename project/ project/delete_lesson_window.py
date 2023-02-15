@@ -81,12 +81,12 @@ class delete_lesson(tkinter.Toplevel):
                 messagebox.showerror("notification", "lesson doesnt exist")
             elif data == "Success":
                 messagebox.showinfo("notification", "lesson deleted successfully")
-                arr1 = ["Deletegroup", self.nameofgroup_var.get(), self.startH.get(), self.endH.get(),
-                        self.lessonday_var.get()]
-                print(arr1)
-                str_delete1 = ",".join(arr1)
-                print(str_delete1)
-                self.parent.parent.parent.send_msg(str_delete1, self.parent.parent.parent.client_socket)
+                # arr1 = ["Deletegroup", self.nameofgroup_var.get(), self.startH.get(), self.endH.get(),
+                #         self.lessonday_var.get()]
+                # print(arr1)
+                # str_delete1 = ",".join(arr1)
+                # print(str_delete1)
+                # self.parent.parent.parent.send_msg(str_delete1, self.parent.parent.parent.client_socket)
             elif data == "Failed to delete record":
                 messagebox.showerror("notification", "Error, please try again")
             return True
