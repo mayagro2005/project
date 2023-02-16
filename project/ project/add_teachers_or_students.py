@@ -162,7 +162,7 @@ class Register(tkinter.Toplevel):
 
 
             elif self.var.get() == "student":
-                self.priceforayear = str(250)
+                self.priceforayear = str(1500)
                 if len(self.email.get()) == 0 or len(self.password.get()) == 0 or len(self.firstname.get()) == 0 or len(
                         self.lastname.get()) == 0:
                     messagebox.showerror("please write details", "Error")

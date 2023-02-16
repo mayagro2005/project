@@ -327,6 +327,7 @@ class groups(object):
         except:
             return False
 
+
     def get_group_id_by_name(self, nameofgroup):
         try:
             conn = sqlite3.connect('test.db')
@@ -344,6 +345,38 @@ class groups(object):
         except:
             return "failed"
 
+    import sqlite3
+
+    def check_teacher_for_group(self,nameofgroup, teacherId):
+        conn = sqlite3.connect('test.db')
+        c = conn.cursor()
+        while True:
+            # Check if the group exists in the database
+            c.execute("SELECT teacherId FROM groups WHERE nameofgroup=?", (nameofgroup,))
+            result = c.fetchone()
+            if not result:
+                return "Group not found in the database"
+
+            # Check if the teacherId matches the group's teacherId
+            if teacherId == result[0]:
+                return "Teacher matches the group's teacher"
+
+            # If there are more teacherIds for the group, check the next one
+            c.execute("SELECT teacherId FROM groups WHERE nameofgroup=?", (nameofgroup,))
+            results = c.fetchall()
+            if len(results) > 1:
+                # Remove the current teacherId from the list
+                results.remove((result[0],))
+
+                for row in results:
+                    if teacherId == row[0]:
+                        return "Teacher matches the group's teacher"
+
+                # If we didn't find a match and there are still more teacherIds, repeat with the next one
+                continue
+
+            # If there are no more teacherIds for the group and none matched, return false
+            return "Teacher does not match the group's teacher"
 
     def __str__(self):
         return "table  name is ", self.__tablename
@@ -364,7 +397,8 @@ class groups(object):
         return arr
 
 
-# g = groups()
+g = groups()
+g.check_teacher_for_group("swimming",'4')
 # g.delete_group_by_Id('6')
 # g.insert_group(3,"dance")
 # s.insert_student("dcf", "qwey", '250', "mha.com", '9o234')

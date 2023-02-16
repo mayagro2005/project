@@ -459,6 +459,11 @@ class Server(object):
                            print(arrgroup)
                            self.send_msg(arrgroup, client_socket)
 
+                   # elif arr != None and arr[0] == "payment_box" and len(arr) == 2:
+                   #     print("payment_box")
+                   #     print(arr)
+
+
 
                    else:
                        server_data = "False"

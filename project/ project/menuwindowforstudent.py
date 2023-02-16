@@ -43,7 +43,6 @@ class menuforstudent(tkinter.Toplevel):
         Button(self, text='Close', command=self.close).pack(side=tkinter.BOTTOM, fill=tkinter.X)
 
     def create_gui(self):
-
         self.lbl_welcome = Label(self, text="Welcome " + self.firstname + " " + self.lastname + " ",
                                  background="#5BC0F8", foreground="white", font=("Montserrat", 25, 'bold'),
                                  highlightcolor="red", relief="solid", bd=5)

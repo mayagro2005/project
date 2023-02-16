@@ -261,6 +261,7 @@ class students(object):
 
 
 # s = students()
+# s.update_student("fgbh", "shn", '800', "6356xcv.com", 'hdcs2333i',"fgbh", "shn", '9850', "6356xcv.com", 'hdcs2333i')
 # s.insert_student("dcf", "qwey", '250', "mha.com", '9o234')
 # s.insert_student("bgka", "xgnhn", '250', "afgj678.com", 'fg098i')
 # s.insert_student("fgbh", "shn", '9850', "6356xcv.com", 'hdcs2333i')
