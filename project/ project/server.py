@@ -157,6 +157,8 @@ class Server(object):
                        arr_teachers = self.teacherdb.get_teacher_by_email_and_password(arr[5], arr[6])
                        print(arr_teachers)
                        teacherid = arr_teachers[0]
+                       is_exist_id = self.dbgroups.check_teacher_for_group(arr[1],teacherid)
+
                        server_data = self.dbgroups.insert_group(teacherid, arr[1])
                        if server_data != False:
                            group = self.dbgroups.get_group_id_by_name(arr[1])
@@ -462,6 +464,7 @@ class Server(object):
                    # elif arr != None and arr[0] == "payment_box" and len(arr) == 2:
                    #     print("payment_box")
                    #     print(arr)
+
 
 
 
