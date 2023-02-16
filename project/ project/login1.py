@@ -6,6 +6,7 @@ from tkinter import ttk, messagebox
 # from dbstudents import students
 from menuwindowforteacher import menu
 from tkmacosx import Button
+from menuwindowforstudent import menuforstudent
 #https://www.pythontutorial.net/tkinter/tkinter-toplevel/
 #toplevel = tk.Toplevel(window) #'toplevel' can be changed to anything,
 #it is just a variable to hold the top level, 'window'
@@ -190,9 +191,10 @@ class Login(tkinter.Toplevel):
                 #     self.str.set(message)
                 #     print(self.str.get())
                 else:
-                    message2 = "welcome, you are loged"
-                    self.str.set(message2)
-                    print(self.str.get())
+                    window = menuforstudent(self, self.firstname.get(), self.lastname.get(), self.email.get(),
+                                  self.password.get())
+                    window.grab_set()
+                    self.withdraw()
             # Button(self, text='Close', command=self.close).pack(expand=True)
             else:
                 tkinter.messagebox.showerror("error", "SIGN IN AS A TEACHER OR STUDENT!")
