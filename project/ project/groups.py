@@ -376,6 +376,24 @@ class groups(object):
             print("failed")
             return "failed"
 
+    def get_name_by_teacherid(self, teacherId):
+        try:
+            conn = sqlite3.connect('test.db')
+            print("Opened database successfully")
+            str_select = f"SELECT firstname, lastname from teachers where teacherId = '{teacherId}'"
+            print(str_select)
+            cursor = conn.execute(str_select)
+            row = cursor.fetchone()
+            if row:
+                print(row[0], row[1])
+                return row[0], row[1]
+            else:
+                print("Teacher not found")
+                return False
+        except:
+            print("failed")
+            return "failed"
+
     def __str__(self):
         return "table  name is ", self.__tablename
 
@@ -395,8 +413,11 @@ class groups(object):
         return arr
 
 
-g = groups()
-g.check_teacher_for_group("swimming",'5')
+# g = groups()
+# arr = g.get_name_by_teacherid(4)
+# print(arr[0])
+# g.insert_group("9","kids tennis")
+# g.check_teacher_for_group("swimming",'5')
 # g.delete_group_by_Id('6')
 # g.insert_group(3,"dance")
 # s.insert_student("dcf", "qwey", '250', "mha.com", '9o234')

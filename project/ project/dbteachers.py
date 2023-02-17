@@ -256,21 +256,52 @@ class teachers(object):
         except:
             return False
 
+    # def get_teacher_by_group_name(self, nameofgroup):
+    #     try:
+    #         conn = sqlite3.connect('test.db')
+    #         str_select = "SELECT * FROM {} INNER JOIN groups ON {}.{}=groups.{} WHERE groups.{}=?".format(
+    #             self.__tablename, self.__tablename, self.__teacherId, "teacherId", "nameofgroup")
+    #         cursor = conn.execute(str_select, (nameofgroup,))
+    #         row = cursor.fetchone()
+    #         if row:
+    #             print(row[0], row[1], row[2], row[3], row[4])
+    #             return [row[0], row[1], row[2], row[3], row[4]]
+    #         else:
+    #             return False
+    #         conn.commit()
+    #         conn.close()
+    #     except:
+    #         return False
     def get_teacher_by_group_name(self, nameofgroup):
         try:
             conn = sqlite3.connect('test.db')
-            str_select = "SELECT * FROM {} INNER JOIN groups ON {}.{}=groups.{} WHERE groups.{}=?".format(
-                self.__tablename, self.__tablename, self.__teacherId, "teacherId", "nameofgroup")
+            str_select = "SELECT {}.*, groups.{} FROM {} INNER JOIN groups ON {}.{}=groups.{} WHERE groups.{}=?".format(
+                self.__tablename, self.__teacherId, self.__tablename, self.__tablename, self.__teacherId, "teacherId",
+                "nameofgroup")
             cursor = conn.execute(str_select, (nameofgroup,))
-            row = cursor.fetchone()
-            if row:
-                print(row[0], row[1], row[2], row[3], row[4])
-                return [row[0], row[1], row[2], row[3], row[4]]
-            else:
-                return False
+            rows = cursor.fetchall()
+            results = [[row[1], row[2]] for row in rows]
             conn.commit()
             conn.close()
+            print(results)
+            return results
         except:
+            print("False")
+            return False
+
+    def get_teacher_name_by_id(self, teacherId):
+        try:
+            conn = sqlite3.connect('test.db')
+            str_select = "SELECT firstname, lastname FROM {} WHERE {}=?".format(self.__tablename, self.__teacherId)
+            cursor = conn.execute(str_select, (teacherId,))
+            rows = cursor.fetchall()
+            results = [(row[0], row[1]) for row in rows]
+            conn.commit()
+            conn.close()
+            print(results)
+            return results
+        except:
+            print("False")
             return False
 
     def __str__(self):
@@ -278,6 +309,9 @@ class teachers(object):
 
 
 # t=teachers()
+# arr = t.get_teacher_name_by_id(3)
+# print(arr[0])
+# t.get_teacher_by_group_name("kids tennis")
 # t.get_teacher_by_group_name("swimming")
 # t.insert_teacher("lilya", "qwew", "qwe56", 'zxc567')
 # t.insert_teacher("gaya", "tyu", "re34.com", '1234')

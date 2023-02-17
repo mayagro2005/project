@@ -132,6 +132,8 @@ class update_lesson(tkinter.Toplevel):
                 # self.parent.parent.parent.send_msg(str_insert, self.parent.parent.parent.client_socket)
             elif data == "Failed":
                 messagebox.showerror("notification", "Error, please try again")
+            elif data == "not allowed":
+                messagebox.showerror("notification", "You are not the teacher of the lesson! You are not allowed to update it!")
 
             return True
         except:

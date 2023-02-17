@@ -10,7 +10,7 @@ class groupstime(object):
         self.__startH = startH
         self.__endH = endH
         self.__lessonDay = lessonDay
-        self.teachers = teachers
+
 
 
 
@@ -177,14 +177,39 @@ class groupstime(object):
 
 
 
+    def get_group_id(self, startH, endH, lessonDay):
+        # Connect to the database
+        conn = sqlite3.connect('test.db')
+        c = conn.cursor()
 
+        # Retrieve the groupId from the groups table that matches the input parameters
+        c.execute('''SELECT groupId FROM groupstime WHERE startH = ? AND endH = ? AND lessonDay = ?''',
+                  (startH, endH, lessonDay))
+        group_id = c.fetchone()[0]
 
+        # Close the database connection
+        conn.close()
+        print(group_id)
+        return group_id
+
+    # def get_teacher_by_time(self, startH, endH, lessonDay):
+    #     conn = sqlite3.connect('test.db')
+    #     print("Opened database successfully")
+    #     str_select = "SELECT groups.teacherId FROM groupstime JOIN groups ON groupstime.groupId=groups.groupId WHERE startH=? AND endH=? AND lessonDay=?"
+    #     cursor = conn.execute(str_select, (startH, endH, lessonDay))
+    #     rows = cursor.fetchall()
+    #     teachers = [row[0] for row in rows]
+    #     print(teachers)
+    #     return teachers
 
 
 # g = groupstime()
+# # g.insert_group_time('8', '17:00', '18:30', "Monday")
+# g.delete_group_by_timeid(26)
+# g.get_details_by_group_id("8")
 # g.delete_group_by_timeid(5)
 # g.delete_group_time('8',"18:00","19:00","thursday")
-# g.insert_group_time('8', '17:30', '18:30', "Sunday")
+# g.insert_group_time('8', '17:00', '18:30', "Monday")
 # g.insert_group_time('1','18:00','20:00',"tuesday")
 # g.insert_group_time('7','18:30','19:30',"tuesday")
 # g.get_all_groups_times()
