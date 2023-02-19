@@ -268,7 +268,7 @@ class groupstime(object):
 
 # g = groupstime()
 # g.get_details_by_groupname("kids tennis")
-# g.insert_group_time('8', '17:00', '18:30', "Monday")
+# g.insert_group_time('8', '17:30', '18:30', "Monday")
 # g.delete_group_by_timeid(26)
 # g.get_details_by_group_id("8")
 # g.delete_group_by_timeid(5)
