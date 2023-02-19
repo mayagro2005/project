@@ -304,11 +304,42 @@ class teachers(object):
             print("False")
             return False
 
+    def get_name_by_email_and_password(self, email, password):
+        try:
+            conn = sqlite3.connect('test.db')
+            print("Opened database successfully")
+
+            strsql = "SELECT " + self.__firstname + ", " + self.__lastname + " from " + self.__tablename + " where " + self.__email + "=" + "'" + email + "'" + ' and ' + self.__password + "=" + "'" + password + "'"
+            print(strsql)
+
+            cursor = conn.execute(strsql)
+            row = cursor.fetchone()
+
+            if row:
+                first_name = row[0]
+                last_name = row[1]
+                print(first_name, last_name)
+                return (first_name, last_name)
+            else:
+                print("failed")
+                return "failed"
+
+            conn.commit()
+            conn.close()
+
+        except:
+            print("failed")
+            return "failed"
+
+
+
     def __str__(self):
         return "table  name is ", self.__tablename
 
 
 # t=teachers()
+# t.get_name_by_email_and_password("qwe56", 'zxc567')
+
 # arr = t.get_teacher_name_by_id(3)
 # print(arr[0])
 # t.get_teacher_by_group_name("kids tennis")
