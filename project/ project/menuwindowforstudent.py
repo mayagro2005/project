@@ -131,32 +131,41 @@ class menuforstudent(tkinter.Toplevel):
         window = kids_tennis_lesson_student(self)
         window.grab_set()
     def open_swimming(self):
-        window = swimming_lesson(self)
-        window.grab_set()
+        pass
+        # window = swimming_lesson(self)
+        # window.grab_set()
     def open_yoga(self):
-        window = yoga_lesson(self)
-        window.grab_set()
+        pass
+        # window = yoga_lesson(self)
+        # window.grab_set()
     def open_basketball(self):
-        window = basketball_lesson(self)
-        window.grab_set()
+        pass
+        # window = basketball_lesson(self)
+        # window.grab_set()
     def open_dancing(self):
-        window = dance_lesson(self)
-        window.grab_set()
+        pass
+        # window = dance_lesson(self)
+        # window.grab_set()
     def open_adultstennis(self):
-        window = adults_tennis_lesson(self)
-        window.grab_set()
+        pass
+        # window = adults_tennis_lesson(self)
+        # window.grab_set()
     def open_pingpong(self):
-        window = ping_pong_lesson(self)
-        window.grab_set()
+        pass
+        # window = ping_pong_lesson(self)
+        # window.grab_set()
     def open_fitness(self):
-        window = fitness_lesson(self)
-        window.grab_set()
+        pass
+        # window = fitness_lesson(self)
+        # window.grab_set()
     def open_pilates(self):
-        window = pilates_lesson(self)
-        window.grab_set()
+        pass
+        # window = pilates_lesson(self)
+        # window.grab_set()
     def open_boxing(self):
-        window = boxing_lesson(self)
-        window.grab_set()
+        pass
+        # window = boxing_lesson(self)
+        # window.grab_set()
 
 
 
