@@ -45,8 +45,13 @@ class kids_tennis_lesson_student(tkinter.Toplevel):
                 print(arr)
                 for el in arr:
                     element = el.split(",")
-                    button = Button(self.tree, text="BOOK", bg="green", command=self.book_lesson)
+                    button = Button(self.tree, text="BOOK", bg="green", command=self.handle_thread_socket)
                     self.tree.insert("", END, values=(element[0], element[1], element[2], element[3], button, ''))
+
+    def handle_thread_socket(self):
+        client_handler = threading.Thread(target=self.book_lesson, args=())
+        client_handler.daemon = True
+        client_handler.start()
 
     def book_lesson(self):
         item = self.tree.focus()

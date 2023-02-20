@@ -255,9 +255,7 @@ class Server(object):
                    elif arr != None and arr[0] == "swimming" and len(arr) == 1:
                        print("swimming")
                        print(arr)
-                       groupId = self.dbgroups.get_group_id_by_name(arr[0])
-                       print(groupId)
-                       arrgroupstime = self.dbgroupstime.get_details_by_group_id(groupId)
+                       arrgroupstime = self.dbgroupstime.get_details_by_groupname(arr[0])
                        print(arrgroupstime, "server_swimming")
                        if arrgroupstime == "there is no group":
                            print("there is no group","server_swimming")
@@ -280,9 +278,7 @@ class Server(object):
                    elif arr != None and arr[0] == "yoga" and len(arr) == 1:
                        print("yoga")
                        print(arr)
-                       groupId = self.dbgroups.get_group_id_by_name(arr[0])
-                       print(groupId)
-                       arrgroupstime = self.dbgroupstime.get_details_by_group_id(groupId)
+                       arrgroupstime = self.dbgroupstime.get_details_by_groupname(arr[0])
                        print(arrgroupstime, "server_yoga")
                        if arrgroupstime == "there is no group":
                            print("there is no group","server_yoga")
@@ -305,9 +301,7 @@ class Server(object):
                    elif arr != None and arr[0] == "basketball" and len(arr) == 1:
                        print("basketball")
                        print(arr)
-                       groupId = self.dbgroups.get_group_id_by_name(arr[0])
-                       print(groupId)
-                       arrgroupstime = self.dbgroupstime.get_details_by_group_id(groupId)
+                       arrgroupstime = self.dbgroupstime.get_details_by_groupname(arr[0])
                        print(arrgroupstime, "server_basketball")
                        if arrgroupstime == "there is no group":
                            print("there is no group","server_basketball")
@@ -330,9 +324,7 @@ class Server(object):
                    elif arr != None and arr[0] == "dance" and len(arr) == 1:
                        print("dance")
                        print(arr)
-                       groupId = self.dbgroups.get_group_id_by_name(arr[0])
-                       print(groupId)
-                       arrgroupstime = self.dbgroupstime.get_details_by_group_id(groupId)
+                       arrgroupstime = self.dbgroupstime.get_details_by_groupname(arr[0])
                        print(arrgroupstime, "server_dance")
                        if arrgroupstime == "there is no group":
                            print("there is no group","server_dance")
@@ -355,9 +347,7 @@ class Server(object):
                    elif arr != None and arr[0] == "adults tennis" and len(arr) == 1:
                        print("adults tennis")
                        print(arr)
-                       groupId = self.dbgroups.get_group_id_by_name(arr[0])
-                       print(groupId)
-                       arrgroupstime = self.dbgroupstime.get_details_by_group_id(groupId)
+                       arrgroupstime = self.dbgroupstime.get_details_by_groupname(arr[0])
                        print(arrgroupstime, "server_adults_tennis")
                        if arrgroupstime == "there is no group":
                            print("there is no group","server_adults_tennis")
@@ -380,9 +370,7 @@ class Server(object):
                    elif arr != None and arr[0] == "ping pong" and len(arr) == 1:
                        print("ping pong")
                        print(arr)
-                       groupId = self.dbgroups.get_group_id_by_name(arr[0])
-                       print(groupId)
-                       arrgroupstime = self.dbgroupstime.get_details_by_group_id(groupId)
+                       arrgroupstime = self.dbgroupstime.get_details_by_groupname(arr[0])
                        print(arrgroupstime, "server_ping_pong")
                        if arrgroupstime == "there is no group":
                            print("there is no group","server_ping_pong")
@@ -405,9 +393,7 @@ class Server(object):
                    elif arr != None and arr[0] == "fitness" and len(arr) == 1:
                        print("fitness")
                        print(arr)
-                       groupId = self.dbgroups.get_group_id_by_name(arr[0])
-                       print(groupId)
-                       arrgroupstime = self.dbgroupstime.get_details_by_group_id(groupId)
+                       arrgroupstime = self.dbgroupstime.get_details_by_groupname(arr[0])
                        print(arrgroupstime, "server_fitness")
                        if arrgroupstime == "there is no group":
                            print("there is no group","server_fitness")
@@ -430,9 +416,7 @@ class Server(object):
                    elif arr != None and arr[0] == "pilates" and len(arr) == 1:
                        print("pilates")
                        print(arr)
-                       groupId = self.dbgroups.get_group_id_by_name(arr[0])
-                       print(groupId)
-                       arrgroupstime = self.dbgroupstime.get_details_by_group_id(groupId)
+                       arrgroupstime = self.dbgroupstime.get_details_by_groupname(arr[0])
                        print(arrgroupstime, "server_pilates")
                        if arrgroupstime == "there is no group":
                            print("there is no group","server_pilates")
@@ -455,9 +439,7 @@ class Server(object):
                    elif arr != None and arr[0] == "boxing" and len(arr) == 1:
                        print("boxing")
                        print(arr)
-                       groupId = self.dbgroups.get_group_id_by_name(arr[0])
-                       print(groupId)
-                       arrgroupstime = self.dbgroupstime.get_details_by_group_id(groupId)
+                       arrgroupstime = self.dbgroupstime.get_details_by_groupname(arr[0])
                        print(arrgroupstime, "server_boxing")
                        if arrgroupstime == "there is no group":
                            print("there is no group","server_boxing")
