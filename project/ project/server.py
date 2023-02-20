@@ -140,7 +140,8 @@ class Server(object):
                        teacherid = arr_teachers[0]
                        server_data = self.dbgroups.insert_group(teacherid,arr[1])
                        if server_data != False:
-                           group = self.dbgroups.get_group_id_by_name(arr[1])
+                           # group = self.dbgroups.get_group_id_by_name(arr[1])
+                           group = self.dbgroups.get_group_id_by_name_and_teacher(arr[1],teacherid)
                            timeofgroup = self.dbgroupstime.insert_group_time(group,arr[2],arr[3],arr[4])
                            if timeofgroup == "exist":
                                self.send_msg("exist", client_socket)
@@ -228,9 +229,10 @@ class Server(object):
                    elif arr != None and arr[0] == "kids tennis" and len(arr) == 1:
                        print("kids tennis")
                        print(arr)
-                       groupId = self.dbgroups.get_group_id_by_name(arr[0])
-                       print(groupId)
-                       arrgroupstime = self.dbgroupstime.get_details_by_group_id(groupId)
+                       # groupId = self.dbgroups.get_group_id_by_name(arr[0])
+                       # print(groupId)
+                       # arrgroupstime = self.dbgroupstime.get_details_by_group_id(groupId)
+                       arrgroupstime = self.dbgroupstime.get_details_by_groupname(arr[0])
                        print(arrgroupstime, "server_kids_tennis")
                        if arrgroupstime == "there is no group":
                            print("there is no group","server_kids_tennis")

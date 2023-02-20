@@ -177,11 +177,10 @@ class groupstime(object):
                         "startH": row[0],
                         "endH": row[1],
                         "lessonDay": row[2],
-                        "firstname": row[3],  # fix index to match column
-                        "lastname": row[4]})  # fix index to match column
+                        "fullname": f"{row[3]} {row[4]}"})
 
                 arr_groups_times = [
-                    [row["startH"], row["endH"], row["lessonDay"], row["firstname"], row["lastname"]]
+                    [row["startH"], row["endH"], row["lessonDay"], row["fullname"]]
                     for row in results]
                 print(arr_groups_times)
                 return arr_groups_times
@@ -190,7 +189,8 @@ class groupstime(object):
                 return "there is no group"
         except:
             print("error on get_details_by_group_id")
-            return "error on get_details_by_group_id"
+            return "error"
+
     def delete_group_by_timeid(self,timeId):
         try:
             conn = sqlite3.connect('test.db')
@@ -268,7 +268,7 @@ class groupstime(object):
 
 # g = groupstime()
 # g.get_details_by_groupname("kids tennis")
-# g.insert_group_time('8', '17:30', '18:30', "Monday")
+# g.insert_group_time('15', '17:00', '18:30', "Sunday")
 # g.delete_group_by_timeid(26)
 # g.get_details_by_group_id("8")
 # g.delete_group_by_timeid(5)

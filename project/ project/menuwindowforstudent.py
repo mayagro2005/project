@@ -12,7 +12,7 @@ from tkmacosx import Button
 from insert_lesson_window import insert_lesson
 from delete_lesson_window import delete_lesson
 from update_lesson_window import update_lesson
-from kids_tennis_window import kids_tennis_lesson
+from kids_tennis_window_student import kids_tennis_lesson_student
 from adults_tennis_window import adults_tennis_lesson
 from basketball_window import basketball_lesson
 from boxing_window import boxing_lesson
@@ -128,7 +128,7 @@ class menuforstudent(tkinter.Toplevel):
         # self.withdraw()
 
     def open_tennis(self):
-        window = kids_tennis_lesson(self)
+        window = kids_tennis_lesson_student(self)
         window.grab_set()
     def open_swimming(self):
         window = swimming_lesson(self)

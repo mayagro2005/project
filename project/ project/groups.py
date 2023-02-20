@@ -345,6 +345,23 @@ class groups(object):
         except:
             return "failed"
 
+    def get_group_id_by_name_and_teacher(self, nameofgroup, teacherId):
+        try:
+            conn = sqlite3.connect('test.db')
+            print("Opened database successfully")
+            str_select = f"SELECT {self.__groupId} from {self.__tablename} where {self.__nameofgroup} = '{nameofgroup}' and {self.__teacherId} = '{teacherId}'"
+            print(str_select)
+            cursor = conn.execute(str_select)
+            row = cursor.fetchone()
+            if row:
+                print(row[0])
+                return row[0]
+            else:
+                print("Group not found")
+                return False
+        except:
+            return "failed"
+
     def check_teacher_for_group(self, nameofgroup, teacherId):
         try:
             conn = sqlite3.connect('test.db')
@@ -415,6 +432,7 @@ class groups(object):
 
 
 # g = groups()
+# g.get_group_id_by_name_and_teacher("kids tennis",4)
 # arr = g.get_name_by_teacherid(4)
 # print(arr[0])
 # g.insert_group("9","kids tennis")
