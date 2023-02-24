@@ -12,23 +12,22 @@ class kids_tennis_lesson_student(tkinter.Toplevel):
         self.create_table()
         Button(self, text='Close', command=self.close).pack(side=tkinter.BOTTOM, fill=tkinter.X)
 
-
-
     def create_table(self):
-        self.tree = ttk.Treeview(self, columns=("START HOUR", "END HOUR", "LESSON DAY", "NAME OF TEACHER", "BOOK/CANCEL", "PARTICIPANTS"),
+        self.tree = ttk.Treeview(self, columns=(
+            "START HOUR", "END HOUR", "LESSON DAY", "NAME OF TEACHER", "PARTICIPANTS", "BOOK/CANCEL"),
                                  show="headings")
         self.tree.column("START HOUR", width=150, anchor='center')
         self.tree.column("END HOUR", width=150, anchor='center')
         self.tree.column("LESSON DAY", width=150, anchor='center')
         self.tree.column("NAME OF TEACHER", width=150, anchor='center')
-        self.tree.column("BOOK/CANCEL", width=150, anchor='center')
         self.tree.column("PARTICIPANTS", width=150, anchor='center')
+        self.tree.column("BOOK/CANCEL", width=150, anchor='center')
         self.tree.heading("START HOUR", text="START HOUR")
         self.tree.heading("END HOUR", text="END HOUR")
         self.tree.heading("LESSON DAY", text="LESSON DAY")
         self.tree.heading("NAME OF TEACHER", text="NAME OF TEACHER")
-        self.tree.heading("BOOK/CANCEL", text="BOOK/CANCEL")
         self.tree.heading("PARTICIPANTS", text="PARTICIPANTS")
+        self.tree.heading("BOOK/CANCEL", text="BOOK/CANCEL")
         self.tree.pack(fill=BOTH, expand=True)
         self.show_info()
 
@@ -45,19 +44,16 @@ class kids_tennis_lesson_student(tkinter.Toplevel):
                 print(arr)
                 for el in arr:
                     element = el.split(",")
-                    button = Button(self.tree, text="BOOK", bg="green", command=self.handle_thread_socket)
-                    self.tree.insert("", END, values=(element[0], element[1], element[2], element[3], button, ''))
-
-    def handle_thread_socket(self):
-        client_handler = threading.Thread(target=self.book_lesson, args=())
-        client_handler.daemon = True
-        client_handler.start()
+                    button = Button(self.tree, text="BOOK", bg="green", command=self.book_lesson)
+                    item_id = self.tree.insert("", END,
+                                               values=(element[0], element[1], element[2], element[3], '', button))
+                    self.tree.set(item_id, "BOOK/CANCEL", button)
 
     def book_lesson(self):
         item = self.tree.focus()
         if item:
             current_text = self.tree.item(item)["values"][4]
-            if current_text == "BOOK":
+            if current_text == "":
                 messagebox.showinfo("Success", "You booked a lesson successfully")
                 self.tree.item(item, tags=("booked",))
                 self.tree.tag_configure("booked", background="green")
@@ -68,7 +64,6 @@ class kids_tennis_lesson_student(tkinter.Toplevel):
                 self.tree.item(item, tags=("cancelled",))
                 self.tree.tag_configure("cancelled", background="red")
                 self.tree.set(item, "BOOK/CANCEL", "BOOK")
-
 
     def close(self):
         self.parent.deiconify()

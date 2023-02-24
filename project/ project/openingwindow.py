@@ -216,7 +216,7 @@ class App(tkinter.Tk):
 
     def create_socket(self):
         self.client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        self.client_socket.connect(('127.0.0.1', 1817))
+        self.client_socket.connect(('127.0.0.1', 1818))
         # data = self.client_socket.recv(1024).decode()
         data = self.recv_msg(self.client_socket)
         print("data"+data)
