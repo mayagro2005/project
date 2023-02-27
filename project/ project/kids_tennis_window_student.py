@@ -51,11 +51,18 @@ class kids_tennis_lesson_student(tkinter.Toplevel):
 
     def book_lesson(self, event):
         curItem = self.tree.focus()
-        # row = self.tree.item(curItem)['values']
+        row = self.tree.item(curItem)['values']
+        print(row)
         current_text = self.tree.item(curItem)["values"][4]
         if current_text == "":
             response = messagebox.askquestion("Book Lesson", "Do you want to book this lesson?")
             if response == 'yes':
+                arr_insert = ["insert_grouptime_to_student","kids tennis",row[0],row[1],row[2],row[3]]
+                print(arr_insert)
+                str_insert = ",".join(arr_insert)
+                print(str_insert)
+                self.parent.parent.parent.send_msg(str_insert, self.parent.parent.parent.client_socket)
+                get_str = self.parent.parent.parent.recv_msg(self.parent.parent.parent.client_socket)
                 messagebox.showinfo("Success", "You booked a lesson successfully")
                 self.tree.item(curItem, tags=("booked",))
                 self.tree.tag_configure("booked", background="green")
