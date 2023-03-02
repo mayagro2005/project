@@ -157,8 +157,8 @@ class groupstudents(object):
         except:
             return False
 
-    def insert_student_to_group2(self, nameofgroup, teacher_name, student_firstname, student_lastname, startH, endH,
-                                 lessonDay):
+    def insert_student_to_group2(self, nameofgroup, startH, endH,
+                                 lessonDay, teacher_name, student_firstname, student_lastname):
         try:
             # Establish a new database connection
             conn = sqlite3.connect('test.db')
@@ -179,7 +179,7 @@ class groupstudents(object):
 
             # Get group_id using the given parameters
             cursor.execute(
-                "SELECT gs.groupId FROM groups AS g JOIN groupstime AS gt ON g.groupId=gt.groupId JOIN groupstudents AS gs ON g.groupId=gs.groupId WHERE g.nameofgroup=? AND gt.startH=? AND gt.endH=? AND gt.lessonDay=? AND g.teacherId=?",
+                "SELECT groups.groupId FROM groups JOIN groupstime ON groups.groupId=groupstime.groupId WHERE nameofgroup=? AND startH=? AND endH=? AND lessonDay=? AND groups.teacherId=?",
                 (nameofgroup, startH, endH, lessonDay, teacher_id))
             group_id = cursor.fetchone()[0]
             print(group_id)
@@ -201,6 +201,81 @@ class groupstudents(object):
             print("Error inserting student to group:", e)
             return "error"
 
+    def delete_student_to_group2(self, nameofgroup, startH, endH,
+                                 lessonDay, teacher_name, student_firstname, student_lastname):
+        try:
+            # Establish a new database connection
+            conn = sqlite3.connect('test.db')
+
+            # Create a cursor object to execute SQL queries
+            cursor = conn.cursor()
+
+            # Get teacher_id by splitting teacher_name into first and last name
+            teacher_firstname, teacher_lastname = teacher_name.split()
+            cursor.execute("SELECT teacherId FROM teachers WHERE firstname=? AND lastname=?",
+                           (teacher_firstname, teacher_lastname))
+            teacher_id = cursor.fetchone()[0]
+
+            # Get group_id using the given parameters
+            cursor.execute(
+                "SELECT groups.groupId FROM groups JOIN groupstime ON groups.groupId=groupstime.groupId WHERE nameofgroup=? AND startH=? AND endH=? AND lessonDay=? AND groups.teacherId=?",
+                (nameofgroup, startH, endH, lessonDay, teacher_id))
+            group_id = cursor.fetchone()[0]
+
+            # Get student_id using the given parameters
+            cursor.execute("SELECT studentId FROM students WHERE firstname=? AND lastname=?",
+                           (student_firstname, student_lastname))
+            student_id = cursor.fetchone()[0]
+
+            # Delete the record from groupstudents table
+            cursor.execute("DELETE FROM groupstudents WHERE studentId=? AND groupId=?", (student_id, group_id))
+
+            # Commit the changes to the database
+            conn.commit()
+
+            print("Student deleted successfully from group.")
+            return "Success"
+        except Exception as e:
+            print("Error deleting student from group:", e)
+            return "error"
+
+
+    def get_students_from_group2(self, nameofgroup, teacher_name, startH, endH, lessonDay):
+        try:
+            # Establish a new database connection
+            conn = sqlite3.connect('test.db')
+
+            # Create a cursor object to execute SQL queries
+            cursor = conn.cursor()
+
+            # Get teacher_id by splitting teacher_name into first and last name
+            teacher_firstname, teacher_lastname = teacher_name.split()
+            cursor.execute("SELECT teacherId FROM teachers WHERE firstname=? AND lastname=?",
+                           (teacher_firstname, teacher_lastname))
+            teacher_id = cursor.fetchone()[0]
+
+            # Get group_id using the given parameters
+            cursor.execute("SELECT g.groupId FROM groups g JOIN groupstime gt ON g.groupId=gt.groupId \
+                            WHERE g.nameofgroup=? AND gt.startH=? AND gt.endH=? AND gt.lessonDay=? AND g.teacherId=?",
+                           (nameofgroup, startH, endH, lessonDay, teacher_id))
+            group_id = cursor.fetchone()[0]
+
+            # Get the first and last name of students in the group
+            cursor.execute("SELECT s.firstname, s.lastname FROM students s \
+                            JOIN groupstudents gs ON s.studentId=gs.studentId \
+                            WHERE gs.groupId=?", (group_id,))
+            students = cursor.fetchall()
+
+            # Close the cursor and database connection
+            cursor.close()
+            conn.close()
+
+            print("Students retrieved successfully from group and lesson.")
+            print(students)
+            return students
+        except Exception as e:
+            print("Error retrieving students from group and lesson:", e)
+            return None
 
     def __str__(self):
         return "table  name is ", self.__tablename
@@ -208,7 +283,8 @@ class groupstudents(object):
 
 
 g = groupstudents()
-g.insert_student_to_group2("kids tennis","lilya qwew","dcf","qwey",'19:30', '20:30', 'Thursday')
+# g.insert_student_to_group2("kids tennis","lilya qwew","sdfh","mnw",'19:30', '20:30', 'Thursday')
+g.get_students_from_group2("kids tennis","lilya qwew",'19:30', '20:30', 'Thursday')
 # g.insert_student_to_group('5', '1')
 # g.delete_student_from_group('4','1')
 # g.get_students_by_group_id('1')

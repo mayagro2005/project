@@ -128,7 +128,7 @@ class menuforstudent(tkinter.Toplevel):
         # self.withdraw()
 
     def open_tennis(self):
-        window = kids_tennis_lesson_student(self)
+        window = kids_tennis_lesson_student(self, self.firstname, self.lastname)
         window.grab_set()
     def open_swimming(self):
         pass

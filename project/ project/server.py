@@ -6,6 +6,7 @@ from dbteachers import teachers
 from dbstudents import students
 from groups import groups
 from groupstime import groupstime
+from groupstudents import groupstudents
 
 cores = multiprocessing.cpu_count()
 print(cores)
@@ -23,6 +24,7 @@ class Server(object):
        self.format = 'utf-8'
        self.dbgroups = groups()
        self.dbgroupstime = groupstime()
+       self.dbgroupstudents = groupstudents()
 
    def start(self):
        try:
@@ -459,9 +461,16 @@ class Server(object):
                            print(arrgroup)
                            self.send_msg(arrgroup, client_socket)
 
-                   elif arr != None and arr[0] == "insert_grouptime_to_student" and len(arr) == 6:
+                   elif arr != None and arr[0] == "insert_grouptime_to_student" and len(arr) == 8:
                        print("insert_grouptime_to_student")
                        print(arr)
+                       insert_student = self.dbgroupstudents.insert_student_to_group2(arr[1], arr[2], arr[3], arr[4], arr[5], arr[6], arr[7])
+                       if insert_student == "Success":
+                           print("Success")
+                           self.send_msg("Success", client_socket)
+                       elif insert_student == "error":
+                           print("error")
+                           self.send_msg("error", client_socket)
 
 
 

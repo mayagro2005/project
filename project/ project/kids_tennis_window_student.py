@@ -7,10 +7,12 @@ from ttkthemes import ThemedTk
 
 
 class kids_tennis_lesson_student(tkinter.Toplevel):
-    def __init__(self, parent):
+    def __init__(self, parent, firstname, lastname):
         super().__init__(parent)
         self.parent = parent
         self.title('KIDS TENNIS LESSON WINDOW')
+        self.firstname = firstname
+        self.lastname = lastname
         self.create_table()
         Button(self, text='Close', command=self.close).pack(side=tkinter.BOTTOM, fill=tkinter.X)
 
@@ -57,16 +59,20 @@ class kids_tennis_lesson_student(tkinter.Toplevel):
         if current_text == "":
             response = messagebox.askquestion("Book Lesson", "Do you want to book this lesson?")
             if response == 'yes':
-                # arr_insert = ["insert_grouptime_to_student","kids tennis",row[0],row[1],row[2],row[3]]
-                # print(arr_insert)
-                # str_insert = ",".join(arr_insert)
-                # print(str_insert)
-                # self.parent.parent.parent.send_msg(str_insert, self.parent.parent.parent.client_socket)
-                # get_str = self.parent.parent.parent.recv_msg(self.parent.parent.parent.client_socket)
-                messagebox.showinfo("Success", "You booked a lesson successfully")
-                self.tree.item(curItem, tags=("booked",))
-                self.tree.tag_configure("booked", background="green")
-                self.tree.set(curItem, "PARTICIPANTS", "Booked")
+                arr_insert = ["insert_grouptime_to_student","kids tennis",row[0],row[1],row[2],row[3], self.firstname, self.lastname]
+                print(arr_insert)
+                str_insert = ",".join(arr_insert)
+                print(str_insert)
+                self.parent.parent.parent.send_msg(str_insert, self.parent.parent.parent.client_socket)
+                get_str = self.parent.parent.parent.recv_msg(self.parent.parent.parent.client_socket)
+                print(get_str)
+                if get_str == "Success":
+                    messagebox.showinfo("Success", "You booked a lesson successfully")
+                    self.tree.item(curItem, tags=("booked",))
+                    self.tree.tag_configure("booked", background="green")
+                    self.tree.set(curItem, "PARTICIPANTS", "Booked")
+                elif get_str == "error":
+                    print("error")
         elif current_text == "Booked":
             response = messagebox.askquestion("Cancel Lesson", "Do you want to cancel this lesson?")
             if response == 'yes':
