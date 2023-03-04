@@ -3,6 +3,7 @@ import tkinter
 from tkinter import *
 from tkinter import ttk, messagebox
 from tkmacosx import Button
+from participants import Participants
 
 class kids_tennis_lesson(tkinter.Toplevel):
     def __init__(self, parent):
@@ -49,18 +50,16 @@ class kids_tennis_lesson(tkinter.Toplevel):
 
 
     def create_table(self):
-        self.tree = ttk.Treeview(self, columns=("START HOUR", "END HOUR", "LESSON DAY", "NAME OF TEACHER", "PARTICIPANTS"),
+        self.tree = ttk.Treeview(self, columns=("START HOUR", "END HOUR", "LESSON DAY", "NAME OF TEACHER"),
                                  show="headings")
         self.tree.column("START HOUR", width=150, anchor='center')
         self.tree.column("END HOUR", width=150, anchor='center')
         self.tree.column("LESSON DAY", width=150, anchor='center')
         self.tree.column("NAME OF TEACHER", width=150, anchor='center')
-        self.tree.column("PARTICIPANTS", width=150, anchor='center')
         self.tree.heading("START HOUR", text="START HOUR")
         self.tree.heading("END HOUR", text="END HOUR")
         self.tree.heading("LESSON DAY", text="LESSON DAY")
         self.tree.heading("NAME OF TEACHER", text="NAME OF TEACHER")
-        self.tree.heading("PARTICIPANTS", text="PARTICIPANTS")
         self.tree.pack(fill=BOTH, expand=True)
         self.show_info()
 
@@ -77,8 +76,31 @@ class kids_tennis_lesson(tkinter.Toplevel):
                 print(arr)
                 for el in arr:
                     element = el.split(",")
-                    self.tree.insert("", END, values=(
-                    element[0], element[1], element[2], element[3], ''))  # add an empty fourth ele
+                    row_values = (element[0], element[1], element[2], element[3])
+                    item_id = self.tree.insert("", "end", values=row_values, tags=("button",))
+                    # self.tree.bind(item_id, lambda event, item_id=item_id: self.book_lesson(item_id))
+                    self.tree.bind('<ButtonRelease-1>', self.book_lesson)
+
+    def book_lesson(self, event):
+        curItem = self.tree.focus()
+        row = self.tree.item(curItem)['values']
+        print(row)
+        current_tags = self.tree.item(curItem)["tags"]
+        response = messagebox.askquestion("PARTICIPANTS", "Do you want to see the paticipants?")
+        if response == 'yes':
+            window = Participants(self)
+            window.grab_set()
+
+
+    def selectItem(self, a):
+        curItem = self.tree.focus()
+        row =self.tree.item(curItem)['values']
+        print(row)
+        #print(curItem)
+        #rint(self.tree.item(curItem))
+        #curRow = self.tree.set(a)
+        #loc_value = curRow["START HOUR"]
+        #print(loc_value)
 
     def close(self):
         self.parent.deiconify()

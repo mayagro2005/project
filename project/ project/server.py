@@ -465,10 +465,29 @@ class Server(object):
                        print("insert_grouptime_to_student")
                        print(arr)
                        insert_student = self.dbgroupstudents.insert_student_to_group2(arr[1], arr[2], arr[3], arr[4], arr[5], arr[6], arr[7])
+                       print(insert_student)
                        if insert_student == "Success":
                            print("Success")
                            self.send_msg("Success", client_socket)
+                       elif insert_student == "Student exists":
+                           print("Student exists")
+                           self.send_msg("Student exists",client_socket)
                        elif insert_student == "error":
+                           print("error")
+                           self.send_msg("error", client_socket)
+
+                   elif arr != None and arr[0] == "delete_grouptime_to_student" and len(arr) == 8:
+                       print("delete_grouptime_to_student")
+                       print(arr)
+                       delete_student = self.dbgroupstudents.delete_student_to_group2(arr[1], arr[2], arr[3], arr[4], arr[5], arr[6], arr[7])
+                       print(delete_student)
+                       if delete_student == "Success":
+                           print("Success")
+                           self.send_msg("Success", client_socket)
+                       elif delete_student == "You are not in the group":
+                           print("You are not in the group")
+                           self.send_msg("You are not in the group",client_socket)
+                       elif delete_student == "error":
                            print("error")
                            self.send_msg("error", client_socket)
 
