@@ -49,6 +49,7 @@ class kids_tennis_lesson_student(tkinter.Toplevel):
                     # self.tree.bind(item_id, lambda event, item_id=item_id: self.book_lesson(item_id))
                     self.tree.bind('<ButtonRelease-1>', self.book_lesson)
 
+
     def book_lesson(self, event):
         curItem = self.tree.focus()
         row = self.tree.item(curItem)['values']
@@ -92,8 +93,6 @@ class kids_tennis_lesson_student(tkinter.Toplevel):
                     messagebox.showinfo("Notification", "You are not in the group")
                 elif get_str1 == "error":
                     messagebox.showerror("Error", "canceling a lesson failed")
-
-
 
 
     def selectItem(self, a):

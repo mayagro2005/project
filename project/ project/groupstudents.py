@@ -365,7 +365,7 @@ class groupstudents(object):
             return students
         except Exception as e:
             print("Error retrieving students from group and lesson:", e)
-            return None
+            return "error"
 
     def __str__(self):
         return "table  name is ", self.__tablename
@@ -374,8 +374,8 @@ class groupstudents(object):
 
 g = groupstudents()
 #g.insert_student_to_group2("kids tennis",'18:00', '20:00', 'Tuesday',"anna sdxcf","dcf","qwey")
-# g.delete_student_to_group2("kids tennis", '18:00', '20:00', 'Tuesday',"anna sdxcf", "sdfh","mnw")
-#g.get_students_from_group2("kids tennis",'18:00', '20:00', 'Tuesday',"anna sdxcf")
+#g.delete_student_to_group2("kids tennis", '18:00', '20:00', 'Tuesday',"anna sdxcf", "sdfh","mnw")
+g.get_students_from_group2("kids tennis",'18:00', '20:00', 'Tuesday',"anna sdxcf")
 # g.insert_student_to_group('5', '1')
 # g.delete_student_from_group('4','1')
 # g.get_students_by_group_id('1')

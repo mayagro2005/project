@@ -496,6 +496,20 @@ class Server(object):
                        print(arr)
                        arr_get_students = self.dbgroupstudents.get_students_from_group2(arr[1],arr[2],arr[3],arr[4],arr[5])
                        print(arr_get_students)
+                       if len(arr_get_students) == 0:
+                           self.send_msg('',client_socket)
+                       elif arr_get_students == "error":
+                           self.send_msg("error", client_socket)
+                       else:
+                           print(arr_get_students)
+                           arr_get = []
+                           for el in arr_get_students:
+                               str_get_students = ",".join(el)
+                               arr_get.append(str_get_students)
+                           print(arr_get)
+                           arr_get = "*".join(arr_get)
+                           print(arr_get)
+                           self.send_msg(arr_get, client_socket)
 
 
 

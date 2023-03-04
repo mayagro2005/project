@@ -29,23 +29,23 @@ class Participants(tkinter.Toplevel):
         self.show_info()
 
     def show_info(self):
-        print(self.parent.parent.parent.client_socket)
-        arr_get_students = ["get_students_of_group", self.nameofgroup, self.startH, self.endH, self.lessonDay, self.teachername]
-        print(arr_get_students)
+        arr_get_students = ["get_students_of_group", self.nameofgroup, self.startH, self.endH, self.lessonDay,
+                            self.teachername]
         str_get_students = ",".join(arr_get_students)
-        print(str_get_students)
         self.parent.parent.parent.parent.send_msg(str_get_students, self.parent.parent.parent.parent.client_socket)
         data = self.parent.parent.parent.parent.recv_msg(self.parent.parent.parent.parent.client_socket)
-        print(data)
-        if data is None and data == '':
+        if data is None or data == '':
             pass
         else:
             arr = data.split("*")
-            print(arr)
+            count = len(arr)
+            self.tree.insert("", END, values=(f"{count} participants",), tags=('bold', 'red'))
+            self.tree.tag_configure('bold', font=('TkDefaultFont', 10, 'bold'))
+            self.tree.tag_configure('red', foreground='red')
             for el in arr:
                 element = el.split(",")
-                self.tree.insert("", END, values=(
-                    element[0], element[1], element[2], element[3]))
+                name = " ".join(element[:])
+                self.tree.insert("", END, values=(name,))
 
     def close(self):
         self.parent.deiconify()
