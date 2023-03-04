@@ -88,7 +88,7 @@ class kids_tennis_lesson(tkinter.Toplevel):
         current_tags = self.tree.item(curItem)["tags"]
         response = messagebox.askquestion("PARTICIPANTS", "Do you want to see the paticipants?")
         if response == 'yes':
-            window = Participants(self)
+            window = Participants(self,"kids tennis",row[0],row[1],row[2],row[3])
             window.grab_set()
 
 

@@ -491,12 +491,16 @@ class Server(object):
                            print("error")
                            self.send_msg("error", client_socket)
 
+                   elif arr != None and arr[0] == "get_students_of_group" and len(arr) == 6:
+                       print("get_students_of_group")
+                       print(arr)
+                       arr_get_students = self.dbgroupstudents.get_students_from_group2(arr[1],arr[2],arr[3],arr[4],arr[5])
+                       print(arr_get_students)
 
 
 
-                   # elif arr != None and arr[0] == "payment_box" and len(arr) == 2:
-                   #     print("payment_box")
-                   #     print(arr)
+
+
 
 
 
