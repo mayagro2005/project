@@ -53,11 +53,12 @@ class Payments(tkinter.Toplevel):
         self.parent.parent.parent.send_msg(str_payment, self.parent.parent.parent.client_socket)
         get_payment = self.parent.parent.parent.recv_msg(self.parent.parent.parent.client_socket)
         print(get_payment)
-        pay_the_rest = 1500 - get_payment
+        pay_the_rest = 1500 - int(get_payment)
         if pay_the_rest == 0:
             messagebox.showinfo("Notification", "YOU PAYED EVERYTHING")
         else:
-            messagebox.showinfo("Notification", "YOU HAVE TO PAY" + pay_the_rest + "SHEKELS")
+            messagebox.showinfo("Notification", "YOU PAYED" + " " + str(get_payment) + " " + "SHEKELS" + '\n' +
+                                "YOU HAVE TO PAY" + " " + str(pay_the_rest) + " " + "SHEKELS")
 
     def payment(self):
         arr_payment = ["payment", self.writepayment.get(), self.email, self.password]
@@ -67,6 +68,17 @@ class Payments(tkinter.Toplevel):
         self.parent.parent.parent.send_msg(str_payment, self.parent.parent.parent.client_socket)
         get_payment = self.parent.parent.parent.recv_msg(self.parent.parent.parent.client_socket)
         print(get_payment)
+        if get_payment == "Please pay the exact sum of money":
+            messagebox.showinfo("Notification", "PLEASE PAY THE EXACT SUM OF MONEY")
+        elif get_payment == "You paid everything":
+            messagebox.showinfo("Notification", "YOU PAYED EVERYTHING")
+        elif get_payment == "already payed":
+            messagebox.showinfo("Notification", "YOU ALREADY PAYED EVERYTHING")
+        elif get_payment == "Error":
+            messagebox.showinfo("Notification", "PAYMENT FAILED, PLEASE TRY AGAIN")
+        else:
+            messagebox.showinfo("Notification", "PLEASE PAY" + " " + get_payment + " " + "TO GET TO 1500 SHEKELS")
+
 
     def close(self):
         self.parent.deiconify()

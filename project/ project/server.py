@@ -521,6 +521,19 @@ class Server(object):
                    elif arr != None and arr[0] == "payment" and len(arr) == 4:
                        print("payment")
                        print(arr)
+                       howmuch_pay = self.studentdb.update_price(arr[1],arr[2],arr[3])
+                       if howmuch_pay == "Please pay the exact sum of money":
+                           self.send_msg("Please pay the exact sum of money",client_socket)
+                       elif howmuch_pay == "You paid everything":
+                           self.send_msg("You paid everything",client_socket)
+                       elif howmuch_pay == "already payed":
+                           self.send_msg("already payed",client_socket)
+                       elif howmuch_pay == "Error":
+                           self.send_msg("Error",client_socket)
+                       else:
+                           print(howmuch_pay)
+                           self.send_msg(howmuch_pay,client_socket)
+
 
 
 
@@ -613,6 +626,6 @@ class Server(object):
 
 if __name__ == '__main__':
    ip = '127.0.0.1'
-   port = 1825
+   port = 1826
    s = Server(ip, port)
    s.start()
