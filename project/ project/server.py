@@ -511,6 +511,20 @@ class Server(object):
                            print(arr_get)
                            self.send_msg(arr_get, client_socket)
 
+                   elif arr != None and arr[0] == "check_payment" and len(arr) == 3:
+                       print("check_payment")
+                       print(arr)
+                       get_price = self.studentdb.get_price_for_student(arr[1],arr[2])
+                       print(get_price)
+                       self.send_msg(get_price,client_socket)
+
+                   elif arr != None and arr[0] == "payment" and len(arr) == 4:
+                       print("payment")
+                       print(arr)
+
+
+
+
 
 
 
@@ -599,6 +613,6 @@ class Server(object):
 
 if __name__ == '__main__':
    ip = '127.0.0.1'
-   port = 1824
+   port = 1825
    s = Server(ip, port)
    s.start()

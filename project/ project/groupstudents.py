@@ -374,8 +374,10 @@ class groupstudents(object):
 
 g = groupstudents()
 #g.insert_student_to_group2("kids tennis",'18:00', '20:00', 'Tuesday',"anna sdxcf","dcf","qwey")
-#g.delete_student_to_group2("kids tennis", '18:00', '20:00', 'Tuesday',"anna sdxcf", "sdfh","mnw")
-g.get_students_from_group2("kids tennis",'18:00', '20:00', 'Tuesday',"anna sdxcf")
+# g.delete_student_to_group2('kids tennis', '16:00', '17:30', 'Tuesday', 'lilya qwew', 'dcf', 'qwey')
+
+# 'kids tennis', '16:00', '17:30', 'Tuesday', 'lilya qwew', 'dcf', 'qwey'
+# g.get_students_from_group2('kids tennis', '16:00', '17:30', 'Tuesday', 'lilya qwew')
 # g.insert_student_to_group('5', '1')
 # g.delete_student_from_group('4','1')
 # g.get_students_by_group_id('1')

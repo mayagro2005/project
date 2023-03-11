@@ -256,11 +256,66 @@ class students(object):
         except:
             return False
 
+    def get_price_for_student(self, email, password):
+        try:
+            conn = sqlite3.connect('test.db')
+            cursor = conn.execute(
+                f"SELECT {self.__priceforayear} FROM {self.__tablename} WHERE {self.__email}='{email}' AND {self.__password}='{password}'")
+            row = cursor.fetchone()
+            conn.close()
+            if row is not None:
+                print(row[0])
+                return row[0]
+            else:
+                print("failed")
+                return None
+        except:
+            print("failed")
+            return None
+
+    def update_price(self, sum, email, password):
+        try:
+            conn = sqlite3.connect('test.db')
+            cursor = conn.cursor()
+            cursor.execute("SELECT priceforayear FROM students WHERE email=? AND password=?", (email, password))
+            row = cursor.fetchone()
+            print(row)
+            if row is None:
+                print("Invalid email or password")
+                return "Invalid email or password"
+            priceforayear = int(row[0])
+            new_priceforayear = priceforayear + sum
+            print(new_priceforayear)
+            if new_priceforayear > 1500:
+                print("Please pay the exact sum of money")
+                return "Please pay the exact sum of money"
+            elif new_priceforayear == 1500:
+                cursor.execute("UPDATE students SET priceforayear=? WHERE email=? AND password=?",
+                               (new_priceforayear, email, password))
+                conn.commit()
+                conn.close()
+                print("You paid everything")
+                return "You paid everything"
+            else:
+                to_pay = 1500 - new_priceforayear
+                cursor.execute("UPDATE students SET priceforayear=? WHERE email=? AND password=?",
+                               (new_priceforayear, email, password))
+                conn.commit()
+                conn.close()
+                print("Please pay " + str(to_pay) + " to get to 1500")
+                return "Please pay " + str(to_pay) + " to get to 1500"
+
+        except:
+            print("Error")
+            return "Error"
+
     def __str__(self):
         return "table  name is ", self.__tablename
 
 
-# s = students()
+s = students()
+s.update_price(250,"mha.com","9o234")
+# s.get_price_for_student("mha.com","9o234")
 # s.update_student("fgbh", "shn", '800', "6356xcv.com", 'hdcs2333i',"fgbh", "shn", '9850', "6356xcv.com", 'hdcs2333i')
 # s.insert_student("dcf", "qwey", '250', "mha.com", '9o234')
 # s.insert_student("bgka", "xgnhn", '250', "afgj678.com", 'fg098i')

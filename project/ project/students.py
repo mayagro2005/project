@@ -240,7 +240,7 @@ class students(object):
         return "table  name is ", self.__tablename
 
 
-s = students()
+# s = students()
 # s.insert_student("dcf", "qwey", '250', "mha.com", '9o234')
 # s.insert_student("bgka", "xgnhn", '250', "afgj678.com", 'fg098i')
 # s.insert_student("fgbh", "shn", '9850', "6356xcv.com", 'hdcs2333i')
@@ -248,7 +248,7 @@ s = students()
 # s.get_student_by_id('2')
 # s.delete_student("Maya", "grossman", "we12.com", 'fgh1234')
 # s.get_student_by_email("mha.com")
-s.get_all_students()
+# s.get_all_students()
 # s.update_student("sdfh", "mnw", '300', "fgh6", 'xcvb7', "aaaa", "sdfghjhn", '2650', "afzxcv.com", 'qwe3i')
 # s.get_student_by_email_and_password("mha.com", '9o234')
 

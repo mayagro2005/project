@@ -12,14 +12,13 @@ from rgb import rgbprint
 #should be whatever variable holds your main window
 #toplevel.title = 'Top Level'
 class Payments(tkinter.Toplevel):
-    def __init__(self, parent):
+    def __init__(self, parent, email, password):
         super().__init__(parent)
         self.parent = parent
         self.geometry('500x500')
         self.title('PAYMENT BOX')
-        self.studentdb= students()
-        self.teacherdb= teachers()
-
+        self.email = email
+        self.password = password
 
         self.create_gui()
         # Button(self, text='Close', command=self.close).pack(expand=True, side = BOTTOM)
@@ -36,13 +35,38 @@ class Payments(tkinter.Toplevel):
         self.lbl_paymentmessage.place(x=50, y=400)
         self.writepayment = Entry(self, width=20)
         self.writepayment.place(x=250, y=400)
-        self.send_message_button = Button(self, text='Pay')
+        self.send_message_button = Button(self, text='Pay', command= self.payment)
         self.send_message_button.place(x=190, y=430)
         self.message_label = Entry(self, width=30,foreground="red")
         self.message_label.place(x=120, y=120)
         # self.message_label.grid(row=0, column=0, columnspan=2)
         self.message_label.insert(0, "received messages")
         self.message_label.config(state='readonly')
+        self.send_message_button = Button(self, text='CHECK MY PAYMENT', command= self.check_payment)
+        self.send_message_button.place(x=120, y=200)
+
+    def check_payment(self):
+        arr_payment = ["check_payment", self.email, self.password]
+        print(arr_payment)
+        str_payment = ",".join(arr_payment)
+        print(str_payment)
+        self.parent.parent.parent.send_msg(str_payment, self.parent.parent.parent.client_socket)
+        get_payment = self.parent.parent.parent.recv_msg(self.parent.parent.parent.client_socket)
+        print(get_payment)
+        pay_the_rest = 1500 - get_payment
+        if pay_the_rest == 0:
+            messagebox.showinfo("Notification", "YOU PAYED EVERYTHING")
+        else:
+            messagebox.showinfo("Notification", "YOU HAVE TO PAY" + pay_the_rest + "SHEKELS")
+
+    def payment(self):
+        arr_payment = ["payment", self.writepayment.get(), self.email, self.password]
+        print(arr_payment)
+        str_payment = ",".join(arr_payment)
+        print(str_payment)
+        self.parent.parent.parent.send_msg(str_payment, self.parent.parent.parent.client_socket)
+        get_payment = self.parent.parent.parent.recv_msg(self.parent.parent.parent.client_socket)
+        print(get_payment)
 
     def close(self):
         self.parent.deiconify()

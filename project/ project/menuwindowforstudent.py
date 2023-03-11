@@ -117,7 +117,7 @@ class menuforstudent(tkinter.Toplevel):
     #     window = delete_lesson(self, self.email, self.password)
     #     window.grab_set()
     def payment_box(self):
-        window = Payments(self)
+        window = Payments(self, self.email, self.password)
         window.grab_set()
     # def updatelesson(self):
     #     window = update_lesson(self, self.email, self.password)

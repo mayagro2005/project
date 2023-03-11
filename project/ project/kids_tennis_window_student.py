@@ -72,6 +72,8 @@ class kids_tennis_lesson_student(tkinter.Toplevel):
                     self.tree.tag_configure("booked", background="green")
                 elif get_str == "Student exists":
                     messagebox.showinfo("Notification", "You are already in the group")
+                    self.tree.item(curItem, tags=("booked",))
+                    self.tree.tag_configure("booked", background="green")
                 elif get_str == "error":
                     messagebox.showerror("Error", "booking a lesson failed")
         else:
@@ -94,6 +96,23 @@ class kids_tennis_lesson_student(tkinter.Toplevel):
                 elif get_str1 == "error":
                     messagebox.showerror("Error", "canceling a lesson failed")
 
+    # def book_lesson(self, event):
+    #     curItem = self.tree.focus()
+    #     row = self.tree.item(curItem)['values']
+    #     print(row)
+    #     current_tags = self.tree.item(curItem)["tags"]
+    #     if "booked" not in current_tags:
+    #         response = messagebox.askquestion("Book Lesson", "Do you want to book this lesson?")
+    #         if response == 'yes':
+    #             messagebox.showinfo("Success", "You booked a lesson successfully")
+    #             self.tree.item(curItem, tags=("booked",))
+    #             self.tree.tag_configure("booked", background="green")
+    #     else:
+    #         response = messagebox.askquestion("Cancel Lesson", "Do you want to cancel this lesson?")
+    #         if response == 'yes':
+    #             messagebox.showinfo("Success", "You canceled a lesson successfully")
+    #             self.tree.item(curItem, tags=("button",))
+    #             self.tree.tag_configure("button", background="white")
 
     def selectItem(self, a):
         curItem = self.tree.focus()
