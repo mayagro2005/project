@@ -25,25 +25,86 @@ class Payments(tkinter.Toplevel):
         Button(self, text='Close', command=self.close).pack(side=tkinter.BOTTOM, fill=tkinter.X)
         # self.close_button = Button(self, text='Close', command=self.close)
         # self.close_button.grid(row=100, column=0, sticky='s')
+        # Button(self, text='Close', command=self.close, bg='white', fg='black', font=('Arial', 12)).pack(
+        #     side=tkinter.BOTTOM, fill=tkinter.X, pady=10)
+
+    # def create_gui(self):
+    #     self.lbl_welcome = Label(self, text="Hello! This is your payment box", bg='#F7C8E0', fg='black',
+    #                              font=("Arial", 16, "bold"), padx=20, pady=20)
+    #     self.lbl_welcome.place(x=90, y=20)
+    #
+    #     self.lbl_price = Label(self, text="The price for a year is 1500 shekels", bg='#F7C8E0', fg='black',
+    #                            font=("Arial", 14, "bold"), padx=20, pady=20)
+    #     self.lbl_price.place(x=90, y=90)
+    #
+    #     self.lbl_paymentmessage = Label(self, text="Please enter your payment here:", bg='#F7C8E0', fg='black',
+    #                                     font=("Arial", 14, "bold"), padx=20, pady=20)
+    #     self.lbl_paymentmessage.place(x=30, y=340)
+    #
+    #     self.writepayment = Entry(self, width=20, font=("Arial", 12))
+    #     self.writepayment.place(x=250, y=350)
+    #
+    #     self.send_message_button = Button(self, text='PAY', command=self.payment, bg='white', fg='#E21818',
+    #                                       font=('Arial', 14, "bold"), padx=20, pady=20)
+    #     self.send_message_button.place(x=190, y=400)
+    #
+    #     self.send_message_button = Button(self, text='CHECK MY PAYMENT', command=self.check_payment, bg='white',
+    #                                       fg='#E21818', font=('Arial', 14, "bold"), padx=20, pady=20)
+    #     self.send_message_button.place(x=120, y=200)
+
+    # def create_gui(self):
+    #     self.lbl_welcome = Label(self, text="Hello! This is your payment box", bg='#AD7BE9', fg='black',
+    #                              font=("Arial", 16, "bold"), padx=10, pady=10)
+    #     self.lbl_welcome.place(x=90, y=20)
+    #
+    #     self.lbl_price = Label(self, text="The price for a year is 1500 shekels", bg='#AD7BE9', fg='black',
+    #                            font=("Arial", 14, "bold"), padx=10, pady=10)
+    #     self.lbl_price.place(x=90, y=70)
+    #
+    #     self.lbl_paymentmessage = Label(self, text="Please enter your payment here:", bg='#AD7BE9', fg='black',
+    #                                     font=("Arial", 12), padx=10, pady=10)
+    #     self.lbl_paymentmessage.place(x=50, y=350)
+    #
+    #     self.writepayment = Entry(self, width=20, font=("Arial", 12))
+    #     self.writepayment.place(x=250, y=350)
+    #
+    #     self.send_message_button = Button(self, text='PAY', command=self.payment, bg='white', fg='#E21818',
+    #                                       font=('Arial', 12))
+    #     self.send_message_button.place(x=190, y=400)
+    #
+    #     # self.message_label = Entry(self, width=30, bg='white', fg='red', font=("Arial", 12))
+    #     # self.message_label.place(x=120, y=120)
+    #     # self.message_label.insert(0, "Received messages:")
+    #     # self.message_label.config(state='readonly')
+    #
+    #     self.send_message_button = Button(self, text='CHECK MY PAYMENT', command=self.check_payment, bg='white',
+    #                                       fg='#E21818', font=('Arial', 12))
+    #     self.send_message_button.place(x=120, y=200)
 
     def create_gui(self):
-        self.lbl_welcome = Label(self, text="Hello! this is your payment box ",background="light blue", foreground="black", font=("Calibri",14))
-        self.lbl_welcome.place(x=160, y=20)
-        self.lbl_price = Label(self, text="The price for a year is 1500 shekels ",background="light blue", foreground="black", font=("Calibri",14))
-        self.lbl_price.place(x=150,y=60)
-        self.lbl_paymentmessage = Label(self, text="please pay here: ")
+        self.lbl_welcome = Label(self, text="Hello! this is your payment box ",background="#FFD4D4", foreground="black", font=("Arial", 16, "bold"))
+        self.lbl_welcome.place(x=150, y=20)
+        self.lbl_price = Label(self, text="The price for a year is 1500 shekels ",background="#FFD4D4", foreground="black", font=("Arial", 14, "bold"))
+        self.lbl_price.place(x=140,y=60)
+        self.lbl_paymentmessage = Label(self, text="please pay here: ",foreground="black", font=("Arial", 12, "bold"))
         self.lbl_paymentmessage.place(x=50, y=400)
         self.writepayment = Entry(self, width=20)
-        self.writepayment.place(x=250, y=400)
-        self.send_message_button = Button(self, text='Pay', command= self.payment)
+        self.writepayment.place(x=230, y=400)
+        self.send_message_button = Button(self, text='PAY', command=self.payment, bg='white', fg='#E21818',
+                                                            font=('Arial', 12, "bold"))
         self.send_message_button.place(x=190, y=430)
-        self.message_label = Entry(self, width=30,foreground="red")
-        self.message_label.place(x=120, y=120)
+        # self.send_message_button = Button(self, text='Pay', command= self.payment)
+        # self.send_message_button.place(x=190, y=430)
+        # self.message_label = Entry(self, width=30,foreground="red")
+        # self.message_label.place(x=120, y=120)
         # self.message_label.grid(row=0, column=0, columnspan=2)
-        self.message_label.insert(0, "received messages")
-        self.message_label.config(state='readonly')
-        self.send_message_button = Button(self, text='CHECK MY PAYMENT', command= self.check_payment)
-        self.send_message_button.place(x=120, y=200)
+        # self.message_label.insert(0, "received messages")
+        # self.message_label.config(state='readonly')
+        # self.send_message_button = Button(self, text='CHECK MY PAYMENT', command= self.check_payment)
+        # self.send_message_button.place(x=120, y=200)
+        self.send_message_button = Button(self, text='CHECK MY PAYMENT', command=self.check_payment, bg='white',
+                                        fg='#E21818', font=('Arial', 12, "bold"))
+        self.send_message_button.place(x=160, y=200)
 
     def check_payment(self):
         arr_payment = ["check_payment", self.email, self.password]
