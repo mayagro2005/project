@@ -511,6 +511,11 @@ class Server(object):
                            print(arr_get)
                            self.send_msg(arr_get, client_socket)
 
+                   # elif arr != None and arr[0] == "check_grouptime_to_student" and len(arr) == 8:
+                   #     print("check_grouptime_to_student")
+                   #     print(arr)
+
+
                    elif arr != None and arr[0] == "check_payment" and len(arr) == 3:
                        print("check_payment")
                        print(arr)
@@ -626,6 +631,6 @@ class Server(object):
 
 if __name__ == '__main__':
    ip = '127.0.0.1'
-   port = 1830
+   port = 1831
    s = Server(ip, port)
    s.start()

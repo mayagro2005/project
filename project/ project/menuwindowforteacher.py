@@ -129,7 +129,7 @@ class menu(tkinter.Toplevel):
         # self.withdraw()
 
     def open_tennis(self):
-        window = kids_tennis_lesson(self)
+        window = kids_tennis_lesson(self,self.firstname,self.lastname)
         window.grab_set()
     def open_swimming(self):
         window = swimming_lesson(self)

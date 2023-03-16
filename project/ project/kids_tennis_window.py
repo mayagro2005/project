@@ -6,10 +6,12 @@ from tkmacosx import Button
 from participants import Participants
 
 class kids_tennis_lesson(tkinter.Toplevel):
-    def __init__(self, parent):
+    def __init__(self, parent,firstname,lastname):
         super().__init__(parent)
         self.parent = parent
         self.title('KIDS TENNIS LESSON WINDOW')
+        self.firstname = firstname
+        self.lastname = lastname
         self.create_table()
         Button(self, text='Close', command=self.close).pack(side=tkinter.BOTTOM, fill=tkinter.X)
 
@@ -79,6 +81,10 @@ class kids_tennis_lesson(tkinter.Toplevel):
                     row_values = (element[0], element[1], element[2], element[3])
                     item_id = self.tree.insert("", "end", values=row_values, tags=("button",))
                     # self.tree.bind(item_id, lambda event, item_id=item_id: self.book_lesson(item_id))
+                    teacher_firstname, teacher_lastname = element[3].split()
+                    if teacher_firstname == self.firstname and teacher_lastname == self.lastname:
+                        self.tree.item(item_id, tags=("booked",))
+                        self.tree.tag_configure("booked", background="red")
                     self.tree.bind('<ButtonRelease-1>', self.book_lesson)
 
     def book_lesson(self, event):
