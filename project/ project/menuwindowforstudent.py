@@ -9,6 +9,7 @@ from rgb import rgbprint
 from message_box import Messages
 from payment_box import Payments
 from tkmacosx import Button
+from message_box_for_student import Messages_for_student
 from insert_lesson_window import insert_lesson
 from delete_lesson_window import delete_lesson
 from update_lesson_window import update_lesson
@@ -123,7 +124,7 @@ class menuforstudent(tkinter.Toplevel):
     #     window = update_lesson(self, self.email, self.password)
     #     window.grab_set()
     def message_box(self):
-        window = Messages(self)
+        window = Messages_for_student(self)
         window.grab_set()
         # self.withdraw()
 

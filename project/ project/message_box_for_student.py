@@ -10,7 +10,7 @@ from tkmacosx import Button
 #it is just a variable to hold the top level, 'window'
 #should be whatever variable holds your main window
 #toplevel.title = 'Top Level'
-class Messages(tkinter.Toplevel):
+class Messages_for_student(tkinter.Toplevel):
     def __init__(self, parent):
         super().__init__(parent)
         self.parent = parent
@@ -27,7 +27,7 @@ class Messages(tkinter.Toplevel):
         self.lbl_welcome.place(x=160, y=20)
         # self.recognize = Entry(self, width=20)
         # self.recognize.place(x=200, y=50)
-        self.lbl_writemessage = Label(self, text="write a message for your students: ")
+        self.lbl_writemessage = Label(self, text="write a message for your teacher: ")
         self.lbl_writemessage.place(x=50, y=400)
         self.writemessage = Entry(self, width=20)
         self.writemessage.place(x=290, y=400)
