@@ -85,6 +85,9 @@ class kids_tennis_lesson(tkinter.Toplevel):
                     if teacher_firstname == self.firstname and teacher_lastname == self.lastname:
                         self.tree.item(item_id, tags=("booked",))
                         self.tree.tag_configure("booked", background="red")
+                    else:
+                        self.tree.item(item_id, tags=("button",))
+                        self.tree.tag_configure("button", background="white")
                     self.tree.bind('<ButtonRelease-1>', self.book_lesson)
 
     def book_lesson(self, event):

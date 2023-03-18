@@ -367,17 +367,61 @@ class groupstudents(object):
             print("Error retrieving students from group and lesson:", e)
             return "error"
 
+    def check_student_in_group(self, nameofgroup, startH, endH, lessonDay, teacher_name, student_firstname, student_lastname):
+        try:
+            # Establish a new database connection
+            conn = sqlite3.connect('test.db')
+
+            # Create a cursor object to execute SQL queries
+            cursor = conn.cursor()
+
+            # Get teacher_id by splitting teacher_name into first and last name
+            teacher_firstname, teacher_lastname = teacher_name.split()
+            cursor.execute("SELECT teacherId FROM teachers WHERE firstname=? AND lastname=?",
+                           (teacher_firstname, teacher_lastname))
+            teacher_id = cursor.fetchone()[0]
+
+            # Get group_id using the given parameters
+            cursor.execute(
+                "SELECT groups.groupId FROM groups JOIN groupstime ON groups.groupId=groupstime.groupId WHERE nameofgroup=? AND startH=? AND endH=? AND lessonDay=? AND groups.teacherId=?",
+                (nameofgroup, startH, endH, lessonDay, teacher_id))
+            group_id = cursor.fetchone()[0]
+
+            # Get student_id using the given parameters
+            cursor.execute("SELECT studentId FROM students WHERE firstname=? AND lastname=?",
+                           (student_firstname, student_lastname))
+            student_id = cursor.fetchone()
+
+            if student_id is not None:
+                # Check if student already exists in the group
+                cursor.execute("SELECT * FROM groupstudents WHERE studentId=? AND groupId=?", (student_id[0], group_id))
+                existing_student = cursor.fetchone()
+
+                if existing_student is not None:
+                    print("Student exists in group.")
+                    return True
+                else:
+                    print("Student does not exist in group.")
+                    return False
+            else:
+                print("Student not found.")
+                return False
+
+        except Exception as e:
+            print("Error checking student in group:", e)
+            return False
+
     def __str__(self):
         return "table  name is ", self.__tablename
 
 
 
-g = groupstudents()
-#g.insert_student_to_group2("kids tennis",'18:00', '20:00', 'Tuesday',"anna sdxcf","dcf","qwey")
-# g.delete_student_to_group2('kids tennis', '16:00', '17:30', 'Tuesday', 'lilya qwew', 'dcf', 'qwey')
-
+# g = groupstudents()
+# g.insert_student_to_group2("kids tennis",'18:00', '20:00', 'Tuesday',"anna sdxcf","dcf","qwey")
+# g.delete_student_to_group2("kids tennis",'18:00', '20:00', 'Tuesday',"anna sdxcf","dcf","qwey")
+# g.check_student_in_group("kids tennis",'18:00', '20:00', 'Tuesday',"anna sdxcf","dcf","qwey")
 # 'kids tennis', '16:00', '17:30', 'Tuesday', 'lilya qwew', 'dcf', 'qwey'
-# g.get_students_from_group2('kids tennis', '16:00', '17:30', 'Tuesday', 'lilya qwew')
+# g.get_students_from_group2("kids tennis",'18:00', '20:00', 'Tuesday',"anna sdxcf")
 # g.insert_student_to_group('5', '1')
 # g.delete_student_from_group('4','1')
 # g.get_students_by_group_id('1')
