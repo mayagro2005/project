@@ -415,13 +415,13 @@ class groupstudents(object):
         return "table  name is ", self.__tablename
 
 
-
+# 'kids tennis', '18:30', '19:30', 'Wednesday', 'lilya qwew', 'dcf', 'qwey'
 # g = groupstudents()
 # g.insert_student_to_group2("kids tennis",'18:00', '20:00', 'Tuesday',"anna sdxcf","dcf","qwey")
 # g.delete_student_to_group2("kids tennis",'18:00', '20:00', 'Tuesday',"anna sdxcf","dcf","qwey")
-# g.check_student_in_group("kids tennis",'17:00', '18:30', 'Monday',"lilya qwew","dcf","qwey")
+# g.check_student_in_group('kids tennis', '19:30', '20:30', 'Thursday', 'lilya qwew', 'dcf', 'qwey')
 # 'kids tennis', '16:00', '17:30', 'Tuesday', 'lilya qwew', 'dcf', 'qwey'
-# g.get_students_from_group2("kids tennis",'18:00', '20:00', 'Tuesday',"anna sdxcf")
+# g.get_students_from_group2('kids tennis', '19:30', '20:30', 'Thursday', 'lilya qwew')
 # g.insert_student_to_group('5', '1')
 # g.delete_student_from_group('4','1')
 # g.get_students_by_group_id('1')
