@@ -515,6 +515,7 @@ class Server(object):
                        print("check_grouptime_to_student")
                        print(arr)
                        check_if_exist = self.dbgroupstudents.check_student_in_group(arr[1],arr[2],arr[3],arr[4],arr[5],arr[6],arr[7])
+                       print(check_if_exist)
                        if check_if_exist:
                            self.send_msg("Exist", client_socket)
                        elif not check_if_exist:
