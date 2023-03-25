@@ -312,11 +312,41 @@ class students(object):
             print("Error")
             return "Error"
 
+    def get_all_student_names(self):
+        try:
+            conn = sqlite3.connect('test.db')
+            print("Opened database successfully");
+            str1 = "SELECT " + self.__firstname + ", " + self.__lastname + " FROM " + self.__tablename
+            print(str1)
+            cursor = conn.execute(str1)
+            rows = cursor.fetchall()
+            arr_students = []
+            for row in rows:
+                arr_students.append(row[0] + " " + row[1])
+            print(arr_students)
+            return arr_students
+        except:
+            return False
+
+    def delete_student_by_id(self,student_id):
+        try:
+            conn = sqlite3.connect('test.db')
+            print("Opened database successfully")
+            str1 = "DELETE FROM " + self.__tablename + " WHERE " + self.__studentId + " = ?"
+            conn.execute(str1, (student_id,))
+            conn.commit()
+            conn.close()
+            print("Student with ID {} deleted successfully".format(student_id))
+            return True
+        except:
+            return False
+
     def __str__(self):
         return "table  name is ", self.__tablename
 
 
 # s = students()
+# s.delete_student_by_id(6)
 # s.update_price(1200,"mha.com","9o234")
 # s.get_price_for_student("mha.com","9o234")
 # s.update_student("fgbh", "shn", '800', "6356xcv.com", 'hdcs2333i',"fgbh", "shn", '9850', "6356xcv.com", 'hdcs2333i')

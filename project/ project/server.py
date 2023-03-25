@@ -124,7 +124,7 @@ class Server(object):
                    elif arr != None and arr[0] == "Send" and arr[1] == "Message":
                        print("message excepted")
                        print(arr)
-                       print("sertver data:", server_data)
+                       print("server data:", server_data)
                        if server_data != " ":
                            self.send_msg("glad you wrote a message", client_socket)
                            # client_socket.send("glad you wrote a message".encode())
@@ -544,6 +544,23 @@ class Server(object):
                        else:
                            print(howmuch_pay)
                            self.send_msg(howmuch_pay,client_socket)
+
+                   elif arr != None and arr[0] == "Teacher List" and len(arr) == 1:
+                       print("Teacher List")
+                       print(arr)
+                       teacher_list = self.teacherdb.get_all_names()
+                       teacher_list = ",".join(teacher_list)
+                       print(teacher_list)
+                       self.send_msg(teacher_list,client_socket)
+
+                   elif arr != None and arr[0] == "Student List" and len(arr) == 1:
+                       print("Student List")
+                       print(arr)
+                       student_list = self.studentdb.get_all_student_names()
+                       student_list = ",".join(student_list)
+                       print(student_list)
+                       self.send_msg(student_list,client_socket)
+
 
 
 

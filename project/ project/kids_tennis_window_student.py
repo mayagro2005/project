@@ -50,19 +50,19 @@ class kids_tennis_lesson_student(tkinter.Toplevel):
                     # print(current_row)
                     # str_current_row = ",".join(current_row)
                     # print(str_current_row)
-                    current_row = ["check_grouptime_to_student", "kids tennis", element[0], element[1], element[2], element[3], self.firstname, self.lastname]
-                    print(current_row)
-                    str_current_row = ",".join(current_row)
-                    print(str_current_row)
-                    self.parent.parent.parent.send_msg(str_current_row, self.parent.parent.parent.client_socket)
-                    get_str_current_row = self.parent.parent.parent.recv_msg(self.parent.parent.parent.client_socket)
-                    print(get_str_current_row)
-                    if get_str_current_row == "Exist":
-                        self.tree.item(item_id, tags=("booked",))
-                        self.tree.tag_configure("booked", background="green")
-                    else:
-                        self.tree.item(item_id, tags=("button",))
-                        self.tree.tag_configure("button", background="white")
+                    # current_row = ["check_grouptime_to_student", "kids tennis", element[0], element[1], element[2], element[3], self.firstname, self.lastname]
+                    # print(current_row)
+                    # str_current_row = ",".join(current_row)
+                    # print(str_current_row)
+                    # self.parent.parent.parent.send_msg(str_current_row, self.parent.parent.parent.client_socket)
+                    # get_str_current_row = self.parent.parent.parent.recv_msg(self.parent.parent.parent.client_socket)
+                    # print(get_str_current_row)
+                    # if get_str_current_row == "Exist":
+                    #     self.tree.item(item_id, tags=("booked",))
+                    #     self.tree.tag_configure("booked", background="green")
+                    # else:
+                    #     self.tree.item(item_id, tags=("button",))
+                    #     self.tree.tag_configure("button", background="white")
                     # self.tree.bind(item_id, lambda event, item_id=item_id: self.book_lesson(item_id))
                     self.tree.bind('<ButtonRelease-1>', self.book_lesson)
 

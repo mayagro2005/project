@@ -47,6 +47,22 @@ class teachers(object):
             return arr_teachers
         except:
             return False
+
+    def get_all_names(self):
+        try:
+            conn = sqlite3.connect('test.db')
+            print("Opened database successfully")
+            str1 = "select " + self.__firstname + ", " + self.__lastname + " from " + self.__tablename
+            print(str1)
+            cursor = conn.execute(str1)
+            rows = cursor.fetchall()
+            arr_names = []
+            for row in rows:
+                arr_names.append(row[0] + " " + row[1])
+            print(arr_names)
+            return arr_names
+        except:
+            return False
     # def insert_teacher(self, firstname, lastname, email, password):
     #     conn = sqlite3.connect('test.db')
     #     print("Opened database successfully")
@@ -331,6 +347,19 @@ class teachers(object):
             print("failed")
             return "failed"
 
+    def delete_teacher_by_id(self, teacher_id):
+        try:
+            conn = sqlite3.connect('test.db')
+            print("Opened database successfully")
+            str1 = "DELETE FROM " + self.__tablename + " WHERE " + self.__teacherId + " = ?"
+            conn.execute(str1, (teacher_id,))
+            conn.commit()
+            conn.close()
+            print("Teacher with ID {} deleted successfully".format(teacher_id))
+            return True
+        except:
+            return False
+
 
 
     def __str__(self):
@@ -339,7 +368,8 @@ class teachers(object):
 
 # t=teachers()
 # t.get_name_by_email_and_password("qwe56", 'zxc567')
-
+# t.get_all_names()
+# t.delete_teacher_by_id(79)
 # arr = t.get_teacher_name_by_id(3)
 # print(arr[0])
 # t.get_teacher_by_group_name("kids tennis")
