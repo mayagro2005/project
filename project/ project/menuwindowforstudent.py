@@ -124,7 +124,7 @@ class menuforstudent(tkinter.Toplevel):
     #     window = update_lesson(self, self.email, self.password)
     #     window.grab_set()
     def message_box(self):
-        window = Messages_for_student(self)
+        window = Messages_for_student(self, self.firstname, self.lastname)
         window.grab_set()
         # self.withdraw()
 

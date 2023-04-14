@@ -8,8 +8,8 @@ from groups import groups
 from groupstime import groupstime
 from groupstudents import groupstudents
 
-cores = multiprocessing.cpu_count()
-print(cores)
+# cores = multiprocessing.cpu_count()
+# print(cores)
 
 SIZE = 12
 
@@ -124,12 +124,16 @@ class Server(object):
                    elif arr != None and arr[0] == "Send" and arr[1] == "Message":
                        print("message excepted")
                        print(arr)
-                       print("server data:", server_data)
-                       if server_data != " ":
-                           self.send_msg("glad you wrote a message", client_socket)
-                           # client_socket.send("glad you wrote a message".encode())
-                       else:
-                           self.send_msg("you can write messages", client_socket)
+                       arr_message = [arr[2],arr[3],arr[4]]
+                       str_message = ",".join(arr_message)
+                       print(str_message)
+                       self.send_msg(str_message,client_socket)
+                       # print("server data:", server_data)
+                       # if server_data != " ":
+                       #     self.send_msg("glad you wrote a message", client_socket)
+                       #     # client_socket.send("glad you wrote a message".encode())
+                       # else:
+                       #     self.send_msg("you can write messages", client_socket)
                            # client_socket.send("you can write messages".encode())
                    # elif arr!=None and arr[0] == "get_all_users" and len(arr)==1:
                    #     print("get_all_users")
@@ -654,6 +658,6 @@ class Server(object):
 
 if __name__ == '__main__':
    ip = '127.0.0.1'
-   port = 1831
+   port = 1832
    s = Server(ip, port)
    s.start()

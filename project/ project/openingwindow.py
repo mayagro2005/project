@@ -24,15 +24,15 @@ from tkinter import ttk
 class App(tkinter.Tk):
     def __init__(self):
         super().__init__()
-        self.geometry('900x800')
+        self.geometry('1100x680')
         self.title('OPENING WINDOW')
-        self.configure(bg='#F3CCFF')
+        # self.configure(bg='#F3CCFF')
         self.format = 'utf-8'
-        # self.img = Image.open('run.png')
-        # self.resized = self.img.resize((900,800), Image.LANCZOS)
-        # self.image = ImageTk.PhotoImage(self.resized)
-        # self.label_image = Label(self,image=self.image)
-        # self.label_image.place(x=0,y=0)
+        self.img = Image.open('istock.png')
+        self.resized = self.img.resize((1100,680), Image.LANCZOS)
+        self.image = ImageTk.PhotoImage(self.resized)
+        self.label_image = Label(self,image=self.image)
+        self.label_image.place(x=0,y=0)
 
         # image = Image.open("fitness.png")
         # image = image.resize((800, 800), Image.LANCZOS)
@@ -70,19 +70,19 @@ class App(tkinter.Tk):
         self.welcome = Label(self, text="Welcome", background="white", foreground="black", font=("Calibri", 40, "bold"))
         self.welcome.config(bd=5, relief="groove")
         self.welcome.config(highlightbackground="black", highlightcolor="black", highlightthickness=2)
-        self.welcome.place(x=300, y=50, width=300, height=100)
+        self.welcome.place(x=400, y=20, width=300, height=100)
 
         self.btn_signup = Button(self, text='SIGN UP', activeforeground='#EE3B3B', font=("Calibri", 25, "bold"),
                                  command=self.open_register)
         self.btn_signup.config(bg='#7A7A7A', fg='white', bd=5, relief="raised", highlightbackground="black",
                                highlightcolor="black", highlightthickness=2)
-        self.btn_signup.place(x=340, y=400, width=200, height=70)
+        self.btn_signup.place(x=330, y=570, width=200, height=70)
 
         self.btn_signin = Button(self, text='SIGN IN', activeforeground='#EE3B3B', font=("Calibri", 25, "bold"),
                                  command=self.open_login)
         self.btn_signin.config(bg='#7A7A7A', fg='white', bd=5, relief="raised", highlightbackground="black",
                                highlightcolor="black", highlightthickness=2)
-        self.btn_signin.place(x=340, y=500, width=200, height=70)
+        self.btn_signin.place(x=550, y=570, width=200, height=70)
 
         self.handle_thread_socket()
 
@@ -216,7 +216,7 @@ class App(tkinter.Tk):
 
     def create_socket(self):
         self.client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        self.client_socket.connect(('127.0.0.1', 1831))
+        self.client_socket.connect(('127.0.0.1', 1832))
         # data = self.client_socket.recv(1024).decode()
         data = self.recv_msg(self.client_socket)
         print("data"+data)

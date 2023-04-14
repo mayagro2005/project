@@ -68,11 +68,13 @@ from tkmacosx import Button
 #         self.message_label.config(state='readonly')
 #         self.message_label = StringVar()
 class Messages_for_student(tkinter.Toplevel):
-    def __init__(self, parent):
+    def __init__(self, parent, firstname, lastname):
         super().__init__(parent)
         self.parent = parent
         self.geometry('500x500')
         self.title('MESSAGE BOX')
+        self.firstname = firstname
+        self.lastname = lastname
         self.create_gui()
         Button(self, text='Close', command=self.close).pack(side=tkinter.BOTTOM, fill=tkinter.X)
 
@@ -119,7 +121,7 @@ class Messages_for_student(tkinter.Toplevel):
         self.send_message_button = Button(self, text='Send', command=self.handle_send_message)
         self.send_message_button.place(x=190,y=430)
 
-        self.message_label = Entry(self, width=30,foreground="red")
+        self.message_label = Entry(self, width=70,foreground="red")
         self.message_label.place(x=120,y=100)
         self.message_label.insert(0, "received messages")
         self.message_label.config(state='readonly')
@@ -142,13 +144,26 @@ class Messages_for_student(tkinter.Toplevel):
         # message = self.writemessage.get()
         # self.parent.server.send_message(message)
         print("Send")
-        arr = ["Send", "Message", self.var.get(), self.nameofperson_var.get(), self.writemessage.get()]
+        # arr = ["Send", "Message", f"{self.firstname} {self.lastname}", self.var.get(), self.nameofperson_var.get(),
+        #        self.writemessage.get()]
+        arr = ["Send", "Message", f"{self.firstname} {self.lastname}", self.nameofperson_var.get(),
+               self.writemessage.get()]
         str_insert = ",".join(arr)
         print(str_insert)
         self.parent.parent.parent.send_msg(str_insert, self.parent.parent.parent.client_socket)
         data = self.parent.parent.parent.recv_msg(self.parent.parent.parent.client_socket)
         print(data)
-        self.handle_received_message(data)
+        recieved_data = data.split(",")
+        print(recieved_data)
+        sender = recieved_data[0]
+        recipient = recieved_data[1]
+        message_text = recieved_data[2]
+        if recipient == f"{self.firstname} {self.lastname}" or recipient == "all students":
+            message = f"From: {sender}\n\n{message_text}"
+            self.handle_received_message(message)
+        else:
+            pass
+
 
     # def handle_received_message(self, message):
     #     print(message)
