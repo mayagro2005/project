@@ -48,11 +48,11 @@ class kids_tennis_lesson_student(tkinter.Toplevel):
                     item_id = self.tree.insert("", "end", values=row_values, tags=("button",))
                     current_row = self.tree.item(item_id)['values']
                     print(current_row)
-                    str_current_row = ",".join(current_row)
-                    print(str_current_row)
-                    current_row = ["check_grouptime_to_student", "kids tennis", element[0], element[1], element[2], element[3], self.firstname, self.lastname]
-                    print(current_row)
-                    str_current_row = ",".join(current_row)
+                    # str_current_row = ",".join(current_row)
+                    # print(str_current_row)
+                    current_row1 = ["check_grouptime_to_student", "kids tennis", element[0], element[1], element[2], element[3], self.firstname, self.lastname]
+                    print(current_row1)
+                    str_current_row = ",".join(current_row1)
                     print(str_current_row)
                     self.parent.parent.parent.send_msg(str_current_row, self.parent.parent.parent.client_socket)
                     get_str_current_row = self.parent.parent.parent.recv_msg(self.parent.parent.parent.client_socket)
