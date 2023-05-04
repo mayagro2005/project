@@ -34,37 +34,37 @@ class Register(tkinter.Toplevel):
         self.lbl_signin = Label(self, text="SIGN UP", font=("Arial", 20, "bold"), background="#f2f2f2", relief=SUNKEN)
         self.lbl_signin.pack(pady=10)
 
-        self.lbl_recognize = Label(self, text="Are you a teacher or student?", font=("Helvetica", 14),bg="#79CDCD")
+        self.lbl_recognize = Label(self, text="Are you a teacher or student?", font=("Helvetica", 14))
         self.lbl_recognize.pack(pady=10)
 
         self.var = StringVar()
         self.var.set("teacher")
 
         self.teacher_radiobutton = Radiobutton(self, text="Teacher", variable=self.var, value="teacher",
-                                               font=("Helvetica", 14),bg="#79CDCD")
+                                               font=("Helvetica", 14))
         self.teacher_radiobutton.pack(pady=5)
 
         self.student_radiobutton = Radiobutton(self, text="Student", variable=self.var, value="student",
-                                               font=("Helvetica", 14),bg="#79CDCD")
+                                               font=("Helvetica", 14))
         self.student_radiobutton.pack(pady=5)
 
         # Labels and Entries for first name, last name, email, and password
-        self.firstname_label = Label(self, text="First Name:", font=("Helvetica", 14),bg="#79CDCD")
+        self.firstname_label = Label(self, text="First Name:", font=("Helvetica", 14))
         self.firstname_label.pack(pady=5)
         self.firstname = Entry(self, font=("Helvetica", 14))
         self.firstname.pack(pady=5)
 
-        self.lastname_label = Label(self, text="Last Name:", font=("Helvetica", 14),bg="#79CDCD")
+        self.lastname_label = Label(self, text="Last Name:", font=("Helvetica", 14))
         self.lastname_label.pack(pady=5)
         self.lastname = Entry(self, font=("Helvetica", 14))
         self.lastname.pack(pady=5)
 
-        self.email_label = Label(self, text="Email:", font=("Helvetica", 14),bg="#79CDCD")
+        self.email_label = Label(self, text="Email:", font=("Helvetica", 14))
         self.email_label.pack(pady=5)
         self.email = Entry(self, font=("Helvetica", 14))
         self.email.pack(pady=5)
 
-        self.password_label = Label(self, text="Password:", font=("Helvetica", 14),bg="#79CDCD")
+        self.password_label = Label(self, text="Password:", font=("Helvetica", 14))
         self.password_label.pack(pady=5)
         self.password = Entry(self, font=("Helvetica", 14), show="*")
         self.password.pack(pady=5)

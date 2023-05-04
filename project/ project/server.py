@@ -658,6 +658,6 @@ class Server(object):
 
 if __name__ == '__main__':
    ip = '127.0.0.1'
-   port = 1832
+   port = 1833
    s = Server(ip, port)
    s.start()
