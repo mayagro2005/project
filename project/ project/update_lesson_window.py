@@ -16,16 +16,17 @@ class update_lesson(tkinter.Toplevel):
         self.title('UPDATE LESSON WINDOW')
         self.email = email
         self.password = password
+        self.config(bg="#AFD3E2")
 
         self.create_gui()
-        Button(self, text='Close', command=self.close).pack(side=tkinter.BOTTOM, fill=tkinter.X)
+        Button(self, text='Close',font=("Helvetica", 12, "bold"), command=self.close).pack(side=tkinter.BOTTOM, fill=tkinter.X)
         # Button(self, text='Close', command=self.close).pack(side=BOTTOM)
         # Button.place(x=220,y=580)
 
     def create_gui(self):
         self.lbl_update1 = Label(self, text="write the details lesson you "
                                            "\n want to update below: ", background="#D9ACF5",
-                                 foreground="black", font=("Helvetica", 16, "bold"))
+                                 foreground="black", font=("Helvetica", 16, "bold"),relief="solid", bd=3)
         self.lbl_update1.place(x=10, y=70)
         self.nameofgroup_var = StringVar()
         self.lbl_nameofgroup1 = Label(self, width=20, text="Name of group",font=("Helvetica", 16, "bold"))
@@ -60,13 +61,13 @@ class update_lesson(tkinter.Toplevel):
 
 
 
-        self.buttonPlus = Button(self, text="UPDATE LESSON", command=self.updatelesson, background="white")
-        self.buttonPlus.place(x=250, y=400,width=120, height=50)
+        self.buttonPlus = Button(self, text="UPDATE LESSON",font=("Helvetica", 14, "bold"), command=self.updatelesson, background="white", activebackground="white")
+        self.buttonPlus.place(x=200, y=400,width=120, height=50)
 
 
         self.lbl_update = Label(self, text="write the updated "
                                            "\n details below: ", background="#D9ACF5",
-                                foreground="black", font=("Helvetica", 16, "bold"))
+                                foreground="black", font=("Helvetica", 16, "bold"),relief="solid", bd=3)
         self.lbl_update.place(x=280, y=70)
         self.lbl_startH = Label(self, width=10, text="start hour", font=("Arial", 12, "bold"))
         self.lbl_startH.place(x=280, y=130)

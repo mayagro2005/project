@@ -16,9 +16,10 @@ class delete_lesson(tkinter.Toplevel):
         self.title('DELETE LESSON WINDOW')
         self.email = email
         self.password = password
+        self.config(bg="#AFD3E2")
 
         self.create_gui()
-        Button(self, text='Close', command=self.close).pack(side=tkinter.BOTTOM, fill=tkinter.X)
+        Button(self, text='Close',font=("Helvetica", 12, "bold"), command=self.close).pack(side=tkinter.BOTTOM, fill=tkinter.X)
         # Button(self, text='Close', command=self.close).pack(expand=True, side=BOTTOM)
 
     def create_gui(self):
@@ -52,8 +53,9 @@ class delete_lesson(tkinter.Toplevel):
         self.lessonday.config(font=("Helvetica", 14), width=20)
         self.lessonday.pack()
 
-        self.buttonPlus = Button(self, text="DELETE LESSON", command=self.deletelesson, background="white")
-        self.buttonPlus.place(x=250, y=400, width=120, height=50)
+        self.buttonPlus = Button(self, text="DELETE LESSON",font=("Helvetica", 14, "bold"), command=self.deletelesson, background="white", activebackground="white")
+        # self.buttonPlus.place(x=250, y=400, width=120, height=50)
+        self.buttonPlus.pack(pady=20)
 
         # self.str = StringVar()
         # self.str.set("")

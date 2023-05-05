@@ -16,9 +16,10 @@ class insert_lesson(tkinter.Toplevel):
         self.title('INSERT LESSON WINDOW')
         self.email = email
         self.password = password
+        self.config(bg="#AFD3E2")
 
         self.create_gui()
-        Button(self, text='Close', command=self.close).pack(side=tkinter.BOTTOM, fill=tkinter.X)
+        Button(self, text='Close',font=("Helvetica", 12, "bold"), command=self.close).pack(side=tkinter.BOTTOM, fill=tkinter.X)
         # Button(self, text='Close', command=self.close).pack(expand=True, side=BOTTOM)
 
     def create_gui(self):

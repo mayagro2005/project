@@ -24,7 +24,7 @@ class Server(object):
        self.format = 'utf-8'
        self.dbgroups = groups()
        self.dbgroupstime = groupstime()
-       self.dbgroupstudents = groupstudents()
+       self.groupstudents = groupstudents()
 
    def start(self):
        try:
@@ -59,6 +59,8 @@ class Server(object):
        while self.running:
            while not_crash:
                try:
+                   # check_if_exist = self.groupstudents.check_student_in_group('kids tennis', '16:00', '17:30', 'Tuesday', 'lilya qwew', 'dcf', 'qwey')
+                   # print(check_if_exist)
                    # server_data = client_socket.recv(1024).decode('utf-8')
                    server_data = self.recv_msg(client_socket)
                    #insert,email,password,firstname
@@ -468,7 +470,7 @@ class Server(object):
                    elif arr != None and arr[0] == "insert_grouptime_to_student" and len(arr) == 8:
                        print("insert_grouptime_to_student")
                        print(arr)
-                       insert_student = self.dbgroupstudents.insert_student_to_group2(arr[1], arr[2], arr[3], arr[4], arr[5], arr[6], arr[7])
+                       insert_student = self.groupstudents.insert_student_to_group2(arr[1], arr[2], arr[3], arr[4], arr[5], arr[6], arr[7])
                        print(insert_student)
                        if insert_student == "Success":
                            print("Success")
@@ -483,7 +485,7 @@ class Server(object):
                    elif arr != None and arr[0] == "delete_grouptime_to_student" and len(arr) == 8:
                        print("delete_grouptime_to_student")
                        print(arr)
-                       delete_student = self.dbgroupstudents.delete_student_to_group2(arr[1], arr[2], arr[3], arr[4], arr[5], arr[6], arr[7])
+                       delete_student = self.groupstudents.delete_student_to_group2(arr[1], arr[2], arr[3], arr[4], arr[5], arr[6], arr[7])
                        print(delete_student)
                        if delete_student == "Success":
                            print("Success")
@@ -498,7 +500,7 @@ class Server(object):
                    elif arr != None and arr[0] == "get_students_of_group" and len(arr) == 6:
                        print("get_students_of_group")
                        print(arr)
-                       arr_get_students = self.dbgroupstudents.get_students_from_group2(arr[1],arr[2],arr[3],arr[4],arr[5])
+                       arr_get_students = self.groupstudents.get_students_from_group2(arr[1],arr[2],arr[3],arr[4],arr[5])
                        print(arr_get_students)
                        if len(arr_get_students) == 0:
                            self.send_msg('',client_socket)
@@ -518,12 +520,13 @@ class Server(object):
                    elif arr != None and arr[0] == "check_grouptime_to_student" and len(arr) == 8:
                        print("check_grouptime_to_student")
                        print(arr)
-                       check_if_exist = self.dbgroupstudents.check_student_in_group(arr[1],arr[2],arr[3],arr[4],arr[5],arr[6],arr[7])
+                       check_if_exist = self.groupstudents.check_student_in_group(arr[1],arr[2],arr[3],arr[4],arr[5],arr[6],arr[7])
                        print(check_if_exist)
                        if check_if_exist:
                            self.send_msg("Exist", client_socket)
                        elif not check_if_exist:
                            self.send_msg("Not Exist", client_socket)
+
 
 
                    elif arr != None and arr[0] == "check_payment" and len(arr) == 3:
@@ -658,6 +661,6 @@ class Server(object):
 
 if __name__ == '__main__':
    ip = '127.0.0.1'
-   port = 1833
+   port = 1834
    s = Server(ip, port)
    s.start()
