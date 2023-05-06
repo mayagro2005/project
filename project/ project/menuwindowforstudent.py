@@ -29,7 +29,7 @@ from yoga_window import yoga_lesson
 #should be whatever variable holds your main window
 #toplevel.title = 'Top Level'
 class menuforstudent(tkinter.Toplevel):
-    def __init__(self, parent, firstname, lastname, email, password):
+    def __init__(self, parent, firstname, lastname, email, password,teacher_or_student):
         super().__init__(parent)
         self.parent = parent
         self.geometry('1000x1000')
@@ -38,6 +38,7 @@ class menuforstudent(tkinter.Toplevel):
         self.lastname = lastname
         self.email = email
         self.password = password
+        self.teacher_or_student = teacher_or_student
         self.config(bg="#FFF8E1")
 
         self.create_gui()
@@ -133,7 +134,7 @@ class menuforstudent(tkinter.Toplevel):
     #     window = update_lesson(self, self.email, self.password)
     #     window.grab_set()
     def message_box(self):
-        window = Messages_for_student(self, self.firstname, self.lastname)
+        window = Messages_for_student(self, self.firstname, self.lastname, self.teacher_or_student)
         window.grab_set()
         # self.withdraw()
 

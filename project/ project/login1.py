@@ -167,7 +167,7 @@ class Login(tkinter.Toplevel):
                 #     self.str.set(message)
                 #     print(self.str.get())
                 else:
-                    window = menu(self, self.firstname.get(), self.lastname.get(), self.email.get(), self.password.get())
+                    window = menu(self, self.firstname.get(), self.lastname.get(), self.email.get(), self.password.get(),self.var.get())
                     window.grab_set()
                     self.withdraw()
                     # message2 = "welcome, you are loged"
@@ -206,7 +206,7 @@ class Login(tkinter.Toplevel):
                 #     print(self.str.get())
                 else:
                     window = menuforstudent(self, self.firstname.get(), self.lastname.get(), self.email.get(),
-                                  self.password.get())
+                                  self.password.get(),self.var.get())
                     window.grab_set()
                     self.withdraw()
             # Button(self, text='Close', command=self.close).pack(expand=True)

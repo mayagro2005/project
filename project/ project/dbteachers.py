@@ -63,6 +63,26 @@ class teachers(object):
             return arr_names
         except:
             return False
+
+    def get_id_by_name(self, fullname):
+        try:
+            conn = sqlite3.connect('test.db')
+            print("Opened database successfully")
+            firstname, lastname = fullname.split()
+            str1 = "SELECT " + self.__teacherId + " FROM " + self.__tablename + " WHERE " + self.__firstname + "='" + firstname + "' AND " + self.__lastname + "='" + lastname + "'"
+            print(str1)
+            cursor = conn.execute(str1)
+            row = cursor.fetchone()
+            if row is not None:
+                teacher_id = row[0]
+                print("Teacher ID for " + fullname + " is " + str(teacher_id))
+                return teacher_id
+            else:
+                print("No teacher found with name " + fullname)
+                return False
+        except:
+            return False
+
     # def insert_teacher(self, firstname, lastname, email, password):
     #     conn = sqlite3.connect('test.db')
     #     print("Opened database successfully")
@@ -367,6 +387,7 @@ class teachers(object):
 
 
 # t=teachers()
+# t.get_id_by_name("lilya qwew")
 # t.get_name_by_email_and_password("qwe56", 'zxc567')
 # t.get_all_names()
 # t.delete_teacher_by_id(79)

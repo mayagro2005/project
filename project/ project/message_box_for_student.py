@@ -68,13 +68,15 @@ from tkmacosx import Button
 #         self.message_label.config(state='readonly')
 #         self.message_label = StringVar()
 class Messages_for_student(tkinter.Toplevel):
-    def __init__(self, parent, firstname, lastname):
+    def __init__(self, parent, firstname, lastname,teacher_or_student):
         super().__init__(parent)
         self.parent = parent
         self.geometry('500x500')
         self.title('MESSAGE BOX')
         self.firstname = firstname
         self.lastname = lastname
+        self.teacher_or_student = teacher_or_student
+        self.config(bg="#AFD3E2")
         self.create_gui()
         Button(self, text='Close', command=self.close).pack(side=tkinter.BOTTOM, fill=tkinter.X)
 
@@ -86,7 +88,7 @@ class Messages_for_student(tkinter.Toplevel):
         self.lbl_chooseperson.place(x=120, y=220)
 
         self.var = StringVar()
-        self.var.set("")
+        self.var.set("teacher")
 
         self.teacher_radiobutton = Radiobutton(self, text="Teacher", variable=self.var, value="teacher",
                                                font=("Helvetica", 14), command=self.update_options)
@@ -146,8 +148,8 @@ class Messages_for_student(tkinter.Toplevel):
         print("Send")
         # arr = ["Send", "Message", f"{self.firstname} {self.lastname}", self.var.get(), self.nameofperson_var.get(),
         #        self.writemessage.get()]
-        arr = ["Send", "Message", f"{self.firstname} {self.lastname}", self.nameofperson_var.get(),
-               self.writemessage.get()]
+        arr = ["Send", "Message", self.nameofperson_var.get(),self.var.get()
+            ,f"{self.firstname} {self.lastname}",self.teacher_or_student,self.writemessage.get()]
         str_insert = ",".join(arr)
         print(str_insert)
         self.parent.parent.parent.send_msg(str_insert, self.parent.parent.parent.client_socket)

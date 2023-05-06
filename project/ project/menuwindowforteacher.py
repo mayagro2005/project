@@ -28,7 +28,7 @@ from yoga_window import yoga_lesson
 #should be whatever variable holds your main window
 #toplevel.title = 'Top Level'
 class menu(tkinter.Toplevel):
-    def __init__(self, parent, firstname, lastname, email, password):
+    def __init__(self, parent, firstname, lastname, email, password,teacher_or_student):
         super().__init__(parent)
         self.parent = parent
         self.geometry('1000x1000')
@@ -37,6 +37,7 @@ class menu(tkinter.Toplevel):
         self.lastname = lastname
         self.email = email
         self.password = password
+        self.teacher_or_student = teacher_or_student
         self.config(bg="#FFF8E1")
 
         self.create_gui()

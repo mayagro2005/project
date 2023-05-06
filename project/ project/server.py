@@ -7,6 +7,7 @@ from dbstudents import students
 from groups import groups
 from groupstime import groupstime
 from groupstudents import groupstudents
+from send_recv_messages import send_recv_messages
 
 # cores = multiprocessing.cpu_count()
 # print(cores)
@@ -25,6 +26,7 @@ class Server(object):
        self.dbgroups = groups()
        self.dbgroupstime = groupstime()
        self.groupstudents = groupstudents()
+       self.send_recv_messages = send_recv_messages()
 
    def start(self):
        try:
@@ -126,10 +128,31 @@ class Server(object):
                    elif arr != None and arr[0] == "Send" and arr[1] == "Message":
                        print("message excepted")
                        print(arr)
-                       arr_message = [arr[2],arr[3],arr[4]]
-                       str_message = ",".join(arr_message)
-                       print(str_message)
-                       self.send_msg(str_message,client_socket)
+                       to_teacher_or_student = None
+                       from_teacher_or_student = None
+                       if arr[3] == "teacher":
+                           to_teacher_or_student = self.teacherdb.get_id_by_name(arr[2])
+                           print(to_teacher_or_student)
+                       elif arr[3] == "student":
+                           to_teacher_or_student = self.studentdb.get_id_by_name(arr[2])
+                           print(to_teacher_or_student)
+                       else:
+                           pass
+                       if arr[5] == "teacher":
+                           from_teacher_or_student = self.teacherdb.get_id_by_name(arr[2])
+                           print(from_teacher_or_student)
+                       elif arr[5] == "student":
+                           from_teacher_or_student = self.studentdb.get_id_by_name(arr[2])
+                           print(from_teacher_or_student)
+                       else:
+                           pass
+                       if to_teacher_or_student is not None and from_teacher_or_student is not None:
+                           the_message = self.send_recv_messages.insert_message(arr[2], arr[3], arr[4], arr[5],
+                                                                                to_teacher_or_student,
+                                                                                from_teacher_or_student, arr[6])
+
+
+
                        # print("server data:", server_data)
                        # if server_data != " ":
                        #     self.send_msg("glad you wrote a message", client_socket)

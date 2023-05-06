@@ -29,7 +29,7 @@ class Messages(tkinter.Toplevel):
         self.lbl_chooseperson.place(x=120, y=220)
 
         self.var = StringVar()
-        self.var.set("")
+        self.var.set("teacher")
 
         self.teacher_radiobutton = Radiobutton(self, text="Teacher", variable=self.var, value="teacher",
                                                font=("Helvetica", 14), command=self.update_options)

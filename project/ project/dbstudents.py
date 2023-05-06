@@ -49,6 +49,25 @@ class students(object):
             return arr_students
         except:
             return False
+
+    def get_id_by_name(self, name):
+        try:
+            conn = sqlite3.connect('test.db')
+            print("Opened database successfully")
+            firstname, lastname = name.split()
+            str1 = f"SELECT {self.__studentId} FROM {self.__tablename} WHERE {self.__firstname}='{firstname}' AND {self.__lastname}='{lastname}'"
+            print(str1)
+            cursor = conn.execute(str1)
+            row = cursor.fetchone()
+            if row:
+                student_id = row[0]
+                print(student_id)
+                return student_id
+            else:
+                print("No student found with that name")
+                return None
+        except:
+            return False
     # def insert_student(self, firstname, lastname, priceforayear, email, password):
     #     conn = sqlite3.connect('test.db')
     #     print("Opened database successfully")
@@ -346,6 +365,7 @@ class students(object):
 
 
 # s = students()
+# s.get_id_by_name("dcf qwey")
 # s.delete_student_by_id(6)
 # s.update_price(1200,"mha.com","9o234")
 # s.get_price_for_student("mha.com","9o234")
