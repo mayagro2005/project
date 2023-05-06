@@ -60,9 +60,17 @@ class send_recv_messages(object):
     def insert_message(self, to_username, to_teacher_or_student, from_username, from_teacher_or_student, to_usernameId,
                        from_usernameId, message):
         try:
+            # print(to_username, to_teacher_or_student, from_username, from_teacher_or_student, to_usernameId,
+            #       from_usernameId, message)
+            # to_username = to_username.replace(" ", "_")
+            # from_username = from_username.replace(" ", "_")
             conn = sqlite3.connect('test.db')
+            # query = "INSERT INTO {} ({}, {}, {}, {}, {}, {}, {}) VALUES (?, ?, ?, ?, ?, ?, ?)".format(
+            #     self.__tablename, self.__to_username, self.__to_teacher_or_student, self.__from_username,
+            #     self.__from_teacher_or_student, self.__to_usernameId, self.__from_usernameId, self.__message)
+            # print(query)
             cursor = conn.cursor()
-            cursor.execute("INSERT INTO {} ({}, {}, {}, {}, {}, {}) VALUES (?, ?, ?, ?, ?, ?)".format(
+            cursor.execute("INSERT INTO {} ({}, {}, {}, {}, {}, {}, {}) VALUES (?, ?, ?, ?, ?, ?, ?)".format(
                 self.__tablename, self.__to_username, self.__to_teacher_or_student, self.__from_username,
                 self.__from_teacher_or_student, self.__to_usernameId, self.__from_usernameId, self.__message),
                 (to_username, to_teacher_or_student, from_username, from_teacher_or_student, to_usernameId,
@@ -71,27 +79,103 @@ class send_recv_messages(object):
             conn.close()
             print("Message inserted successfully")
             return True
-        except:
-            print("Error inserting message")
+        except Exception as e:
+            print("Error inserting message: ", e)
             return False
 
     def delete_message(self, to_username, to_teacher_or_student, from_username, from_teacher_or_student, to_usernameId,
-                       from_usernameId):
+                       from_usernameId, message):
         try:
             conn = sqlite3.connect('test.db')
             cursor = conn.cursor()
-            cursor.execute("DELETE FROM {} WHERE {} = ? AND {} = ? AND {} = ? AND {} = ? AND {} = ? AND {} = ?".format(
-                self.__tablename, self.__to_username, self.__to_teacher_or_student, self.__from_username,
-                self.__from_teacher_or_student, self.__to_usernameId, self.__from_usernameId),
+            cursor.execute(
+                "DELETE FROM {} WHERE {} = ? AND {} = ? AND {} = ? AND {} = ? AND {} = ? AND {} = ? AND {} = ?".format(
+                    self.__tablename, self.__to_username, self.__to_teacher_or_student, self.__from_username,
+                    self.__from_teacher_or_student, self.__to_usernameId, self.__from_usernameId, self.__message),
                 (to_username, to_teacher_or_student, from_username, from_teacher_or_student, to_usernameId,
-                 from_usernameId))
+                 from_usernameId, message))
             conn.commit()
             conn.close()
             print("Message deleted successfully")
             return True
-        except:
-            print("Error deleting message")
+        except Exception as e:
+            print("Error deleting message: ", e)
             return False
+
+    def get_received_messages(self, to_username, to_teacher_or_student, to_usernameId):
+        try:
+            conn = sqlite3.connect('test.db')
+            cursor = conn.cursor()
+            cursor.execute("SELECT {} FROM {} WHERE {} = ? AND {} = ? AND {} = ?".format(
+                self.__message, self.__tablename, self.__to_username, self.__to_teacher_or_student,
+                self.__to_usernameId),
+                (to_username, to_teacher_or_student, to_usernameId))
+            messages = [row[0] for row in cursor.fetchall()]
+            conn.close()
+            print(messages)
+            return messages
+        except Exception as e:
+            print("Error getting messages: ", e)
+            return []
+
+    def update_names(self, old_to_username, old_from_username, new_to_username, new_from_username):
+        try:
+            conn = sqlite3.connect('test.db')
+            cursor = conn.cursor()
+            cursor.execute(
+                f"UPDATE {self.__tablename} SET {self.__to_username} = ?, {self.__from_username} = ? WHERE {self.__to_username} = ? AND {self.__from_username} = ?",
+                (new_to_username, new_from_username, old_to_username, old_from_username))
+            conn.commit()
+            conn.close()
+            print("Names updated successfully")
+            return True
+        except Exception as e:
+            print("Error updating names: ", e)
+            return False
+
+    # def get_messages_for_recipient(self, to_username, to_teacher_or_student, to_usernameId):
+    #     try:
+    #         conn = sqlite3.connect('test.db')
+    #         cursor = conn.cursor()
+    #         query = "SELECT from_username, from_teacher_or_student, message FROM send_recv_messages WHERE to_username=? AND to_teacher_or_student=? AND to_usernameId=?"
+    #         cursor.execute(query, (to_username, to_teacher_or_student, to_usernameId))
+    #         rows = cursor.fetchall()
+    #         messages = []
+    #         for row in rows:
+    #             messages.append({
+    #                 row[0],
+    #                 row[1],
+    #                 row[2]
+    #             })
+    #         conn.close()
+    #         print(messages)
+    #         return messages
+    #     except Exception as e:
+    #         print("Error retrieving messages: ", e)
+    #         return None
+    def get_messages_for_recipient(self, to_username, to_teacher_or_student, to_usernameId):
+        try:
+            conn = sqlite3.connect('test.db')
+            cursor = conn.cursor()
+            query = "SELECT from_username, from_teacher_or_student, message FROM send_recv_messages WHERE to_username=? AND to_teacher_or_student=? AND to_usernameId=?"
+            cursor.execute(query, (to_username, to_teacher_or_student, to_usernameId))
+            rows = cursor.fetchall()
+            messages = []
+            for row in rows:
+                messages.append([row[0], row[1], row[2]])
+            conn.close()
+            print(messages)
+            return messages
+        except Exception as e:
+            print("Error retrieving messages: ", e)
+            return None
 
     def __str__(self):
         return "table  name is ", self.__tablename
+
+# s = send_recv_messages()
+# s.get_messages_for_recipient("dcf qwey","student","1")
+# s.delete_message("dcf qwey","student","lilya qwew","teacher","1","6","hello")
+# s.insert_message("dcf qwey","student","lilya qwew","teacher","1","6","hello")
+# s.update_names("dcf_qwey","lilya_qwew","dcf qwey","lilya qwew")
+# s.get_received_messages("lfgh opyw","student","2")

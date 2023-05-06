@@ -133,7 +133,7 @@ class menu(tkinter.Toplevel):
         window = update_lesson(self, self.email, self.password)
         window.grab_set()
     def message_box(self):
-        window = Messages(self, self.firstname,self.lastname)
+        window = Messages(self, self.firstname,self.lastname,self.teacher_or_student)
         window.grab_set()
         # self.withdraw()
 

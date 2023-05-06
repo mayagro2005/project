@@ -125,7 +125,7 @@ class Server(object):
                            self.send_msg("not exist", client_socket)
                            # client_socket.send("not exist".encode())
 
-                   elif arr != None and arr[0] == "Send" and arr[1] == "Message":
+                   elif arr != None and arr[0] == "Send" and arr[1] == "Message" and len(arr) == 7:
                        print("message excepted")
                        print(arr)
                        to_teacher_or_student = None
@@ -150,6 +150,36 @@ class Server(object):
                            the_message = self.send_recv_messages.insert_message(arr[2], arr[3], arr[4], arr[5],
                                                                                 to_teacher_or_student,
                                                                                 from_teacher_or_student, arr[6])
+                           if the_message:
+                               self.send_msg("sent", client_socket)
+                           elif not the_message:
+                               self.send_msg("failed", client_socket)
+                       else:
+                           pass
+
+                   elif arr != None and arr[0] == "get messages" and len(arr) == 3:
+                       print("get messages")
+                       print(arr)
+                       to_teacher_or_student = None
+                       if arr[2] == "teacher":
+                           to_teacher_or_student = self.teacherdb.get_id_by_name(arr[1])
+                           print(to_teacher_or_student)
+                       elif arr[2] == "student":
+                           to_teacher_or_student = self.studentdb.get_id_by_name(arr[1])
+                           print(to_teacher_or_student)
+                       else:
+                           pass
+                       if to_teacher_or_student is not None:
+                           arr_messages = self.send_recv_messages.get_messages_for_recipient(arr[1],arr[2],to_teacher_or_student)
+                           print(arr_messages)
+                           arrmessage = []
+                           for el in arr_messages:
+                               strarrmessage = ",".join(el)
+                               arrmessage.append(strarrmessage)
+                           print(arrmessage)
+                           arrmessage = "*".join(arrmessage)
+                           print(arrmessage)
+                           self.send_msg(arrmessage, client_socket)
 
 
 

@@ -71,32 +71,35 @@ class Messages_for_student(tkinter.Toplevel):
     def __init__(self, parent, firstname, lastname,teacher_or_student):
         super().__init__(parent)
         self.parent = parent
-        self.geometry('500x500')
+        self.geometry('700x650')
         self.title('MESSAGE BOX')
         self.firstname = firstname
         self.lastname = lastname
         self.teacher_or_student = teacher_or_student
         self.config(bg="#AFD3E2")
         self.create_gui()
-        Button(self, text='Close', command=self.close).pack(side=tkinter.BOTTOM, fill=tkinter.X)
+        # Button(self, text='Close', command=self.close).pack(side=tkinter.BOTTOM, fill=tkinter.X)
+        Button(self, text='Close', font=("Helvetica", 12, "bold"), command=self.close).pack(side=tkinter.BOTTOM,
+                                                                                            fill=tkinter.X)
 
     def create_gui(self):
-        self.lbl_welcome = Label(self, text="Hello! this is your message box ",background="light blue", foreground="black", font=("Calibri",14))
-        self.lbl_welcome.place(x=160, y=20)
+        self.lbl_welcome = Label(self, text="Hello! This is your message box ", bg="#19A7CE", fg="black",
+                                 font=("Arial", 20, "bold"),relief="solid", bd=3)
+        self.lbl_welcome.place(x=200, y=20)
 
-        self.lbl_chooseperson = Label(self, text="choose for who to write the message: ")
-        self.lbl_chooseperson.place(x=120, y=220)
+        self.lbl_chooseperson = Label(self, text="Choose who to write the message for: ", font=("Arial", 14, "bold"),relief="solid", bd=3)
+        self.lbl_chooseperson.place(x=220, y=60)
 
         self.var = StringVar()
         self.var.set("teacher")
 
         self.teacher_radiobutton = Radiobutton(self, text="Teacher", variable=self.var, value="teacher",
-                                               font=("Helvetica", 14), command=self.update_options)
-        self.teacher_radiobutton.place(x=170,y=250)
+                                               font=("Helvetica", 14),relief="solid", bd=3, command=self.update_options)
+        self.teacher_radiobutton.place(x=300, y=90)
 
         self.student_radiobutton = Radiobutton(self, text="Student", variable=self.var, value="student",
-                                               font=("Helvetica", 14), command=self.update_options)
-        self.student_radiobutton.place(x=170,y=280)
+                                               font=("Helvetica", 14),relief="solid", bd=3, command=self.update_options)
+        self.student_radiobutton.place(x=300, y=120)
 
         self.nameofperson_var = StringVar()
 
@@ -112,21 +115,27 @@ class Messages_for_student(tkinter.Toplevel):
 
         self.nameofperson = OptionMenu(self, self.nameofperson_var, *self.all_teachers_and_students)
         self.nameofperson.config(font=("Helvetica", 14), width=20)
-        self.nameofperson.place(x=170,y=310)
+        self.nameofperson.place(x=300, y=150)
 
-        self.lbl_writemessage = Label(self, text="write a message: ")
-        self.lbl_writemessage.place(x=50, y=400)
+        self.lbl_writemessage = Label(self, text="Write a message: ", font=("Arial", 14, "bold"),relief="solid", bd=3)
+        self.lbl_writemessage.place(x=50, y=550)
 
         self.writemessage = Entry(self, width=20)
-        self.writemessage.place(x=290, y=400)
+        self.writemessage.place(x=260, y=550)
 
         self.send_message_button = Button(self, text='Send', command=self.handle_send_message)
-        self.send_message_button.place(x=190,y=430)
+        self.send_message_button.place(x=190, y=580)
 
-        self.message_label = Entry(self, width=70,foreground="red")
-        self.message_label.place(x=120,y=100)
-        self.message_label.insert(0, "received messages")
-        self.message_label.config(state='readonly')
+        self.message_box_label = Label(self, text="Received messages:", bg="#19A7CE", fg="black",
+                               font=("Arial", 16, "bold"),relief="solid", bd=3)
+        self.message_box_label.place(x=50, y=170)
+
+        self.message_box = Text(self, height=20, width=50, state='disabled', font=("Calibri", 12),relief="solid", bd=3)
+        self.message_box.place(x=90, y=210)
+        self.message_box.configure(state='normal')
+        # self.message_box.insert('end', "No messages received yet.\n")
+        self.message_box.configure(state='disabled')
+        self.get_message()
 
     def update_options(self):
         if self.var.get() == "teacher":
@@ -155,30 +164,47 @@ class Messages_for_student(tkinter.Toplevel):
         self.parent.parent.parent.send_msg(str_insert, self.parent.parent.parent.client_socket)
         data = self.parent.parent.parent.recv_msg(self.parent.parent.parent.client_socket)
         print(data)
-        recieved_data = data.split(",")
-        print(recieved_data)
-        sender = recieved_data[0]
-        recipient = recieved_data[1]
-        message_text = recieved_data[2]
-        if recipient == f"{self.firstname} {self.lastname}" or recipient == "all students":
-            message = f"From: {sender}\n\n{message_text}"
-            self.handle_received_message(message)
-        else:
-            pass
+        if data == "sent":
+            messagebox.showinfo("notification", "message was sent successfully")
+        elif data == "failed":
+            messagebox.showinfo("notification", "sending message failed, try again")
 
+    def get_message(self):
+        print("get messages")
+        arr = ["get messages", f"{self.firstname} {self.lastname}", self.teacher_or_student]
+        str_insert = ",".join(arr)
+        print(str_insert)
+        self.parent.parent.parent.send_msg(str_insert, self.parent.parent.parent.client_socket)
+        data = self.parent.parent.parent.recv_msg(self.parent.parent.parent.client_socket)
+        print(data)
+        if data is not None and data != '':
+            arr = data.split("*")
+            messages = []
+            for el in arr:
+                element = el.split(",")
+                messages.append(f"from: {element[0]}, {element[1]}, the message: {element[2]}")
+            self.message_box.configure(state='normal')
+            self.message_box.delete('1.0', 'end')
+            self.message_box.insert('end', '\n'.join(messages))
+            self.message_box.configure(state='disabled')
+        else:
+            self.message_box.configure(state='normal')
+            self.message_box.delete('1.0', 'end')
+            self.message_box.insert('end', "No received messages.\n")
+            self.message_box.configure(state='disabled')
 
     # def handle_received_message(self, message):
     #     print(message)
     #     self.message_label.delete(0, END)
     #     self.message_label.insert(0,message)
-    def handle_received_message(self, message):
-        self.update_message_label(message)
-
-    def update_message_label(self, message):
-        self.message_label.config(state='normal')
-        self.message_label.delete(0, END)
-        self.message_label.insert(0, message)
-        self.message_label.config(state='readonly')
+    # def handle_received_message(self, message):
+    #     self.update_message_label(message)
+    #
+    # def update_message_label(self, message):
+    #     self.message_label.config(state='normal')
+    #     self.message_label.delete(0, END)
+    #     self.message_label.insert(0, message)
+    #     self.message_label.config(state='readonly')
 
     def close(self):
         self.parent.deiconify()
