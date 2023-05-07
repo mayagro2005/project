@@ -64,7 +64,7 @@ class Messages(tkinter.Toplevel):
         self.lbl_writemessage.place(x=50, y=550)
 
         self.writemessage = Entry(self, width=20)
-        self.writemessage.place(x=260, y=550)
+        self.writemessage.place(x=230, y=550)
 
         self.send_message_button = Button(self, text='Send', command=self.handle_send_message)
         self.send_message_button.place(x=190, y=580)
