@@ -34,7 +34,7 @@ class Messages(tkinter.Toplevel):
         self.lbl_chooseperson.place(x=220, y=60)
 
         self.var = StringVar()
-        self.var.set("teacher")
+        self.var.set("")
 
         self.teacher_radiobutton = Radiobutton(self, text="Teacher", variable=self.var, value="teacher",
                                                font=("Helvetica", 14),relief="solid", bd=3, command=self.update_options)
@@ -73,7 +73,7 @@ class Messages(tkinter.Toplevel):
                                font=("Arial", 16, "bold"),relief="solid", bd=3)
         self.message_box_label.place(x=50, y=170)
 
-        self.message_box = Text(self, height=20, width=50, state='disabled', font=("Calibri", 12),relief="solid", bd=3)
+        self.message_box = Text(self, height=20, width=60, state='disabled', font=("Calibri", 12),relief="solid", bd=3)
         self.message_box.place(x=90, y=210)
         self.message_box.configure(state='normal')
         # self.message_box.insert('end', "No messages received yet.\n")

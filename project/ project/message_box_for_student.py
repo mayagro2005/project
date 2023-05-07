@@ -130,7 +130,7 @@ class Messages_for_student(tkinter.Toplevel):
                                font=("Arial", 16, "bold"),relief="solid", bd=3)
         self.message_box_label.place(x=50, y=170)
 
-        self.message_box = Text(self, height=20, width=50, state='disabled', font=("Calibri", 12),relief="solid", bd=3)
+        self.message_box = Text(self, height=20, width=60, state='disabled', font=("Calibri", 12),relief="solid", bd=3)
         self.message_box.place(x=90, y=210)
         self.message_box.configure(state='normal')
         # self.message_box.insert('end', "No messages received yet.\n")
