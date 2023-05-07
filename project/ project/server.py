@@ -147,9 +147,14 @@ class Server(object):
                        else:
                            pass
                        if to_teacher_or_student is not None and from_teacher_or_student is not None:
-                           the_message = self.send_recv_messages.insert_message(arr[2], arr[3], arr[4], arr[5],
-                                                                                to_teacher_or_student,
-                                                                                from_teacher_or_student, arr[6])
+                           if arr[2] == "all students":
+                               the_message = self.send_recv_messages.send_recv_messages_to_students(arr[2],arr[4],arr[5],from_teacher_or_student,arr[6])
+                           elif arr[2] == "all teachers":
+                               the_message = self.send_recv_messages.send_recv_messages_to_teachers(arr[2],arr[4],arr[5],from_teacher_or_student,arr[6])
+                           else:
+                               the_message = self.send_recv_messages.insert_message(arr[2], arr[3], arr[4], arr[5],
+                                                                                    to_teacher_or_student,
+                                                                                    from_teacher_or_student, arr[6])
                            if the_message:
                                self.send_msg("sent", client_socket)
                            elif not the_message:

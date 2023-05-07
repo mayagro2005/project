@@ -91,7 +91,7 @@ class Messages_for_student(tkinter.Toplevel):
         self.lbl_chooseperson.place(x=220, y=60)
 
         self.var = StringVar()
-        self.var.set("teacher")
+        self.var.set("")
 
         self.teacher_radiobutton = Radiobutton(self, text="Teacher", variable=self.var, value="teacher",
                                                font=("Helvetica", 14),relief="solid", bd=3, command=self.update_options)
@@ -167,7 +167,7 @@ class Messages_for_student(tkinter.Toplevel):
         if data == "sent":
             messagebox.showinfo("notification", "message was sent successfully")
         elif data == "failed":
-            messagebox.showinfo("notification", "sending message failed, try again")
+            messagebox.showerror("notification", "sending message failed, try again")
 
     def get_message(self):
         print("get messages")
@@ -183,15 +183,44 @@ class Messages_for_student(tkinter.Toplevel):
             for el in arr:
                 element = el.split(",")
                 messages.append(f"from: {element[0]}, {element[1]}, the message: {element[2]}")
+            current_messages = self.message_box.get("1.0", "end-1c")
             self.message_box.configure(state='normal')
             self.message_box.delete('1.0', 'end')
+            if current_messages:
+                messages.insert(0, current_messages)
             self.message_box.insert('end', '\n'.join(messages))
             self.message_box.configure(state='disabled')
         else:
-            self.message_box.configure(state='normal')
-            self.message_box.delete('1.0', 'end')
-            self.message_box.insert('end', "No received messages.\n")
-            self.message_box.configure(state='disabled')
+            current_messages = self.message_box.get("1.0", "end-1c")
+            if not current_messages:
+                self.message_box.configure(state='normal')
+                self.message_box.delete('1.0', 'end')
+                self.message_box.insert('end', "No received messages.\n")
+                self.message_box.configure(state='disabled')
+
+    # def get_message(self):
+    #     print("get messages")
+    #     arr = ["get messages", f"{self.firstname} {self.lastname}", self.teacher_or_student]
+    #     str_insert = ",".join(arr)
+    #     print(str_insert)
+    #     self.parent.parent.parent.send_msg(str_insert, self.parent.parent.parent.client_socket)
+    #     data = self.parent.parent.parent.recv_msg(self.parent.parent.parent.client_socket)
+    #     print(data)
+    #     if data is not None and data != '':
+    #         arr = data.split("*")
+    #         messages = []
+    #         for el in arr:
+    #             element = el.split(",")
+    #             messages.append(f"from: {element[0]}, {element[1]}, the message: {element[2]}")
+    #         self.message_box.configure(state='normal')
+    #         self.message_box.delete('1.0', 'end')
+    #         self.message_box.insert('end', '\n'.join(messages))
+    #         self.message_box.configure(state='disabled')
+    #     else:
+    #         self.message_box.configure(state='normal')
+    #         self.message_box.delete('1.0', 'end')
+    #         self.message_box.insert('end', "No received messages.\n")
+    #         self.message_box.configure(state='disabled')
 
     # def handle_received_message(self, message):
     #     print(message)

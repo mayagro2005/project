@@ -170,10 +170,53 @@ class send_recv_messages(object):
             print("Error retrieving messages: ", e)
             return None
 
+    def send_recv_messages_to_students(self, to_username, from_username, from_teacher_or_student, from_usernameId,
+                                       message):
+        try:
+            if to_username == "all students":
+                conn = sqlite3.connect('test.db')
+                cursor = conn.cursor()
+                cursor.execute("SELECT * FROM students")
+                rows = cursor.fetchall()
+                for row in rows:
+                    student_username = row[1] + ' ' + row[2]
+                    student_Id = row[0]
+                    self.insert_message(student_username, "student", from_username, from_teacher_or_student, student_Id,
+                                        from_usernameId, message)
+                conn.commit()
+                conn.close()
+                print("message was sent successfully")
+                return True
+        except:
+            print("Error")
+            return False
+
+    def send_recv_messages_to_teachers(self, to_username, from_username, from_teacher_or_student, from_usernameId,
+                                       message):
+        try:
+            if to_username == "all teachers":
+                conn = sqlite3.connect('test.db')
+                cursor = conn.cursor()
+                cursor.execute("SELECT * FROM teachers")
+                rows = cursor.fetchall()
+                for row in rows:
+                    teacher_username = row[1] + ' ' + row[2]
+                    teacher_Id = row[0]
+                    self.insert_message(teacher_username, "teacher", from_username, from_teacher_or_student, teacher_Id,
+                                        from_usernameId, message)
+                conn.commit()
+                conn.close()
+                print("message was sent successfully")
+                return True
+        except:
+            print("Error")
+            return False
+
     def __str__(self):
         return "table  name is ", self.__tablename
 
 # s = send_recv_messages()
+# s.send_recv_messages_to_students("all students", "lilya qwew", "teacher", 6, "hey everyone")
 # s.get_messages_for_recipient("dcf qwey","student","1")
 # s.delete_message("dcf qwey","student","lilya qwew","teacher","1","6","hello")
 # s.insert_message("dcf qwey","student","lilya qwew","teacher","1","6","hello")
