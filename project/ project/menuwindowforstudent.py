@@ -14,15 +14,15 @@ from insert_lesson_window import insert_lesson
 from delete_lesson_window import delete_lesson
 from update_lesson_window import update_lesson
 from kids_tennis_window_student import kids_tennis_lesson_student
-from adults_tennis_window import adults_tennis_lesson
-from basketball_window import basketball_lesson
-from boxing_window import boxing_lesson
-from dance_window import dance_lesson
-from fitness_window import fitness_lesson
-from pilates_window import pilates_lesson
-from ping_pong_window import ping_pong_lesson
-from swimming_window import swimming_lesson
-from yoga_window import yoga_lesson
+from adults_tennis_window_student import adults_tennis_lesson_student
+from basketball_window_student import basketball_lesson_student
+from boxing_window_student import boxing_lesson_student
+from dance_window_student import dance_lesson_student
+from fitness_window_student import fitness_lesson_student
+from pilates_window_student import pilates_lesson_student
+from ping_pong_window_student import ping_pong_lesson_student
+from swimming_window_student import swimming_lesson_student
+from yoga_window_student import yoga_lesson_student
 #https://www.pythontutorial.net/tkinter/tkinter-toplevel/
 #toplevel = tk.Toplevel(window) #'toplevel' can be changed to anything,
 #it is just a variable to hold the top level, 'window'
@@ -142,41 +142,32 @@ class menuforstudent(tkinter.Toplevel):
         window = kids_tennis_lesson_student(self, self.firstname, self.lastname)
         window.grab_set()
     def open_swimming(self):
-        pass
-        # window = swimming_lesson(self)
-        # window.grab_set()
+        window = swimming_lesson_student(self, self.firstname, self.lastname)
+        window.grab_set()
     def open_yoga(self):
-        pass
-        # window = yoga_lesson(self)
-        # window.grab_set()
+        window = yoga_lesson_student(self, self.firstname, self.lastname)
+        window.grab_set()
     def open_basketball(self):
-        pass
-        # window = basketball_lesson(self)
-        # window.grab_set()
+        window = basketball_lesson_student(self, self.firstname, self.lastname)
+        window.grab_set()
     def open_dancing(self):
-        pass
-        # window = dance_lesson(self)
-        # window.grab_set()
+        window = dance_lesson_student(self, self.firstname, self.lastname)
+        window.grab_set()
     def open_adultstennis(self):
-        pass
-        # window = adults_tennis_lesson(self)
-        # window.grab_set()
+        window = adults_tennis_lesson_student(self, self.firstname, self.lastname)
+        window.grab_set()
     def open_pingpong(self):
-        pass
-        # window = ping_pong_lesson(self)
-        # window.grab_set()
+        window = ping_pong_lesson_student(self, self.firstname, self.lastname)
+        window.grab_set()
     def open_fitness(self):
-        pass
-        # window = fitness_lesson(self)
-        # window.grab_set()
+        window = fitness_lesson_student(self, self.firstname, self.lastname)
+        window.grab_set()
     def open_pilates(self):
-        pass
-        # window = pilates_lesson(self)
-        # window.grab_set()
+        window = pilates_lesson_student(self, self.firstname, self.lastname)
+        window.grab_set()
     def open_boxing(self):
-        pass
-        # window = boxing_lesson(self)
-        # window.grab_set()
+        window = boxing_lesson_student(self, self.firstname, self.lastname)
+        window.grab_set()
 
 
 
