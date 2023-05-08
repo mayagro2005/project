@@ -24,7 +24,7 @@ class insert_lesson(tkinter.Toplevel):
 
     def create_gui(self):
         self.nameofgroup_var = StringVar()
-        self.lbl_nameofgroup = Label(self, text="Name of Group", font=("Helvetica", 16, "bold"))
+        self.lbl_nameofgroup = Label(self, text="Name of Group", font=("Helvetica", 16, "bold"),bg="#AFD3E2")
         self.lbl_nameofgroup.pack(pady=20)
         self.nameofgroup = OptionMenu(self, self.nameofgroup_var,
                                     *["kids tennis", "swimming", "yoga", "basketball", "dance","adults tennis","ping pong","fitness","pilates","boxing"])
@@ -32,20 +32,20 @@ class insert_lesson(tkinter.Toplevel):
         self.nameofgroup.pack()
 
         # Start Hour
-        self.lbl_startH = Label(self, text="Start Hour", font=("Helvetica", 16, "bold"))
+        self.lbl_startH = Label(self, text="Start Hour", font=("Helvetica", 16, "bold"),bg="#AFD3E2")
         self.lbl_startH.pack(pady=20)
         self.startH = Entry(self, font=("Helvetica", 14), width=20)
         self.startH.pack()
 
         # End Hour
-        self.lbl_endH = Label(self, text="End Hour", font=("Helvetica", 16, "bold"))
+        self.lbl_endH = Label(self, text="End Hour", font=("Helvetica", 16, "bold"),bg="#AFD3E2")
         self.lbl_endH.pack(pady=20)
         self.endH = Entry(self, font=("Helvetica", 14), width=20)
         self.endH.pack()
 
         self.lessonday_var = StringVar()
         # Lesson Day
-        self.lbl_lessonday = Label(self, text="Lesson Day", font=("Helvetica", 16, "bold"))
+        self.lbl_lessonday = Label(self, text="Lesson Day", font=("Helvetica", 16, "bold"),bg="#AFD3E2")
         self.lbl_lessonday.pack(pady=20)
         self.lessonday = OptionMenu(self, self.lessonday_var,
                                     *["Sunday","Monday", "Tuesday", "Wednesday", "Thursday"])
