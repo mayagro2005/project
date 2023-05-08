@@ -141,31 +141,31 @@ class menu(tkinter.Toplevel):
         window = kids_tennis_lesson(self,self.firstname,self.lastname)
         window.grab_set()
     def open_swimming(self):
-        window = swimming_lesson(self)
+        window = swimming_lesson(self,self.firstname,self.lastname)
         window.grab_set()
     def open_yoga(self):
-        window = yoga_lesson(self)
+        window = yoga_lesson(self,self.firstname,self.lastname)
         window.grab_set()
     def open_basketball(self):
-        window = basketball_lesson(self)
+        window = basketball_lesson(self,self.firstname,self.lastname)
         window.grab_set()
     def open_dancing(self):
-        window = dance_lesson(self)
+        window = dance_lesson(self,self.firstname,self.lastname)
         window.grab_set()
     def open_adultstennis(self):
-        window = adults_tennis_lesson(self)
+        window = adults_tennis_lesson(self,self.firstname,self.lastname)
         window.grab_set()
     def open_pingpong(self):
-        window = ping_pong_lesson(self)
+        window = ping_pong_lesson(self,self.firstname,self.lastname)
         window.grab_set()
     def open_fitness(self):
-        window = fitness_lesson(self)
+        window = fitness_lesson(self,self.firstname,self.lastname)
         window.grab_set()
     def open_pilates(self):
-        window = pilates_lesson(self)
+        window = pilates_lesson(self,self.firstname,self.lastname)
         window.grab_set()
     def open_boxing(self):
-        window = boxing_lesson(self)
+        window = boxing_lesson(self,self.firstname,self.lastname)
         window.grab_set()
 
 
