@@ -35,7 +35,7 @@ class update_lesson(tkinter.Toplevel):
         self.nameofgroup = OptionMenu(self, self.nameofgroup_var,
                                       *["kids tennis", "swimming", "yoga", "basketball", "dance", "adults tennis",
                                         "ping pong", "fitness", "pilates", "boxing"])
-        self.nameofgroup.config(font=("Helvetica", 14), width=10)
+        self.nameofgroup.config(font=("Helvetica", 14), width=10,bg="#AFD3E2")
         self.nameofgroup.pack()
         self.nameofgroup.place(x=330,y=20)
 
@@ -56,7 +56,7 @@ class update_lesson(tkinter.Toplevel):
         self.lbl_lessonday1.place(x=10, y=230)
         self.lessonday1 = OptionMenu(self, self.lessonday_var1,
                                     *["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday"])
-        self.lessonday1.config(font=("Helvetica", 14), width=10)
+        self.lessonday1.config(font=("Helvetica", 14), width=10,bg="#AFD3E2")
         self.lessonday1.pack()
         self.lessonday1.place(x=120, y=230)
 

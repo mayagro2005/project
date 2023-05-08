@@ -28,7 +28,7 @@ class insert_lesson(tkinter.Toplevel):
         self.lbl_nameofgroup.pack(pady=20)
         self.nameofgroup = OptionMenu(self, self.nameofgroup_var,
                                     *["kids tennis", "swimming", "yoga", "basketball", "dance","adults tennis","ping pong","fitness","pilates","boxing"])
-        self.nameofgroup.config(font=("Helvetica", 14), width=20)
+        self.nameofgroup.config(font=("Helvetica", 14), width=20,bg="#AFD3E2")
         self.nameofgroup.pack()
 
         # Start Hour
@@ -49,12 +49,12 @@ class insert_lesson(tkinter.Toplevel):
         self.lbl_lessonday.pack(pady=20)
         self.lessonday = OptionMenu(self, self.lessonday_var,
                                     *["Sunday","Monday", "Tuesday", "Wednesday", "Thursday"])
-        self.lessonday.config(font=("Helvetica", 14), width=20)
+        self.lessonday.config(font=("Helvetica", 14), width=20,bg="#AFD3E2")
         self.lessonday.pack()
 
         # INSERT LESSON button
         self.buttonPlus = Button(self, text="INSERT LESSON", font=("Helvetica", 14, "bold"), command=self.insertlesson,
-                                 background="white", activebackground="white",bg="#AFD3E2")
+                                 background="white", activebackground="white")
         self.buttonPlus.pack(pady=20)
 
 
