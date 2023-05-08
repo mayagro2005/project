@@ -8,7 +8,7 @@ class basketball_lesson(tkinter.Toplevel):
     def __init__(self, parent,firstname,lastname):
         super().__init__(parent)
         self.parent = parent
-        self.title('KIDS TENNIS LESSON WINDOW')
+        self.title('BASKETBALL LESSON WINDOW')
         self.firstname = firstname
         self.lastname = lastname
         self.create_table()
