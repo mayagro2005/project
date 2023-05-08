@@ -53,7 +53,7 @@ class delete_lesson(tkinter.Toplevel):
         self.lessonday.config(font=("Helvetica", 14), width=20)
         self.lessonday.pack()
 
-        self.buttonPlus = Button(self, text="DELETE LESSON",font=("Helvetica", 14, "bold"), command=self.deletelesson, background="white", activebackground="white")
+        self.buttonPlus = Button(self, text="DELETE LESSON",font=("Helvetica", 14, "bold"), command=self.deletelesson, background="white", activebackground="white",bg="#AFD3E2")
         # self.buttonPlus.place(x=250, y=400, width=120, height=50)
         self.buttonPlus.pack(pady=20)
 

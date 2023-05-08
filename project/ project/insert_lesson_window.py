@@ -54,7 +54,7 @@ class insert_lesson(tkinter.Toplevel):
 
         # INSERT LESSON button
         self.buttonPlus = Button(self, text="INSERT LESSON", font=("Helvetica", 14, "bold"), command=self.insertlesson,
-                                 background="white", activebackground="white")
+                                 background="white", activebackground="white",bg="#AFD3E2")
         self.buttonPlus.pack(pady=20)
 
 
