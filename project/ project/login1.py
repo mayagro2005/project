@@ -43,6 +43,7 @@ class Login(tkinter.Toplevel):
         self.lbl_signin = Label(self, text="SIGN IN", font=("Arial", 20, "bold"), relief=SUNKEN)
         self.lbl_signin.pack(pady=10)
 
+
         self.lbl_recognize = Label(self, text="Are you a teacher or student?", font=("Helvetica", 14))
         self.lbl_recognize.pack(pady=10)
 
