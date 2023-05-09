@@ -41,18 +41,18 @@ class update_lesson(tkinter.Toplevel):
 
 
         # phase 1 button
-        self.lbl_startH1 = Label(self, width=10, text="start hour",font=("Arial", 12, "bold"),bg="#AFD3E2")
+        self.lbl_startH1 = Label(self, width=10, text="start hour",font=("Arial", 13, "bold"),bg="#AFD3E2")
         self.lbl_startH1.place(x=10, y=130)
         self.startH1 = Entry(self, width=10)
         self.startH1.place(x=120, y=130)
 
-        self.lbl_endH1 = Label(self, width=10, text="end hour",font=("Arial", 12, "bold"),bg="#AFD3E2")
+        self.lbl_endH1 = Label(self, width=10, text="end hour",font=("Arial", 13, "bold"),bg="#AFD3E2")
         self.lbl_endH1.place(x=10, y=180)
         self.endH1 = Entry(self, width=10)
         self.endH1.place(x=120, y=180)
 
         self.lessonday_var1 = StringVar()
-        self.lbl_lessonday1 = Label(self, width=10, text="lesson day",font=("Arial", 12, "bold"),bg="#AFD3E2")
+        self.lbl_lessonday1 = Label(self, width=10, text="lesson day",font=("Arial", 13, "bold"),bg="#AFD3E2")
         self.lbl_lessonday1.place(x=10, y=230)
         self.lessonday1 = OptionMenu(self, self.lessonday_var1,
                                     *["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday"])
@@ -70,18 +70,18 @@ class update_lesson(tkinter.Toplevel):
                                            "\n details below: ", background="#D9ACF5",
                                 foreground="black", font=("Helvetica", 16, "bold"),relief="solid", bd=3)
         self.lbl_update.place(x=280, y=70)
-        self.lbl_startH = Label(self, width=10, text="start hour", font=("Arial", 12, "bold"),bg="#AFD3E2")
+        self.lbl_startH = Label(self, width=10, text="start hour", font=("Arial", 13, "bold"),bg="#AFD3E2")
         self.lbl_startH.place(x=280, y=130)
         self.startH = Entry(self, width=10)
         self.startH.place(x=390, y=130)
 
-        self.lbl_endH = Label(self, width=10, text="end hour", font=("Arial", 12, "bold"),bg="#AFD3E2")
+        self.lbl_endH = Label(self, width=10, text="end hour", font=("Arial", 13, "bold"),bg="#AFD3E2")
         self.lbl_endH.place(x=280, y=180)
         self.endH = Entry(self, width=10)
         self.endH.place(x=390, y=180)
 
         self.lessonday_var = StringVar()
-        self.lbl_lessonday = Label(self, width=10, text="lesson day", font=("Arial", 12, "bold"),bg="#AFD3E2")
+        self.lbl_lessonday = Label(self, width=10, text="lesson day", font=("Arial", 13, "bold"),bg="#AFD3E2")
         self.lbl_lessonday.place(x=280, y=230)
         self.lessonday = OptionMenu(self, self.lessonday_var,
                                      *["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday"])

@@ -92,18 +92,18 @@ class Payments(tkinter.Toplevel):
         self.lbl_price.place(x=130, y=80)
 
         self.lbl_paymentmessage = Label(self, text="Please enter your payment amount:", fg="black",
-                                        font=("Arial", 14, "bold"))
-        self.lbl_paymentmessage.place(x=50, y=300)
+                                        font=("Arial", 14, "bold"),bg="#AFD3E2")
+        self.lbl_paymentmessage.place(x=30, y=300)
 
         self.writepayment = Entry(self, width=20, font=("Arial", 14))
-        self.writepayment.place(x=300, y=300)
+        self.writepayment.place(x=290, y=300)
 
-        self.pay_button = Button(self, text='PAY', command=self.payment, bg='#6C9BCF', fg='black',
-                                 font=('Helvetica', 14, "bold"), bd=3)
-        self.pay_button.place(x=250, y=340)
+        self.pay_button = Button(self, text='PAY', command=self.payment, fg='black',
+                                 font=('Helvetica', 14, "bold"), bg="#AFD3E2",relief="solid", bd=2)
+        self.pay_button.place(x=230, y=340)
 
         self.check_button = Button(self, text='CHECK MY PAYMENT', command=self.check_payment,
-                                   font=("Helvetica", 16, "bold"), bg='#6C9BCF', fg='black', bd=5, relief=SUNKEN)
+                                   font=("Helvetica", 16, "bold"), bg="#AFD3E2", fg='black',relief="solid", bd=2)
         self.check_button.place(x=150, y=200)
 
         # self.send_message_button = Button(self, text='Pay', command= self.payment)

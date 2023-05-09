@@ -118,10 +118,10 @@ class Messages_for_student(tkinter.Toplevel):
         self.nameofperson.place(x=300, y=150)
 
         self.lbl_writemessage = Label(self, text="Write a message: ", font=("Arial", 14, "bold"),relief="solid", bd=3)
-        self.lbl_writemessage.place(x=50, y=550)
+        self.lbl_writemessage.place(x=90, y=550)
 
         self.writemessage = Entry(self, width=20)
-        self.writemessage.place(x=230, y=550)
+        self.writemessage.place(x=250, y=550)
 
         self.send_message_button = Button(self, text='Send', command=self.handle_send_message)
         self.send_message_button.place(x=190, y=580)
