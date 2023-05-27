@@ -72,7 +72,7 @@ class Server(object):
                        print("sign up teacher")
                        print(arr)
                        server_data=self.teacherdb.insert_teacher(arr[2], arr[3], arr[4], arr[5])
-                       print("sertver data:",server_data)
+                       print("server data:",server_data)
                        if server_data == "exist":
                            self.send_msg("exist", client_socket)
                            # client_socket.send("exist".encode())

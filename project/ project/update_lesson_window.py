@@ -62,7 +62,7 @@ class update_lesson(tkinter.Toplevel):
 
 
 
-        self.buttonPlus = Button(self, text="UPDATE LESSON",font=("Helvetica", 14, "bold"), command=self.updatelesson, background="white", activebackground="white",bg="#AFD3E2")
+        self.buttonPlus = Button(self, text="UPDATE LESSON",font=("Helvetica", 14, "bold"), command=self.updatelesson, background="white", activebackground="white")
         self.buttonPlus.place(x=200, y=400,width=140, height=50)
 
 
