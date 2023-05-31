@@ -299,9 +299,6 @@ class students(object):
             cursor.execute("SELECT priceforayear FROM students WHERE email=? AND password=?", (email, password))
             row = cursor.fetchone()
             print(row)
-            # if row is None:
-            #     print("Invalid email or password")
-            #     return "Invalid email or password"
             priceforayear = int(row[0])
             if priceforayear == 1500:
                 print("already payed")
@@ -360,11 +357,50 @@ class students(object):
         except:
             return False
 
+    def get_student_name(self, email, password):
+        try:
+            conn = sqlite3.connect('test.db')
+            print("Opened database successfully")
+            query = f"SELECT {self.__firstname}, {self.__lastname} FROM {self.__tablename} WHERE {self.__email} = '{email}' AND {self.__password} = '{password}'"
+            cursor = conn.execute(query)
+            result = cursor.fetchone()
+            conn.close()
+
+            if result:
+                first_name = result[0]
+                last_name = result[1]
+                print(first_name, last_name)
+                return first_name, last_name
+            else:
+                return None
+        except:
+            return None
+
+    def check_student_exists(self, email, password):
+        try:
+            conn = sqlite3.connect('test.db')
+            print("Opened database successfully")
+            query = f"SELECT * FROM {self.__tablename} WHERE {self.__email} = '{email}' AND {self.__password} = '{password}'"
+            cursor = conn.execute(query)
+            result = cursor.fetchone()
+            conn.close()
+
+            if result:
+                print("Student exists")
+                return True
+            else:
+                print("Student does not exist")
+                return False
+        except:
+            print("Failed to check student existence")
+            return False
+
     def __str__(self):
         return "table  name is ", self.__tablename
 
 
-# s = students()
+s = students()
+s.get_student_name("mha.com", "9o234")
 # s.get_id_by_name("dcf qwey")
 # s.delete_student_by_id(6)
 # s.update_price(1200,"mha.com","9o234")

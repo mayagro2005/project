@@ -415,20 +415,7 @@ class groups(object):
     def __str__(self):
         return "table  name is ", self.__tablename
 
-    def inner(self):
-        conn = sqlite3.connect('test.db')
-        st = f"select nameofgroup from group inner join teachers on group.teacherId = teachers.teacherId"
-        print(st)
-        y = conn.execute(st)
-        arr = []
-        for row in y:
-            str1 = row[0] + " " + str(row[1]) + " " + str(row[2])
-            arr.append(str1)
-        print(arr)
 
-        conn.commit()
-        conn.close()
-        return arr
 
 
 # g = groups()

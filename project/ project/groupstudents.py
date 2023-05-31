@@ -245,8 +245,8 @@ class groupstudents(object):
             print("Student inserted successfully to group.")
             return "Success"
 
-        except Exception as e:
-            print("Error inserting student to group:", e)
+        except:
+            print("Error inserting student to group:")
             return "error"
 
     # def delete_student_to_group2(self, nameofgroup, startH, endH,

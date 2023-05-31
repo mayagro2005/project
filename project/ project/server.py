@@ -101,24 +101,24 @@ class Server(object):
 
 
 
-                   elif arr != None and arr[0] == "SignIn" and arr[1] == "teacher" and len(arr) == 6:
+                   elif arr != None and arr[0] == "SignIn" and arr[1] == "teacher" and len(arr) == 4:
                        print("sign in teacher")
                        print(arr)
-                       server_data = self.teacherdb.insert_teacher(arr[2], arr[3], arr[4], arr[5])
+                       server_data = self.teacherdb.check_teacher_exists(arr[2], arr[3])
                        print("sertver data:", server_data)
-                       if server_data == "exist":
+                       if server_data:
                            self.send_msg("exist", client_socket)
                            # client_socket.send("exist".encode())
                        elif server_data:
                            self.send_msg("not exist", client_socket)
                            # client_socket.send("not exist".encode())
 
-                   elif arr != None and arr[0] == "SignIn" and arr[1] == "student" and len(arr) == 7:
+                   elif arr != None and arr[0] == "SignIn" and arr[1] == "student" and len(arr) == 4:
                        print("sign in student")
                        print(arr)
-                       server_data = self.studentdb.insert_student(arr[2], arr[3], arr[4], arr[5], arr[6])
+                       server_data = self.studentdb.check_student_exists(arr[2], arr[3])
                        print("sertver data:", server_data)
-                       if server_data == "exist":
+                       if server_data:
                            self.send_msg("exist", client_socket)
                            # client_socket.send("exist".encode())
                        elif server_data:
@@ -625,6 +625,25 @@ class Server(object):
                        student_list = ",".join(student_list)
                        print(student_list)
                        self.send_msg(student_list,client_socket)
+
+                   elif arr!= None and arr[0] == "get teacher name" and len(arr) == 3:
+                       print("get teacher name")
+                       print(arr)
+                       names = self.teacherdb.get_teacher_name(arr[1],arr[2])
+                       names = ",".join(names)
+                       print(names)
+                       self.send_msg(names,client_socket)
+
+                   elif arr != None and arr[0] == "get student name" and len(arr) == 3:
+                       print("get student name")
+                       print(arr)
+                       names = self.studentdb.get_student_name(arr[1], arr[2])
+                       names = ",".join(names)
+                       print(names)
+                       self.send_msg(names, client_socket)
+
+
+
 
 
 

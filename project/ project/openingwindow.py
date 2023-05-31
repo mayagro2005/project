@@ -15,11 +15,6 @@ SIZE = 12
 from dbteachers import *
 from dbstudents import *
 from tkinter import ttk
-#https://www.pythontutorial.net/tkinter/tkinter-toplevel/
-#toplevel = tk.Toplevel(window) #'toplevel' can be changed to anything,
-#it is just a variable to hold the top level, 'window'
-#should be whatever variable holds your main window
-#toplevel.title = 'Top Level'
 
 class App(tkinter.Tk):
     def __init__(self):

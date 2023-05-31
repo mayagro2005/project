@@ -380,13 +380,51 @@ class teachers(object):
         except:
             return False
 
+    def get_teacher_name(self, email, password):
+        try:
+            conn = sqlite3.connect('test.db')
+            print("Opened database successfully")
+            query = f"SELECT firstname, lastname FROM teachers WHERE email = '{email}' AND password = '{password}'"
+            cursor = conn.execute(query)
+            result = cursor.fetchone()
+            conn.close()
 
+            if result:
+                print(result[0], result[1])
+                return result[0], result[1]
+            else:
+                return False
+        except:
+            return False
+
+    def check_teacher_exists(self, email, password):
+        try:
+            conn = sqlite3.connect('test.db')
+            print("Opened database successfully")
+
+            query = f"SELECT * FROM teachers WHERE email = '{email}' AND password = '{password}'"
+            cursor = conn.execute(query)
+            row = cursor.fetchone()
+            conn.close()
+
+            if row:
+                print("Teacher exists")
+                return True
+            else:
+                print("Teacher does not exist")
+                return False
+        except:
+            print("Failed to check teacher existence")
+            return False
 
     def __str__(self):
         return "table  name is ", self.__tablename
 
 
-# t=teachers()
+t=teachers()
+# t.check_teacher_exists("qwe56","zxc567")
+arr = t.get_teacher_name("qwe56", "zxc567")
+print(arr[0])
 # t.get_id_by_name("lilya qwew")
 # t.get_name_by_email_and_password("qwe56", 'zxc567')
 # t.get_all_names()

@@ -59,15 +59,15 @@ class Login(tkinter.Toplevel):
         self.student_radiobutton.pack(pady=5)
 
         # Labels and Entries for first name, last name, email, and password
-        self.firstname_label = Label(self, text="First Name:", font=("Helvetica", 14))
-        self.firstname_label.pack(pady=5)
-        self.firstname = Entry(self, font=("Helvetica", 14))
-        self.firstname.pack(pady=5)
-
-        self.lastname_label = Label(self, text="Last Name:", font=("Helvetica", 14))
-        self.lastname_label.pack(pady=5)
-        self.lastname = Entry(self, font=("Helvetica", 14))
-        self.lastname.pack(pady=5)
+        # self.firstname_label = Label(self, text="First Name:", font=("Helvetica", 14))
+        # self.firstname_label.pack(pady=5)
+        # self.firstname = Entry(self, font=("Helvetica", 14))
+        # self.firstname.pack(pady=5)
+        #
+        # self.lastname_label = Label(self, text="Last Name:", font=("Helvetica", 14))
+        # self.lastname_label.pack(pady=5)
+        # self.lastname = Entry(self, font=("Helvetica", 14))
+        # self.lastname.pack(pady=5)
 
         self.email_label = Label(self, text="Email:", font=("Helvetica", 14))
         self.email_label.pack(pady=5)
@@ -146,12 +146,11 @@ class Login(tkinter.Toplevel):
     def signin_user(self):
         try:
             if self.var.get() == "teacher":
-                if len(self.email.get()) == 0 or len(self.password.get()) == 0 or len(self.firstname.get()) == 0 or len(
-                        self.lastname.get()) == 0:
+                if len(self.email.get()) == 0 or len(self.password.get()) == 0:
                     messagebox.showerror("please write details", "Error")
                     return
                 print("SignIn")
-                arr = ["SignIn", "teacher", self.firstname.get(), self.lastname.get(), self.email.get(),
+                arr = ["SignIn", "teacher", self.email.get(),
                        self.password.get()]
                 str_insert = ",".join(arr)
                 print(str_insert)
@@ -168,7 +167,14 @@ class Login(tkinter.Toplevel):
                 #     self.str.set(message)
                 #     print(self.str.get())
                 else:
-                    window = menu(self, self.firstname.get(), self.lastname.get(), self.email.get(), self.password.get(),self.var.get())
+                    arr = ["get teacher name", self.email.get(), self.password.get()]
+                    str_names = ",".join(arr)
+                    print(str_names)
+                    self.parent.send_msg(str_names, self.parent.client_socket)
+                    names = self.parent.recv_msg(self.parent.client_socket)
+                    names = names.split(",")
+                    print(names)
+                    window = menu(self, names[0], names[1], self.email.get(), self.password.get(),self.var.get())
                     window.grab_set()
                     self.withdraw()
                     # message2 = "welcome, you are loged"
@@ -184,12 +190,11 @@ class Login(tkinter.Toplevel):
                 # print(data)
             elif self.var.get() == "student":
                 self.priceforayear = str(0)
-                if len(self.email.get()) == 0 or len(self.password.get()) == 0 or len(self.firstname.get()) == 0 or len(
-                        self.lastname.get()) == 0:
+                if len(self.email.get()) == 0 or len(self.password.get()) == 0:
                     messagebox.showerror("please write details", "Error")
                     return
                 print("SignIn")
-                arr1 = ["SignIn", "student", self.firstname.get(), self.lastname.get(), self.priceforayear,
+                arr1 = ["SignIn", "student",
                         self.email.get(),
                         self.password.get()]
                 str_insert = ",".join(arr1)
@@ -206,7 +211,14 @@ class Login(tkinter.Toplevel):
                 #     self.str.set(message)
                 #     print(self.str.get())
                 else:
-                    window = menuforstudent(self, self.firstname.get(), self.lastname.get(), self.email.get(),
+                    arr = ["get student name", self.email.get(), self.password.get()]
+                    str_names = ",".join(arr)
+                    print(str_names)
+                    self.parent.send_msg(str_names, self.parent.client_socket)
+                    names = self.parent.recv_msg(self.parent.client_socket)
+                    names = names.split(",")
+                    print(names)
+                    window = menuforstudent(self, names[0], names[1], self.email.get(),
                                   self.password.get(),self.var.get())
                     window.grab_set()
                     self.withdraw()
