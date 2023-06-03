@@ -130,23 +130,23 @@ class Server(object):
                        print(arr)
                        to_teacher_or_student = None
                        from_teacher_or_student = None
-                       if arr[3] == "teacher":
+                       if arr[3] == "teacher" and arr[2] != "all teachers":
                            to_teacher_or_student = self.teacherdb.get_id_by_name(arr[2])
                            print(to_teacher_or_student)
-                       elif arr[3] == "student":
+                       elif arr[3] == "student" and arr[2] != "all students":
                            to_teacher_or_student = self.studentdb.get_id_by_name(arr[2])
                            print(to_teacher_or_student)
                        else:
                            pass
                        if arr[5] == "teacher":
-                           from_teacher_or_student = self.teacherdb.get_id_by_name(arr[2])
+                           from_teacher_or_student = self.teacherdb.get_id_by_name(arr[4])
                            print(from_teacher_or_student)
                        elif arr[5] == "student":
-                           from_teacher_or_student = self.studentdb.get_id_by_name(arr[2])
+                           from_teacher_or_student = self.studentdb.get_id_by_name(arr[4])
                            print(from_teacher_or_student)
                        else:
                            pass
-                       if to_teacher_or_student is not None and from_teacher_or_student is not None:
+                       if from_teacher_or_student is not None:
                            if arr[2] == "all students":
                                the_message = self.send_recv_messages.send_recv_messages_to_students(arr[2],arr[4],arr[5],from_teacher_or_student,arr[6])
                            elif arr[2] == "all teachers":
@@ -209,8 +209,8 @@ class Server(object):
                            # group = self.dbgroups.get_group_id_by_name(arr[1])
                            group = self.dbgroups.get_group_id_by_name_and_teacher(arr[1],teacherid)
                            timeofgroup = self.dbgroupstime.insert_group_time(group,arr[2],arr[3],arr[4])
-                           if timeofgroup == "exist":
-                               self.send_msg("exist", client_socket)
+                           if timeofgroup == "collision":
+                               self.send_msg("collision", client_socket)
                            elif timeofgroup:
                                self.send_msg("inserted", client_socket)
                            else:
@@ -641,6 +641,10 @@ class Server(object):
                        names = ",".join(names)
                        print(names)
                        self.send_msg(names, client_socket)
+
+                   # elif arr != None and arr[0] == "closed" and len(arr) == 1:
+                   #     print(f"client {adress} closed the connection")
+                   #     break
 
 
 

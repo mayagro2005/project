@@ -73,8 +73,8 @@ class insert_lesson(tkinter.Toplevel):
             self.parent.parent.parent.send_msg(str_insert, self.parent.parent.parent.client_socket)
             data = self.parent.parent.parent.recv_msg(self.parent.parent.parent.client_socket)
             print(data)
-            if data == "exist":
-                messagebox.showinfo("notification", "lesson already exists")
+            if data == "collision":
+                messagebox.showinfo("notification", "There is a collision with existing lessons")
             elif data == "inserted":
                 messagebox.showinfo("notification", "lesson inserted successfully")
                 # arr1 = ["Addgroup",self.nameofgroup_var.get(), self.startH.get(), self.endH.get(),

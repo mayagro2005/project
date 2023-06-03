@@ -421,10 +421,10 @@ class teachers(object):
         return "table  name is ", self.__tablename
 
 
-t=teachers()
+# t=teachers()
 # t.check_teacher_exists("qwe56","zxc567")
-arr = t.get_teacher_name("qwe56", "zxc567")
-print(arr[0])
+# arr = t.get_teacher_name("qwe56", "zxc567")
+# print(arr[0])
 # t.get_id_by_name("lilya qwew")
 # t.get_name_by_email_and_password("qwe56", 'zxc567')
 # t.get_all_names()

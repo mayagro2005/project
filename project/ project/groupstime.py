@@ -48,17 +48,47 @@ class groupstime(object):
         print(arr_groups_times)
         return arr_groups_times
 
+    # def insert_group_time(self, groupId, startH, endH, lessonDay):
+    #     conn = sqlite3.connect('test.db')
+    #     print("Opened database successfully")
+    #     str_check = f"SELECT * from {self.__tablename} where '{groupId}' = {self.__groupId} and " \
+    #                 f"'{startH}' = {self.__startH} and '{endH}' = {self.__endH} and '{lessonDay}' = {self.__lessonDay}"
+    #     print(str_check)
+    #     cursor = conn.execute(str_check)
+    #     row = cursor.fetchall()
+    #     if row:
+    #         print("Group time already exists")
+    #         return "exist"
+    #     else:
+    #         try:
+    #             str_insert = f"INSERT INTO {self.__tablename} ({self.__groupId}, {self.__startH}, {self.__endH}, {self.__lessonDay})" \
+    #                          f" VALUES ('{groupId}', '{startH}', '{endH}', '{lessonDay}');"
+    #             print(str_insert)
+    #             conn.execute(str_insert)
+    #             conn.commit()
+    #             conn.close()
+    #             print("Record created successfully");
+    #             return True
+    #         except:
+    #             print("Failed to insert group time")
+    #             return False
     def insert_group_time(self, groupId, startH, endH, lessonDay):
         conn = sqlite3.connect('test.db')
         print("Opened database successfully")
-        str_check = f"SELECT * from {self.__tablename} where '{groupId}' = {self.__groupId} and " \
-                    f"'{startH}' = {self.__startH} and '{endH}' = {self.__endH} and '{lessonDay}' = {self.__lessonDay}"
+
+        # Check if there is an existing lesson with overlapping time
+        str_check = f"SELECT * FROM {self.__tablename} WHERE " \
+                    f"('{startH}' BETWEEN {self.__startH} AND {self.__endH} OR " \
+                    f"'{endH}' BETWEEN {self.__startH} AND {self.__endH} OR " \
+                    f"{self.__startH} BETWEEN '{startH}' AND '{endH}' OR " \
+                    f"{self.__endH} BETWEEN '{startH}' AND '{endH}') " \
+                    f"AND '{lessonDay}' = {self.__lessonDay}"
         print(str_check)
         cursor = conn.execute(str_check)
         row = cursor.fetchall()
         if row:
-            print("Group time already exists")
-            return "exist"
+            print("There is a collision with existing lessons")
+            return "collision"
         else:
             try:
                 str_insert = f"INSERT INTO {self.__tablename} ({self.__groupId}, {self.__startH}, {self.__endH}, {self.__lessonDay})" \
@@ -67,7 +97,7 @@ class groupstime(object):
                 conn.execute(str_insert)
                 conn.commit()
                 conn.close()
-                print("Record created successfully");
+                print("Record created successfully")
                 return True
             except:
                 print("Failed to insert group time")
@@ -266,14 +296,14 @@ class groupstime(object):
     #     return teachers
 
 
-# g = groupstime()
+g = groupstime()
 # g.get_details_by_groupname("kids tennis")
 # g.insert_group_time('15', '17:00', '18:30', "Sunday")
 # g.delete_group_by_timeid(26)
 # g.get_details_by_group_id("8")
 # g.delete_group_by_timeid(5)
-# g.delete_group_time('8',"18:00","19:00","thursday")
-# g.insert_group_time('8', '17:00', '18:30', "Monday")
+g.delete_group_time('8',"17:30","18:30","Monday")
+# g.insert_group_time('8', '15:30', '18:00', "Monday")
 # g.insert_group_time('1','18:00','20:00',"tuesday")
 # g.insert_group_time('7','18:30','19:30',"tuesday")
 # g.get_all_groups_times()

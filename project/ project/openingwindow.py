@@ -81,6 +81,8 @@ class App(tkinter.Tk):
 
         self.handle_thread_socket()
 
+        # self.protocol("WM_DELETE_WINDOW", self.on_closing)
+
         # self.femail = Label(self, text="Email:", background="light blue")
         # self.femail.place(x=50, y=100)
         # self.etemail = Entry(self)
@@ -134,6 +136,12 @@ class App(tkinter.Tk):
         window = Login(self)
         window.grab_set()
         self.withdraw()
+
+    # def on_closing(self):
+    #     if messagebox.askokcancel("Quit", "do you want to close the app?"):
+    #         self.send_msg("closed", self.client_socket)
+    #         self.running = False
+    #         self.destroy()
 
     def send_msg(self, data, client_socket):
         try:
