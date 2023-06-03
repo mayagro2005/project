@@ -98,8 +98,8 @@ class send_recv_messages(object):
             conn.close()
             print("Message deleted successfully")
             return True
-        except Exception as e:
-            print("Error deleting message: ", e)
+        except:
+            print("Error deleting message")
             return False
 
     def get_received_messages(self, to_username, to_teacher_or_student, to_usernameId):

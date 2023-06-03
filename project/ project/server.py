@@ -162,6 +162,34 @@ class Server(object):
                        else:
                            pass
 
+                   elif arr != None and arr[0] == "delete message" and len(arr) == 6:
+                       print("delete message")
+                       print(arr)
+                       to_teacher_or_student = None
+                       from_teacher_or_student = None
+                       if arr[2] == "teacher":
+                           to_teacher_or_student = self.teacherdb.get_id_by_name(arr[1])
+                           print(to_teacher_or_student)
+                       elif arr[2] == "student":
+                           to_teacher_or_student = self.studentdb.get_id_by_name(arr[1])
+                           print(to_teacher_or_student)
+                       else:
+                           pass
+                       if arr[4] == "teacher":
+                           from_teacher_or_student = self.teacherdb.get_id_by_name(arr[3])
+                           print(from_teacher_or_student)
+                       elif arr[4] == "student":
+                           from_teacher_or_student = self.studentdb.get_id_by_name(arr[3])
+                           print(from_teacher_or_student)
+                       if to_teacher_or_student is not None and from_teacher_or_student is not None:
+                           arr_delete = self.send_recv_messages.delete_message(arr[1],arr[2],arr[3],arr[4],to_teacher_or_student,from_teacher_or_student,arr[5])
+                           if arr_delete:
+                               self.send_msg("deleted", client_socket)
+                           else:
+                               self.send_msg("not deleted", client_socket)
+
+
+
                    elif arr != None and arr[0] == "get messages" and len(arr) == 3:
                        print("get messages")
                        print(arr)

@@ -168,6 +168,46 @@ class Messages(tkinter.Toplevel):
                 self.message_box.delete('1.0', 'end')
                 self.message_box.insert('end', "No received messages.\n")
                 self.message_box.configure(state='disabled')
+        self.message_box.bind('<ButtonRelease-1>', self.handle_message_click)
+
+    def handle_message_click(self, event):
+        # Get the line index based on the mouse click coordinates
+        line_index = self.message_box.index('@%s,%s' % (event.x, event.y))
+
+        # Get the text of the selected line
+        line_text = self.message_box.get(line_index + ' linestart', line_index + ' lineend')
+
+        # Ask for confirmation to delete the message
+        response = messagebox.askquestion("DELETE MESSAGE", "Do you want to delete the message?")
+
+        if response == 'yes':
+            # Split the line text into individual elements
+            element = line_text.split(", ")
+
+            # Remove the "from" and "the message" parts
+            name = element[0].split(": ")[1]
+            role = element[1]
+            message = element[2].split(": ")[1]
+
+            # Prepare the data to send for deletion
+            arr = ["delete message", f"{self.firstname} {self.lastname}", self.teacher_or_student, name, role, message]
+            print(arr)
+            str_insert = ",".join(arr)
+            print(str_insert)
+            # Send the deletion request
+            self.parent.parent.parent.send_msg(str_insert, self.parent.parent.parent.client_socket)
+            data = self.parent.parent.parent.recv_msg(self.parent.parent.parent.client_socket)
+            print(data)
+            if data == "deleted":
+                messagebox.showinfo("notification", "Message deleted successfully")
+                # Enable editing the message box
+                self.message_box.config(state='normal')
+                # Delete the selected line from the message box
+                self.message_box.delete(line_index + ' linestart', line_index + ' lineend')
+                # Disable editing the message box
+                self.message_box.config(state='disabled')
+            elif data == "not deleted":
+                messagebox.showerror("notification", "Error deleting message, please try again")
 
     # def get_message(self):
     #     print("get messages")
