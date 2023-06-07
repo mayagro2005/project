@@ -105,11 +105,11 @@ class Server(object):
                        print("sign in teacher")
                        print(arr)
                        server_data = self.teacherdb.check_teacher_exists(arr[2], arr[3])
-                       print("sertver data:", server_data)
+                       print("server data:", server_data)
                        if server_data:
                            self.send_msg("exist", client_socket)
                            # client_socket.send("exist".encode())
-                       elif server_data:
+                       elif not server_data:
                            self.send_msg("not exist", client_socket)
                            # client_socket.send("not exist".encode())
 
@@ -117,11 +117,11 @@ class Server(object):
                        print("sign in student")
                        print(arr)
                        server_data = self.studentdb.check_student_exists(arr[2], arr[3])
-                       print("sertver data:", server_data)
+                       print("server data:", server_data)
                        if server_data:
                            self.send_msg("exist", client_socket)
                            # client_socket.send("exist".encode())
-                       elif server_data:
+                       elif not server_data:
                            self.send_msg("not exist", client_socket)
                            # client_socket.send("not exist".encode())
 
@@ -770,6 +770,6 @@ class Server(object):
 
 if __name__ == '__main__':
    ip = '127.0.0.1'
-   port = 1850
+   port = 1851
    s = Server(ip, port)
    s.start()

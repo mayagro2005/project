@@ -44,18 +44,18 @@ class Login(tkinter.Toplevel):
         self.lbl_signin.pack(pady=10)
 
 
-        self.lbl_recognize = Label(self, text="Are you a teacher or student?", font=("Helvetica", 14))
+        self.lbl_recognize = Label(self, text="Are you a teacher or student?", font=("Arial", 16, "bold"), background="#f2f2f2", relief=SUNKEN)
         self.lbl_recognize.pack(pady=10)
 
         self.var = StringVar()
         self.var.set("teacher")
 
         self.teacher_radiobutton = Radiobutton(self, text="Teacher", variable=self.var, value="teacher",
-                                               font=("Helvetica", 14))
+                                               font=("Arial", 14, "bold"), background="#f2f2f2", relief=SUNKEN)
         self.teacher_radiobutton.pack(pady=5)
 
         self.student_radiobutton = Radiobutton(self, text="Student", variable=self.var, value="student",
-                                               font=("Helvetica", 14))
+                                               font=("Arial", 14, "bold"), background="#f2f2f2", relief=SUNKEN)
         self.student_radiobutton.pack(pady=5)
 
         # Labels and Entries for first name, last name, email, and password
@@ -69,14 +69,14 @@ class Login(tkinter.Toplevel):
         # self.lastname = Entry(self, font=("Helvetica", 14))
         # self.lastname.pack(pady=5)
 
-        self.email_label = Label(self, text="Email:", font=("Helvetica", 14))
+        self.email_label = Label(self, text="Email:", font=("Arial", 16, "bold"), background="#f2f2f2", relief=SUNKEN)
         self.email_label.pack(pady=5)
-        self.email = Entry(self, font=("Helvetica", 14))
+        self.email = Entry(self, font=("Arial", 16, "bold"), relief=SUNKEN)
         self.email.pack(pady=5)
 
-        self.password_label = Label(self, text="Password:", font=("Helvetica", 14))
+        self.password_label = Label(self, text="Password:", font=("Arial", 16, "bold"), background="#f2f2f2", relief=SUNKEN)
         self.password_label.pack(pady=5)
-        self.password = Entry(self, font=("Helvetica", 14), show="*")
+        self.password = Entry(self, font=("Arial", 16, "bold"), relief=SUNKEN, show="*")
         self.password.pack(pady=5)
 
         # Sign In button
@@ -89,6 +89,7 @@ class Login(tkinter.Toplevel):
         self.str.set("")
         self.login_message = Label(self, textvariable=self.str, foreground="red", font=("Helvetica", 14))
         self.login_message.pack(pady=20)
+        self.login_message.pack_forget()
         # self.lbl_recognize = Label(self, width=20, text="Are you teacher or student? ")
         # self.lbl_recognize.place(x=10, y=50)
         # self.recognize = Entry(self, width=20)
@@ -161,6 +162,7 @@ class Login(tkinter.Toplevel):
                     message = "please register"
                     self.str.set(message)
                     print(self.str.get())
+                    self.login_message.pack()
 
                 # if self.teacherdb.insert_teacher(self.firstname.get(), self.lastname.get(), self.email.get(), self.password.get()) != "exist":
                 #     message = "please register"
@@ -206,6 +208,7 @@ class Login(tkinter.Toplevel):
                     message = "please register"
                     self.str.set(message)
                     print(self.str.get())
+                    self.login_message.pack()
                 # if self.studentdb.insert_student(self.firstname.get(), self.lastname.get(), self.priceforayear, self.email.get(), self.password.get()) != "exist":
                 #     message = "please register"
                 #     self.str.set(message)

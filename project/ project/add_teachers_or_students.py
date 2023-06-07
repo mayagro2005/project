@@ -34,39 +34,39 @@ class Register(tkinter.Toplevel):
         self.lbl_signin = Label(self, text="SIGN UP", font=("Arial", 20, "bold"), background="#f2f2f2", relief=SUNKEN)
         self.lbl_signin.pack(pady=10)
 
-        self.lbl_recognize = Label(self, text="Are you a teacher or student?", font=("Helvetica", 14))
+        self.lbl_recognize = Label(self, text="Are you a teacher or student?", font=("Arial", 16, "bold"), background="#f2f2f2", relief=SUNKEN)
         self.lbl_recognize.pack(pady=10)
 
         self.var = StringVar()
         self.var.set("teacher")
 
         self.teacher_radiobutton = Radiobutton(self, text="Teacher", variable=self.var, value="teacher",
-                                               font=("Helvetica", 14))
+                                               font=("Arial", 14, "bold"), background="#f2f2f2", relief=SUNKEN)
         self.teacher_radiobutton.pack(pady=5)
 
         self.student_radiobutton = Radiobutton(self, text="Student", variable=self.var, value="student",
-                                               font=("Helvetica", 14))
+                                               font=("Arial", 14, "bold"), background="#f2f2f2", relief=SUNKEN)
         self.student_radiobutton.pack(pady=5)
 
         # Labels and Entries for first name, last name, email, and password
-        self.firstname_label = Label(self, text="First Name:", font=("Helvetica", 14))
+        self.firstname_label = Label(self, text="First Name:", font=("Arial", 16, "bold"), background="#f2f2f2", relief=SUNKEN)
         self.firstname_label.pack(pady=5)
-        self.firstname = Entry(self, font=("Helvetica", 14))
+        self.firstname = Entry(self, font=("Arial", 16, "bold"), relief=SUNKEN)
         self.firstname.pack(pady=5)
 
-        self.lastname_label = Label(self, text="Last Name:", font=("Helvetica", 14))
+        self.lastname_label = Label(self, text="Last Name:", font=("Arial", 16, "bold"), background="#f2f2f2", relief=SUNKEN)
         self.lastname_label.pack(pady=5)
-        self.lastname = Entry(self, font=("Helvetica", 14))
+        self.lastname = Entry(self, font=("Arial", 16, "bold"), relief=SUNKEN)
         self.lastname.pack(pady=5)
 
-        self.email_label = Label(self, text="Email:", font=("Helvetica", 14))
+        self.email_label = Label(self, text="Email:", font=("Arial", 16, "bold"), background="#f2f2f2", relief=SUNKEN)
         self.email_label.pack(pady=5)
-        self.email = Entry(self, font=("Helvetica", 14))
+        self.email = Entry(self, font=("Arial", 16, "bold"), relief=SUNKEN)
         self.email.pack(pady=5)
 
-        self.password_label = Label(self, text="Password:", font=("Helvetica", 14))
+        self.password_label = Label(self, text="Password:", font=("Arial", 16, "bold"), background="#f2f2f2", relief=SUNKEN)
         self.password_label.pack(pady=5)
-        self.password = Entry(self, font=("Helvetica", 14), show="*")
+        self.password = Entry(self, font=("Arial", 16, "bold"), relief=SUNKEN, show="*")
         self.password.pack(pady=5)
 
         # Sign In button
@@ -79,6 +79,7 @@ class Register(tkinter.Toplevel):
         self.str.set("")
         self.login_message = Label(self, textvariable=self.str, foreground="red", font=("Helvetica", 14))
         self.login_message.pack(pady=20)
+        self.login_message.pack_forget()
 
 
 
@@ -110,6 +111,7 @@ class Register(tkinter.Toplevel):
                     message = "you signed up, please go to sign in"
                     self.str.set(message)
                     print(self.str.get())
+                    self.login_message.pack()
                     # self.message_label.config(text = "you signed up, please go to sign in", foreground = "red")
 
                 elif data == "failed register":
@@ -117,10 +119,12 @@ class Register(tkinter.Toplevel):
                     message = "register failed, try again"
                     self.str.set(message)
                     print(self.str.get())
+                    self.login_message.pack()
                 elif data == "exist":
                     message = "you already have a user, go sign in"
                     self.str.set(message)
                     print(self.str.get())
+                    self.login_message.pack()
                     # self.message_label.config(text="you already have a user, go sign in", foreground="red")
 
 
@@ -149,11 +153,13 @@ class Register(tkinter.Toplevel):
                     message = "you signed up, please go to sign in"
                     self.str.set(message)
                     print(self.str.get())
-                    "success register"
+                    self.login_message.pack()
+
                 elif data == "failed register":
                     message = "register failed, try again"
                     self.str.set(message)
                     print(self.str.get())
+                    self.login_message.pack()
                     # self.message_label.config(text="you already have a user, go sign in", foreground="red")
             else:
                 tkinter.messagebox.showerror("error", "SIGN UP AS A TEACHER OR STUDENT!")
