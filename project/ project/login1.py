@@ -158,7 +158,7 @@ class Login(tkinter.Toplevel):
                 self.parent.send_msg(str_insert, self.parent.client_socket)
                 data = self.parent.recv_msg(self.parent.client_socket)
                 print(data)
-                if data != "exist":
+                if data == "not exist":
                     message = "please register"
                     self.str.set(message)
                     print(self.str.get())

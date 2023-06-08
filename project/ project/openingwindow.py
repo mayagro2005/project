@@ -155,8 +155,13 @@ class App(tkinter.Tk):
             msg = length + data
             print("message with lenght is " + str(msg))
             client_socket.send(msg)
-        except:
-            print("error with sending msg")
+        except Exception as e:
+            print("error with sending msg", str(e))
+            error_message = "[Errno 32] Broken pipe"
+            if str(e) == error_message:
+                self.pops_error()
+            return None
+
 
 
     def recv_msg(self, client_socket, ret_type="string"):
@@ -175,8 +180,15 @@ class App(tkinter.Tk):
                 data = data.decode(self.format)
             print(data)
             return data
-        except:
-            print("error with receiving msg")
+        except Exception as e:
+            print("error with receiving msg", str(e))
+            error_message = "[Errno 54] Connection reset by peer"
+            if str(e) == error_message:
+                self.pops_error()
+            return None
+
+    def pops_error(self):
+        messagebox.showerror("connection error", "the server has disconnected.\nplease reconnect later")
     # Sender
     # def send_msg(self, data, client_socket):
     #     try:
@@ -220,7 +232,7 @@ class App(tkinter.Tk):
     def create_socket(self):
         self.client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         try:
-            self.client_socket.connect(('127.0.0.1', 1851))
+            self.client_socket.connect(('127.0.0.1', 1853))
             # data = self.client_socket.recv(1024).decode()
             data = self.recv_msg(self.client_socket)
             print("data"+data)
