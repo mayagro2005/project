@@ -189,6 +189,14 @@ class App(tkinter.Tk):
 
     def pops_error(self):
         messagebox.showerror("connection error", "the server has disconnected.\nplease reconnect later")
+        # login_window = Login(self)
+        # login_window.grab_set()
+        # self.withdraw()
+        self.grab_release()  # Release the grab on the current window
+        self.withdraw()  # Hide the current window
+        self.deiconify()  # Bring the main window back into focus
+
+
     # Sender
     # def send_msg(self, data, client_socket):
     #     try:
