@@ -10,6 +10,7 @@ import hashlib
 from login1 import Login
 from PIL import ImageTk, Image
 from tkmacosx import Button
+from cryptography.hazmat.primitives import serialization
 
 SIZE = 12
 from dbteachers import *
@@ -242,9 +243,16 @@ class App(tkinter.Tk):
         try:
             self.client_socket.connect(('127.0.0.1', 1853))
             # data = self.client_socket.recv(1024).decode()
+
             data = self.recv_msg(self.client_socket)
             print("data"+data)
             print("hi", self.client_socket)
+            # Receive the public key from the server
+            # public_key_str = self.recv_msg(self.client_socket)
+            #
+            # # Deserialize the received public key
+            # public_key = serialization.load_pem_public_key(public_key_str.encode())
+
         except:
             print("server not available")
             messagebox.showerror("notification", "Error, server is not connected")

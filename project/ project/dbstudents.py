@@ -95,17 +95,41 @@ class students(object):
     #         except:
     #             print("Failed to insert user")
     #             return False
+    # def insert_student(self, firstname, lastname, priceforayear, email, password):
+    #     conn = sqlite3.connect('test.db')
+    #     print("Opened database successfully")
+    #     cursor = conn.execute(f"SELECT * from {self.__tablename} where {self.__email} = '{email}' and {self.__password} = '{password}'")
+    #     row = cursor.fetchall()
+    #     if row:
+    #         print("Exist")
+    #         return "exist"
+    #     else:
+    #         try:
+    #             str_insert = f"INSERT INTO {self.__tablename} ({self.__firstname}, {self.__lastname}, {self.__priceforayear}, {self.__email}, {self.__password}) VALUES ('{firstname}', '{lastname}', '{priceforayear}', '{email}', '{password}');"
+    #             conn.execute(str_insert)
+    #             conn.commit()
+    #             print("Record created successfully")
+    #             return True
+    #         except:
+    #             print("Failed to insert user")
+    #             return False
     def insert_student(self, firstname, lastname, priceforayear, email, password):
         conn = sqlite3.connect('test.db')
         print("Opened database successfully")
-        cursor = conn.execute(f"SELECT * from {self.__tablename} where {self.__email} = '{email}' and {self.__password} = '{password}'")
+
+        # Hash the password
+        salt = 'GROSSMAN'
+        salt_password = hashlib.md5(salt.encode('utf-8') + password.encode('utf-8')).hexdigest()
+
+        cursor = conn.execute(
+            f"SELECT * from {self.__tablename} where {self.__email} = '{email}' and {self.__password} = '{salt_password}'")
         row = cursor.fetchall()
         if row:
             print("Exist")
             return "exist"
         else:
             try:
-                str_insert = f"INSERT INTO {self.__tablename} ({self.__firstname}, {self.__lastname}, {self.__priceforayear}, {self.__email}, {self.__password}) VALUES ('{firstname}', '{lastname}', '{priceforayear}', '{email}', '{password}');"
+                str_insert = f"INSERT INTO {self.__tablename} ({self.__firstname}, {self.__lastname}, {self.__priceforayear}, {self.__email}, {self.__password}) VALUES ('{firstname}', '{lastname}', '{priceforayear}', '{email}', '{salt_password}');"
                 conn.execute(str_insert)
                 conn.commit()
                 print("Record created successfully")
@@ -275,50 +299,131 @@ class students(object):
         except:
             return False
 
+    # def get_price_for_student(self, email, password):
+    #     try:
+    #         conn = sqlite3.connect('test.db')
+    #         cursor = conn.execute(
+    #             f"SELECT {self.__priceforayear} FROM {self.__tablename} WHERE {self.__email}='{email}' AND {self.__password}='{password}'")
+    #         row = cursor.fetchone()
+    #         conn.close()
+    #         if row is not None:
+    #             print(row[0])
+    #             return row[0]
+    #         else:
+    #             print("failed")
+    #             return None
+    #     except:
+    #         print("failed")
+    #         return None
+
     def get_price_for_student(self, email, password):
         try:
             conn = sqlite3.connect('test.db')
             cursor = conn.execute(
-                f"SELECT {self.__priceforayear} FROM {self.__tablename} WHERE {self.__email}='{email}' AND {self.__password}='{password}'")
+                f"SELECT {self.__priceforayear}, {self.__password} FROM {self.__tablename} WHERE {self.__email}='{email}' AND {self.__password}='{password}'"
+            )
             row = cursor.fetchone()
             conn.close()
+
             if row is not None:
-                print(row[0])
-                return row[0]
-            else:
-                print("failed")
-                return None
-        except:
-            print("failed")
+                stored_password = row[1]
+
+                # Check if the password is already hashed
+                if password == stored_password:
+                    print(row[0])
+                    return row[0]
+
+                # Hash the password and compare
+                salt = 'GROSSMAN'
+                salt_password = hashlib.md5(salt.encode('utf-8') + password.encode('utf-8')).hexdigest()
+
+                if salt_password == stored_password:
+                    print(row[0])
+                    return row[0]
+
+            print("Failed to find student or incorrect password")
             return None
+        except:
+            print("Failed to retrieve price for student")
+            return None
+
+    # def update_price(self, sum, email, password):
+    #     try:
+    #         conn = sqlite3.connect('test.db')
+    #         cursor = conn.cursor()
+    #         cursor.execute("SELECT priceforayear FROM students WHERE email=? AND password=?", (email, password))
+    #         row = cursor.fetchone()
+    #         print(row)
+    #         priceforayear = int(row[0])
+    #         if priceforayear == 1500:
+    #             print("already payed")
+    #             return "already payed"
+    #         new_priceforayear = priceforayear + int(sum)
+    #         print(new_priceforayear)
+    #         if new_priceforayear > 1500:
+    #             print("Please pay the exact sum of money")
+    #             return "Please pay the exact sum of money"
+    #         elif new_priceforayear == 1500:
+    #             cursor.execute("UPDATE students SET priceforayear=? WHERE email=? AND password=?",
+    #                            (new_priceforayear, email, password))
+    #             conn.commit()
+    #             conn.close()
+    #             print("You paid everything")
+    #             return "You paid everything"
+    #         else:
+    #             to_pay = 1500 - int(new_priceforayear)
+    #             cursor.execute("UPDATE students SET priceforayear=? WHERE email=? AND password=?",
+    #                            (new_priceforayear, email, password))
+    #             conn.commit()
+    #             conn.close()
+    #             print(str(to_pay))
+    #             return str(to_pay)
+    #
+    #     except:
+    #         print("Error")
+    #         return "Error"
+
 
     def update_price(self, sum, email, password):
         try:
             conn = sqlite3.connect('test.db')
             cursor = conn.cursor()
-            cursor.execute("SELECT priceforayear FROM students WHERE email=? AND password=?", (email, password))
+            # Hash the password
+            salt = 'GROSSMAN'
+            salt_password = hashlib.md5(salt.encode('utf-8') + password.encode('utf-8')).hexdigest()
+
+            cursor.execute(
+                "SELECT priceforayear FROM students WHERE email=? AND password=?",
+                (email, salt_password)
+            )
             row = cursor.fetchone()
             print(row)
             priceforayear = int(row[0])
             if priceforayear == 1500:
-                print("already payed")
-                return "already payed"
+                print("Already paid")
+                return "Already paid"
+
             new_priceforayear = priceforayear + int(sum)
             print(new_priceforayear)
+
             if new_priceforayear > 1500:
                 print("Please pay the exact sum of money")
                 return "Please pay the exact sum of money"
             elif new_priceforayear == 1500:
-                cursor.execute("UPDATE students SET priceforayear=? WHERE email=? AND password=?",
-                               (new_priceforayear, email, password))
+                cursor.execute(
+                    "UPDATE students SET priceforayear=? WHERE email=? AND password=?",
+                    (new_priceforayear, email, salt_password)
+                )
                 conn.commit()
                 conn.close()
                 print("You paid everything")
                 return "You paid everything"
             else:
                 to_pay = 1500 - int(new_priceforayear)
-                cursor.execute("UPDATE students SET priceforayear=? WHERE email=? AND password=?",
-                               (new_priceforayear, email, password))
+                cursor.execute(
+                    "UPDATE students SET priceforayear=? WHERE email=? AND password=?",
+                    (new_priceforayear, email, salt_password)
+                )
                 conn.commit()
                 conn.close()
                 print(str(to_pay))
@@ -357,11 +462,35 @@ class students(object):
         except:
             return False
 
+    # def get_student_name(self, email, password):
+    #     try:
+    #         conn = sqlite3.connect('test.db')
+    #         print("Opened database successfully")
+    #         query = f"SELECT {self.__firstname}, {self.__lastname} FROM {self.__tablename} WHERE {self.__email} = '{email}' AND {self.__password} = '{password}'"
+    #         cursor = conn.execute(query)
+    #         result = cursor.fetchone()
+    #         conn.close()
+    #
+    #         if result:
+    #             first_name = result[0]
+    #             last_name = result[1]
+    #             print(first_name, last_name)
+    #             return first_name, last_name
+    #         else:
+    #             return None
+    #     except:
+    #         return None
+
     def get_student_name(self, email, password):
         try:
             conn = sqlite3.connect('test.db')
             print("Opened database successfully")
-            query = f"SELECT {self.__firstname}, {self.__lastname} FROM {self.__tablename} WHERE {self.__email} = '{email}' AND {self.__password} = '{password}'"
+
+            # Hash the password
+            salt = 'GROSSMAN'
+            salt_password = hashlib.md5(salt.encode('utf-8') + password.encode('utf-8')).hexdigest()
+
+            query = f"SELECT {self.__firstname}, {self.__lastname} FROM {self.__tablename} WHERE {self.__email} = '{email}' AND {self.__password} = '{salt_password}'"
             cursor = conn.execute(query)
             result = cursor.fetchone()
             conn.close()
@@ -376,18 +505,52 @@ class students(object):
         except:
             return None
 
+    # def check_student_exists(self, email, password):
+    #     try:
+    #         conn = sqlite3.connect('test.db')
+    #         print("Opened database successfully")
+    #         query = f"SELECT * FROM {self.__tablename} WHERE {self.__email} = '{email}' AND {self.__password} = '{password}'"
+    #         cursor = conn.execute(query)
+    #         result = cursor.fetchone()
+    #         conn.close()
+    #
+    #         if result:
+    #             print("Student exists")
+    #             return True
+    #         else:
+    #             print("Student does not exist")
+    #             return False
+    #     except:
+    #         print("Failed to check student existence")
+    #         return False
+
     def check_student_exists(self, email, password):
         try:
             conn = sqlite3.connect('test.db')
             print("Opened database successfully")
+
             query = f"SELECT * FROM {self.__tablename} WHERE {self.__email} = '{email}' AND {self.__password} = '{password}'"
             cursor = conn.execute(query)
             result = cursor.fetchone()
+            print(result)
             conn.close()
 
             if result:
-                print("Student exists")
-                return True
+                stored_password = result[5]  # Assuming the password is in the sixth column
+                print(stored_password)
+
+                # Check if the password is already hashed
+                if password == stored_password:
+                    print("Student exists")
+                    return True
+
+                # Hash the password if it's not already hashed
+                salt = 'GROSSMAN'
+                salt_password = hashlib.md5(salt.encode('utf-8') + password.encode('utf-8')).hexdigest()
+
+                if salt_password == stored_password:
+                    print("Student exists")
+                    return True
             else:
                 print("Student does not exist")
                 return False
@@ -395,12 +558,47 @@ class students(object):
             print("Failed to check student existence")
             return False
 
+    # def hash_and_update_password(self, email, password):
+    #     try:
+    #         conn = sqlite3.connect('test.db')
+    #         print("Opened database successfully")
+    #
+    #         # Retrieve the student from the database
+    #         query = f"SELECT * FROM {self.__tablename} WHERE {self.__email} = '{email}'"
+    #         cursor = conn.execute(query)
+    #         result = cursor.fetchone()
+    #         if result:
+    #             student_id = result[0]
+    #             print(student_id)
+    #             print("Student found:", student_id)
+    #
+    #             # Hash the provided password
+    #             salt = 'GROSSMAN'
+    #             hashed_password = hashlib.md5(salt.encode('utf-8') + password.encode('utf-8')).hexdigest()
+    #
+    #             # Update the hashed password in the database
+    #             update_query = f"UPDATE {self.__tablename} SET {self.__password} = ? WHERE studentid = ?"
+    #             conn.execute(update_query, (hashed_password, student_id))
+    #             conn.commit()
+    #
+    #             print("Password updated successfully")
+    #             conn.close()
+    #             return True
+    #         else:
+    #             print("Student not found")
+    #             conn.close()
+    #             return False
+    #     except:
+    #         print("Failed to update password")
+    #         return False
+
     def __str__(self):
         return "table  name is ", self.__tablename
 
 
-s = students()
-s.get_student_name("mha.com", "9o234")
+# s = students()
+# s.hash_and_update_password("mh89a.com","9o345234")
+# s.get_student_name("mha.com", "9o234")
 # s.get_id_by_name("dcf qwey")
 # s.delete_student_by_id(6)
 # s.update_price(1200,"mha.com","9o234")

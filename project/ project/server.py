@@ -8,6 +8,8 @@ from groups import groups
 from groupstime import groupstime
 from groupstudents import groupstudents
 from send_recv_messages import send_recv_messages
+# from Crypto.PublicKey import RSA
+# from Crypto.Cipher import PKCS1_OAEP
 
 # cores = multiprocessing.cpu_count()
 # print(cores)
@@ -36,6 +38,13 @@ class Server(object):
            self.sock.bind((self.ip, self.port))
            # self.sock.listen(3)
            self.sock.listen(0)#This will allow the server to listen to an unlimited or a large number of clients at the same time.
+           # key = RSA.generate(2048)
+           # public_key = key.publickey().export_key()
+           #
+           # print(public_key)
+           # file_out = open("rsa_key.bin", "wb")
+           # file_out.write(public_key)
+           # file_out.close()
 
            while True:
                print('waiting for a new client')
@@ -44,6 +53,7 @@ class Server(object):
                self.send_msg('Hello this is server', clientSocket)
                self.count += 1
                print(self.count)
+               # clientSocket.sendall(public_key)
                # implement here your main logic
                self.handleClient(clientSocket, self.count)
 

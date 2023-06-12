@@ -111,28 +111,60 @@ class teachers(object):
     #         except:
     #             print("Failed to insert user")
     #             return False
+    # def insert_teacher(self, firstname, lastname, email, password):
+    #     conn = sqlite3.connect('test.db')
+    #     print("Opened database successfully")
+    #
+    #     str_check = f"SELECT * from {self.__tablename} where {self.__email} = '{email}' and {self.__password} = '{password}'"
+    #     cursor = conn.execute(str_check)
+    #     row = cursor.fetchall()
+    #     if row:
+    #         print("Exist")
+    #         return "exist"
+    #     else:
+    #         try:
+    #             str_insert = f"INSERT INTO {self.__tablename} ({self.__firstname}, {self.__lastname}, {self.__email}, {self.__password}) VALUES ('{firstname}', '{lastname}', '{email}', '{password}');"
+    #             conn.execute(str_insert)
+    #             conn.commit()
+    #             conn.close()
+    #             print("Record created successfully");
+    #             return True
+    #         except:
+    #             print("Failed to insert user")
+    #             return False
+
     def insert_teacher(self, firstname, lastname, email, password):
         conn = sqlite3.connect('test.db')
         print("Opened database successfully")
 
-        str_check = f"SELECT * from {self.__tablename} where {self.__email} = '{email}' and {self.__password} = '{password}'"
+        str_check = f"SELECT * from {self.__tablename} where {self.__email} = '{email}'"
         cursor = conn.execute(str_check)
-        row = cursor.fetchall()
+        row = cursor.fetchone()
         if row:
+            hashed_password = row[self.__password]  # Get the hashed password from the database
+        else:
+            hashed_password = None
+
+        salt = 'GROSSMAN'  # Default salt value
+
+        if hashed_password and hashed_password == hashlib.md5(
+                salt.encode('utf-8') + password.encode('utf-8')).hexdigest():
             print("Exist")
             return "exist"
-        else:
-            try:
-                str_insert = f"INSERT INTO {self.__tablename} ({self.__firstname}, {self.__lastname}, {self.__email}, {self.__password}) VALUES ('{firstname}', '{lastname}', '{email}', '{password}');"
-                conn.execute(str_insert)
-                conn.commit()
-                conn.close()
-                print("Record created successfully");
-                return True
-            except:
-                print("Failed to insert user")
-                return False
 
+        try:
+            # Hash the password
+            salt_password = hashlib.md5(salt.encode('utf-8') + password.encode('utf-8')).hexdigest()
+
+            str_insert = f"INSERT INTO {self.__tablename} ({self.__firstname}, {self.__lastname}, {self.__email}, {self.__password}) VALUES ('{firstname}', '{lastname}', '{email}', '{salt_password}');"
+            conn.execute(str_insert)
+            conn.commit()
+            conn.close()
+            print("Record created successfully")
+            return True
+        except:
+            print("Failed to insert user")
+            return False
 
     def delete_teacher(self, firstname, lastname, email, password):
         try:
@@ -262,33 +294,73 @@ class teachers(object):
             return False
 
 
+    # def get_teacher_by_email_and_password(self, email, password):
+    #     try:
+    #         conn = sqlite3.connect('test.db')
+    #         print("Opened database successfully")
+    #         # salt = 'GROSSMAN'
+    #         # salt_password = hashlib.md5(salt.encode('utf-8') + password.encode('utf-8')).hexdigest()
+    #         # print(salt_password)
+    #         # strsql= f"SELECT * from {self.__tablename} where '{self.__email}' = {str(email)} and {self.__password}" \
+    #         #             f" = '{str(salt_password)}"
+    #         # print(strsql)
+    #
+    #         strsql = "SELECT * from " + self.__tablename + " where " + self.__email + "=" + "'" + str(email) + "'" + ' and ' + self.__password + "=" + "'" + str(password) + "'"
+    #         print(strsql)
+    #         cursor = conn.execute(strsql)
+    #         row = cursor.fetchone()
+    #         if row:
+    #             str_rows = str(row[0]) + " " + str(row[1]) + " " + str(row[2]) + " " + str(row[3]) + " " + str(row[4])
+    #             # return [row[0], row[1], row[2], row[3], row[4]]
+    #             arr_teachers = str_rows.split(" ")
+    #             print(arr_teachers)
+    #             return arr_teachers
+    #
+    #         else:
+    #             print("Failed to find user")
+    #             return False
+    #         conn.commit()
+    #         conn.close()
+    #     except:
+    #         return False
+    import hashlib
+
     def get_teacher_by_email_and_password(self, email, password):
         try:
             conn = sqlite3.connect('test.db')
             print("Opened database successfully")
-            # salt = 'GROSSMAN'
-            # salt_password = hashlib.md5(salt.encode('utf-8') + password.encode('utf-8')).hexdigest()
-            # print(salt_password)
-            # strsql= f"SELECT * from {self.__tablename} where '{self.__email}' = {str(email)} and {self.__password}" \
-            #             f" = '{str(salt_password)}"
-            # print(strsql)
 
-            strsql = "SELECT * from " + self.__tablename + " where " + self.__email + "=" + "'" + str(email) + "'" + ' and ' + self.__password + "=" + "'" + str(password) + "'"
-            print(strsql)
-            cursor = conn.execute(strsql)
+            query = f"SELECT * FROM {self.__tablename} WHERE {self.__email} = '{email}' AND {self.__password} = '{password}'"
+            cursor = conn.execute(query)
             row = cursor.fetchone()
-            if row:
-                str_rows = str(row[0]) + " " + str(row[1]) + " " + str(row[2]) + " " + str(row[3]) + " " + str(row[4])
-                # return [row[0], row[1], row[2], row[3], row[4]]
-                arr_teachers = str_rows.split(" ")
-                print(arr_teachers)
-                return arr_teachers
-
-            else:
-                print("Failed to find user")
-                return False
-            conn.commit()
+            print(row)
             conn.close()
+
+            if row:
+                stored_password = row[4]  # Assuming the password is in the fourth column
+                print(stored_password)
+
+                # Check if the password is already hashed
+                if password == stored_password:
+                    # Password matches, return the teacher's details
+                    str_rows = " ".join(str(value) for value in row)
+                    arr_teachers = str_rows.split(" ")
+                    print(arr_teachers)
+                    return arr_teachers
+
+                # Hash the password if it's not already hashed
+                salt = 'GROSSMAN'
+                salt_password = hashlib.md5(salt.encode('utf-8') + password.encode('utf-8')).hexdigest()
+
+                if salt_password == stored_password:
+                    # Password matches, return the teacher's details
+                    str_rows = " ".join(str(value) for value in row)
+                    arr_teachers = str_rows.split(" ")
+                    print(arr_teachers)
+                    return arr_teachers
+
+            print("Failed to find user")
+            return False
         except:
             return False
 
@@ -380,11 +452,33 @@ class teachers(object):
         except:
             return False
 
+    # def get_teacher_name(self, email, password):
+    #     try:
+    #         conn = sqlite3.connect('test.db')
+    #         print("Opened database successfully")
+    #         query = f"SELECT firstname, lastname FROM teachers WHERE email = '{email}' AND password = '{password}'"
+    #         cursor = conn.execute(query)
+    #         result = cursor.fetchone()
+    #         conn.close()
+    #
+    #         if result:
+    #             print(result[0], result[1])
+    #             return result[0], result[1]
+    #         else:
+    #             return False
+    #     except:
+    #         return False
+
     def get_teacher_name(self, email, password):
         try:
             conn = sqlite3.connect('test.db')
             print("Opened database successfully")
-            query = f"SELECT firstname, lastname FROM teachers WHERE email = '{email}' AND password = '{password}'"
+
+            # Hash the password
+            salt = 'GROSSMAN'
+            salt_password = hashlib.md5(salt.encode('utf-8') + password.encode('utf-8')).hexdigest()
+
+            query = f"SELECT firstname, lastname FROM teachers WHERE email = '{email}' AND password = '{salt_password}'"
             cursor = conn.execute(query)
             result = cursor.fetchone()
             conn.close()
@@ -397,19 +491,56 @@ class teachers(object):
         except:
             return False
 
+    # def check_teacher_exists(self, email, password):
+    #     try:
+    #         conn = sqlite3.connect('test.db')
+    #         print("Opened database successfully")
+    #
+    #         query = f"SELECT * FROM teachers WHERE email = '{email}' AND password = '{password}'"
+    #         cursor = conn.execute(query)
+    #         row = cursor.fetchone()
+    #         conn.close()
+    #
+    #         if row:
+    #             print("Teacher exists")
+    #             return True
+    #         else:
+    #             print("Teacher does not exist")
+    #             return False
+    #     except:
+    #         print("Failed to check teacher existence")
+    #         return False
+    import hashlib
+
+    import hashlib
+
     def check_teacher_exists(self, email, password):
         try:
             conn = sqlite3.connect('test.db')
             print("Opened database successfully")
 
-            query = f"SELECT * FROM teachers WHERE email = '{email}' AND password = '{password}'"
+            query = f"SELECT * FROM {self.__tablename} WHERE email = '{email}' AND password = '{password}'"
             cursor = conn.execute(query)
             row = cursor.fetchone()
+            print(row)
             conn.close()
 
             if row:
-                print("Teacher exists")
-                return True
+                stored_password = row[4]  # Assuming the hashed password is in the fifth column
+                print(stored_password)
+
+                # Check if the password is already hashed
+                if password == stored_password:
+                    print("Teacher exists")
+                    return True
+
+                # Hash the password if it's not already hashed
+                salt = 'GROSSMAN'
+                salt_password = hashlib.md5(salt.encode('utf-8') + password.encode('utf-8')).hexdigest()
+
+                if salt_password == stored_password:
+                    print("Teacher exists")
+                    return True
             else:
                 print("Teacher does not exist")
                 return False
@@ -417,12 +548,46 @@ class teachers(object):
             print("Failed to check teacher existence")
             return False
 
+    def hash_and_update_password(self, email, password):
+        try:
+            conn = sqlite3.connect('test.db')
+            print("Opened database successfully")
+
+            # Retrieve the teacher from the database
+            query = f"SELECT * FROM teachers WHERE email = '{email}'"
+            cursor = conn.execute(query)
+            row = cursor.fetchone()
+            if row:
+                teacher_id = row[0]
+                print("Teacher found:", teacher_id)
+
+                # Hash the provided password
+                salt = 'GROSSMAN'
+                hashed_password = hashlib.md5(salt.encode('utf-8') + password.encode('utf-8')).hexdigest()
+
+                # Update the hashed password in the database
+                update_query = "UPDATE teachers SET password = ? WHERE teacherid = ?"
+                conn.execute(update_query, (hashed_password, teacher_id))
+                conn.commit()
+
+                print("Password updated successfully")
+                conn.close()
+                return True
+            else:
+                print("Teacher not found")
+                conn.close()
+                return False
+        except:
+            print("Failed to update password")
+            return False
+
     def __str__(self):
         return "table  name is ", self.__tablename
 
 
-# t=teachers()
-# t.check_teacher_exists("qwe56","zxc567")
+t=teachers()
+t.hash_and_update_password("mha.com","9o234")
+# t.hash_and_update_password("qwe56","zxc567")
 # arr = t.get_teacher_name("qwe56", "zxc567")
 # print(arr[0])
 # t.get_id_by_name("lilya qwew")
