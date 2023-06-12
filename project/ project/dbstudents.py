@@ -320,29 +320,29 @@ class students(object):
         try:
             conn = sqlite3.connect('test.db')
             cursor = conn.execute(
-                f"SELECT {self.__priceforayear}, {self.__password} FROM {self.__tablename} WHERE {self.__email}='{email}' AND {self.__password}='{password}'"
+                f"SELECT {self.__priceforayear}, {self.__password} FROM {self.__tablename} WHERE {self.__email}='{email}'"
             )
             row = cursor.fetchone()
             conn.close()
 
             if row is not None:
-                stored_password = row[1]
+                stored_password = row[1]  # Assuming the hashed password is in the second column
+                print(stored_password)
 
-                # Check if the password is already hashed
-                if password == stored_password:
-                    print(row[0])
-                    return row[0]
-
-                # Hash the password and compare
+                # Hash the password for comparison
                 salt = 'GROSSMAN'
-                salt_password = hashlib.md5(salt.encode('utf-8') + password.encode('utf-8')).hexdigest()
+                hashed_password = hashlib.md5(salt.encode('utf-8') + password.encode('utf-8')).hexdigest()
 
-                if salt_password == stored_password:
+                # Check if the hashed password matches the stored password
+                if hashed_password == stored_password:
                     print(row[0])
                     return row[0]
-
-            print("Failed to find student or incorrect password")
-            return None
+                else:
+                    print("Incorrect password")
+                    return None
+            else:
+                print("Failed to find student")
+                return None
         except:
             print("Failed to retrieve price for student")
             return None
@@ -529,28 +529,26 @@ class students(object):
             conn = sqlite3.connect('test.db')
             print("Opened database successfully")
 
-            query = f"SELECT * FROM {self.__tablename} WHERE {self.__email} = '{email}' AND {self.__password} = '{password}'"
+            query = f"SELECT * FROM {self.__tablename} WHERE {self.__email} = '{email}'"
             cursor = conn.execute(query)
             result = cursor.fetchone()
-            print(result)
             conn.close()
 
             if result:
-                stored_password = result[5]  # Assuming the password is in the sixth column
+                stored_password = result[5]  # Assuming the hashed password is in the sixth column
                 print(stored_password)
 
-                # Check if the password is already hashed
-                if password == stored_password:
-                    print("Student exists")
-                    return True
-
-                # Hash the password if it's not already hashed
+                # Hash the password for comparison
                 salt = 'GROSSMAN'
-                salt_password = hashlib.md5(salt.encode('utf-8') + password.encode('utf-8')).hexdigest()
+                hashed_password = hashlib.md5(salt.encode('utf-8') + password.encode('utf-8')).hexdigest()
 
-                if salt_password == stored_password:
+                # Check if the hashed password matches the stored password
+                if hashed_password == stored_password:
                     print("Student exists")
                     return True
+                else:
+                    print("Incorrect password")
+                    return False
             else:
                 print("Student does not exist")
                 return False

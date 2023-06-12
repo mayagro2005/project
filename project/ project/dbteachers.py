@@ -330,38 +330,34 @@ class teachers(object):
             conn = sqlite3.connect('test.db')
             print("Opened database successfully")
 
-            query = f"SELECT * FROM {self.__tablename} WHERE {self.__email} = '{email}' AND {self.__password} = '{password}'"
+            query = f"SELECT * FROM {self.__tablename} WHERE {self.__email} = '{email}'"
             cursor = conn.execute(query)
             row = cursor.fetchone()
-            print(row)
             conn.close()
 
             if row:
-                stored_password = row[4]  # Assuming the password is in the fourth column
+                stored_password = row[4]  # Assuming the hashed password is in the fifth column
                 print(stored_password)
 
-                # Check if the password is already hashed
-                if password == stored_password:
-                    # Password matches, return the teacher's details
-                    str_rows = " ".join(str(value) for value in row)
-                    arr_teachers = str_rows.split(" ")
-                    print(arr_teachers)
-                    return arr_teachers
-
-                # Hash the password if it's not already hashed
+                # Hash the password for comparison
                 salt = 'GROSSMAN'
-                salt_password = hashlib.md5(salt.encode('utf-8') + password.encode('utf-8')).hexdigest()
+                hashed_password = hashlib.md5(salt.encode('utf-8') + password.encode('utf-8')).hexdigest()
 
-                if salt_password == stored_password:
+                # Check if the hashed password matches the stored password
+                if hashed_password == stored_password:
                     # Password matches, return the teacher's details
                     str_rows = " ".join(str(value) for value in row)
                     arr_teachers = str_rows.split(" ")
                     print(arr_teachers)
                     return arr_teachers
-
-            print("Failed to find user")
-            return False
+                else:
+                    print("Incorrect password")
+                    return False
+            else:
+                print("Failed to find user")
+                return False
         except:
+            print("Failed to retrieve teacher by email and password")
             return False
 
     # def get_teacher_by_group_name(self, nameofgroup):
@@ -519,28 +515,26 @@ class teachers(object):
             conn = sqlite3.connect('test.db')
             print("Opened database successfully")
 
-            query = f"SELECT * FROM {self.__tablename} WHERE email = '{email}' AND password = '{password}'"
+            query = f"SELECT * FROM {self.__tablename} WHERE email = '{email}'"
             cursor = conn.execute(query)
             row = cursor.fetchone()
-            print(row)
             conn.close()
 
             if row:
                 stored_password = row[4]  # Assuming the hashed password is in the fifth column
                 print(stored_password)
 
-                # Check if the password is already hashed
-                if password == stored_password:
-                    print("Teacher exists")
-                    return True
-
-                # Hash the password if it's not already hashed
+                # Hash the password for comparison
                 salt = 'GROSSMAN'
-                salt_password = hashlib.md5(salt.encode('utf-8') + password.encode('utf-8')).hexdigest()
+                hashed_password = hashlib.md5(salt.encode('utf-8') + password.encode('utf-8')).hexdigest()
 
-                if salt_password == stored_password:
+                # Check if the hashed password matches the stored password
+                if hashed_password == stored_password:
                     print("Teacher exists")
                     return True
+                else:
+                    print("Incorrect password")
+                    return False
             else:
                 print("Teacher does not exist")
                 return False
@@ -585,8 +579,8 @@ class teachers(object):
         return "table  name is ", self.__tablename
 
 
-t=teachers()
-t.hash_and_update_password("mha.com","9o234")
+# t=teachers()
+# t.hash_and_update_password("mha.com","9o234")
 # t.hash_and_update_password("qwe56","zxc567")
 # arr = t.get_teacher_name("qwe56", "zxc567")
 # print(arr[0])
