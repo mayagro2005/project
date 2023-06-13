@@ -755,20 +755,14 @@ class Server(object):
        try:
            print("The message is: " + str(data))
 
-           if type(data) != bytes and type(data) != list:
+           if type(data) != bytes:
                data = data.encode()
-
            if msg_type == "encrypted":
                encrypted_data = self.encrypt(data)
                msg = b"encrypted" + encrypted_data
                print(msg)
-           elif msg_type == "list":
-               print(type(data))
-               msg = pickle.dumps(data)
-               print(msg)
            else:
                msg = data
-
            length = str(len(msg)).zfill(SIZE)
            length = length.encode(self.format)
            print(length)
@@ -814,7 +808,8 @@ class Server(object):
                return decrypted_data.decode(self.format)
            else:
                if ret_type == "string":
-                   return data.decode(self.format)
+                   data = data.decode(self.format)
+                   return data
                else:
                    return data
        except:

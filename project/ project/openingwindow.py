@@ -175,10 +175,6 @@ class App(tkinter.Tk):
                 encrypted_data = self.encrypt(data)
                 msg = b"encrypted" + encrypted_data
                 print(msg)
-            elif msg_type == "list":
-                print(type(data))
-                msg = pickle.dumps(data)
-                print(msg)
             else:
                 msg = data
             length = str(len(msg)).zfill(SIZE)
@@ -285,7 +281,7 @@ class App(tkinter.Tk):
         try:
             self.client_socket.connect(('127.0.0.1', 1857))
             # data = self.client_socket.recv(1024).decode()
-            self.public_key = self.recv_msg(self.client_socket)  # Second step: SYN-ACK
+            self.public_key = self.recv_msg(self.client_socket)
             # data = self.client_socket.recv(1024).decode()
             print("Data is " + self.public_key)
             self.send_msg("Hello Server!", self.client_socket, "encrypted")
