@@ -2,6 +2,7 @@ import threading
 import tkinter
 from tkinter import *
 from tkinter import ttk, messagebox
+from tkinter import simpledialog
 # from dbteachers import teachers
 # from dbstudents import students
 from PIL import ImageTk, Image
@@ -90,6 +91,10 @@ class Login(tkinter.Toplevel):
         self.login_message = Label(self, textvariable=self.str, foreground="red", font=("Helvetica", 14))
         self.login_message.pack(pady=20)
         self.login_message.pack_forget()
+
+        self.forget_password_button = Button(self, text="forgot password?", font=("Helvetica", 16), background="white", relief="solid",
+                                     borderwidth=2, command=self.forget_password)
+        self.forget_password_button.pack(pady=20)
         # self.lbl_recognize = Label(self, width=20, text="Are you teacher or student? ")
         # self.lbl_recognize.place(x=10, y=50)
         # self.recognize = Entry(self, width=20)
@@ -233,6 +238,35 @@ class Login(tkinter.Toplevel):
         except:
             return False
 
+    def forget_password(self):
+        try:
+            user_type = simpledialog.askstring("User Type", "Are you a teacher or a student?")
+            if user_type:
+                user_type = user_type.lower()  # Convert user_type to lowercase for consistency
+                if user_type == "teacher" or user_type == "student":
+                    email_user = simpledialog.askstring("Email", "Enter your email:")
+                    if email_user:
+                        password_user = simpledialog.askstring("Password", "Enter your password:", show='*')
+                        if password_user:
+                            arr = ["forget password", user_type, email_user, password_user]
+                            str_names = ",".join(arr)
+                            print(str_names)
+                            self.parent.send_msg(str_names, self.parent.client_socket)
+                            data = self.parent.recv_msg(self.parent.client_socket)
+                            if data == "updated":
+                                messagebox.showinfo("Success", "Password updated successfully!")
+                            elif data == "not updated":
+                                messagebox.showerror("Error", "Error occurred, please try again!\n check you entered the right email!")
+                        else:
+                            messagebox.showerror("Error", "Password cannot be empty!")
+                    else:
+                        messagebox.showerror("Error", "Email cannot be empty!")
+                else:
+                    messagebox.showerror("Error", "Invalid user type!")
+            else:
+                messagebox.showerror("Error", "User type cannot be empty!")
+        except:
+            messagebox.showerror("Error", "Error occurred, please try again!\n check you entered the right email!")
 
     def close(self):
         self.parent.deiconify()

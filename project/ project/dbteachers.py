@@ -575,6 +575,33 @@ class teachers(object):
             print("Failed to update password")
             return False
 
+    def update_password(self, email, new_password):
+        try:
+            conn = sqlite3.connect('test.db')
+            print("Opened database successfully")
+
+            query = f"SELECT * FROM teachers WHERE email = '{email}'"
+            cursor = conn.execute(query)
+            row = cursor.fetchone()
+
+            if row:
+                salt = 'GROSSMAN'  # Default salt value
+                salt_password = hashlib.md5(salt.encode('utf-8') + new_password.encode('utf-8')).hexdigest()
+
+                update_query = f"UPDATE teachers SET password = '{salt_password}' WHERE email = '{email}'"
+                conn.execute(update_query)
+                conn.commit()
+                conn.close()
+                print("Password updated successfully")
+                return True
+            else:
+                print("Email not found")
+                return False
+
+        except:
+            print("Failed to update password")
+            return False
+
     def __str__(self):
         return "table  name is ", self.__tablename
 

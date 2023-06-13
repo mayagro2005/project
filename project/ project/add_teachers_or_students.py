@@ -72,9 +72,9 @@ class Register(tkinter.Toplevel):
         self.password.pack(pady=5)
 
         # Sign In button
-        self.sign_in_button = Button(self, text="Sign Up", font=("Helvetica", 16), background="white", relief="solid",
+        self.sign_up_button = Button(self, text="Sign Up", font=("Helvetica", 16), background="white", relief="solid",
                                      borderwidth=2, command=self.handle_add_user)
-        self.sign_in_button.pack(pady=20)
+        self.sign_up_button.pack(pady=20)
 
         # Login message
         self.str = StringVar()

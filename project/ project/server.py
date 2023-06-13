@@ -680,6 +680,23 @@ class Server(object):
                        print(names)
                        self.send_msg(names, client_socket)
 
+                   elif arr != None and arr[0] == "forget password" and len(arr) == 4:
+                       print("forget password")
+                       print(arr)
+                       new_password = None  # Initialize with a default value
+                       if arr[1] == "teacher":
+                           new_password = self.teacherdb.update_password(arr[2], arr[3])
+                       elif arr[1] == "student":
+                           new_password = self.studentdb.update_password(arr[2], arr[3])
+                       else:
+                           pass
+                       if new_password is not None and new_password:
+                           self.send_msg("updated", client_socket)
+                       else:
+                           self.send_msg("not updated", client_socket)
+
+
+
                    # elif arr != None and arr[0] == "closed" and len(arr) == 1:
                    #     print(f"client {adress} closed the connection")
                    #     break
@@ -780,6 +797,6 @@ class Server(object):
 
 if __name__ == '__main__':
    ip = '127.0.0.1'
-   port = 1854
+   port = 1856
    s = Server(ip, port)
    s.start()

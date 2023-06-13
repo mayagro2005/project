@@ -400,8 +400,8 @@ class students(object):
             print(row)
             priceforayear = int(row[0])
             if priceforayear == 1500:
-                print("Already paid")
-                return "Already paid"
+                print("already paid")
+                return "already paid"
 
             new_priceforayear = priceforayear + int(sum)
             print(new_priceforayear)
@@ -554,6 +554,33 @@ class students(object):
                 return False
         except:
             print("Failed to check student existence")
+            return False
+
+    def update_password(self, email, new_password):
+        try:
+            conn = sqlite3.connect('test.db')
+            print("Opened database successfully")
+
+            query = f"SELECT * FROM students WHERE email = '{email}'"
+            cursor = conn.execute(query)
+            row = cursor.fetchone()
+
+            if row:
+                salt = 'GROSSMAN'  # Default salt value
+                salt_password = hashlib.md5(salt.encode('utf-8') + new_password.encode('utf-8')).hexdigest()
+
+                update_query = f"UPDATE students SET password = '{salt_password}' WHERE email = '{email}'"
+                conn.execute(update_query)
+                conn.commit()
+                conn.close()
+                print("Password updated successfully")
+                return True
+            else:
+                print("Email not found")
+                return False
+
+        except:
+            print("Failed to update password")
             return False
 
     # def hash_and_update_password(self, email, password):

@@ -143,14 +143,13 @@ class Payments(tkinter.Toplevel):
         if get_payment == "Please pay the exact sum of money":
             messagebox.showinfo("Notification", "PLEASE PAY THE EXACT SUM OF MONEY")
         elif get_payment == "You paid everything":
-            messagebox.showinfo("Notification", "YOU PAYED EVERYTHING")
-        elif get_payment == "already payed":
-            messagebox.showinfo("Notification", "YOU ALREADY PAYED EVERYTHING")
+            messagebox.showinfo("Notification", "YOU PAID EVERYTHING")  # Updated message
+        elif get_payment == "already paid":
+            messagebox.showinfo("Notification", "YOU ALREADY PAID EVERYTHING")  # Updated message
         elif get_payment == "Error":
             messagebox.showinfo("Notification", "PAYMENT FAILED, PLEASE TRY AGAIN")
         else:
             messagebox.showinfo("Notification", "PLEASE PAY" + " " + get_payment + " " + "TO GET TO 1500 SHEKELS")
-
 
     def close(self):
         self.parent.deiconify()
