@@ -94,11 +94,11 @@ class Messages_for_student(tkinter.Toplevel):
         self.var.set("teacher")
 
         self.teacher_radiobutton = Radiobutton(self, text="Teacher", variable=self.var, value="teacher",
-                                               font=("Helvetica", 14),relief="solid", bd=3, command=self.update_options)
+                                               font=("Helvetica", 14),bg="#AFD3E2", bd=3, command=self.update_options)
         self.teacher_radiobutton.place(x=300, y=90)
 
         self.student_radiobutton = Radiobutton(self, text="Student", variable=self.var, value="student",
-                                               font=("Helvetica", 14),relief="solid", bd=3, command=self.update_options)
+                                               font=("Helvetica", 14),bg="#AFD3E2", bd=3, command=self.update_options)
         self.student_radiobutton.place(x=300, y=120)
 
         self.nameofperson_var = StringVar()

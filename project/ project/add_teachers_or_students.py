@@ -41,11 +41,13 @@ class Register(tkinter.Toplevel):
         self.var.set("teacher")
 
         self.teacher_radiobutton = Radiobutton(self, text="Teacher", variable=self.var, value="teacher",
-                                               font=("Arial", 14, "bold"), background="#f2f2f2", relief=SUNKEN)
+                                               font=("Arial", 14, "bold"), relief="solid",
+                                     borderwidth=2)
         self.teacher_radiobutton.pack(pady=5)
 
         self.student_radiobutton = Radiobutton(self, text="Student", variable=self.var, value="student",
-                                               font=("Arial", 14, "bold"), background="#f2f2f2", relief=SUNKEN)
+                                               font=("Arial", 14, "bold"), relief="solid",
+                                     borderwidth=2)
         self.student_radiobutton.pack(pady=5)
 
         # Labels and Entries for first name, last name, email, and password
@@ -70,7 +72,7 @@ class Register(tkinter.Toplevel):
         self.password.pack(pady=5)
 
         # Sign In button
-        self.sign_in_button = Button(self, text="Sign In", font=("Helvetica", 16), background="white", relief="solid",
+        self.sign_in_button = Button(self, text="Sign Up", font=("Helvetica", 16), background="white", relief="solid",
                                      borderwidth=2, command=self.handle_add_user)
         self.sign_in_button.pack(pady=20)
 

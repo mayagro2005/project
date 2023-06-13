@@ -51,11 +51,11 @@ class Login(tkinter.Toplevel):
         self.var.set("teacher")
 
         self.teacher_radiobutton = Radiobutton(self, text="Teacher", variable=self.var, value="teacher",
-                                               font=("Arial", 14, "bold"), background="#f2f2f2", relief=SUNKEN)
+                                               font=("Arial", 14, "bold"), background="white", relief=SUNKEN)
         self.teacher_radiobutton.pack(pady=5)
 
         self.student_radiobutton = Radiobutton(self, text="Student", variable=self.var, value="student",
-                                               font=("Arial", 14, "bold"), background="#f2f2f2", relief=SUNKEN)
+                                               font=("Arial", 14, "bold"), background="white", relief=SUNKEN)
         self.student_radiobutton.pack(pady=5)
 
         # Labels and Entries for first name, last name, email, and password
