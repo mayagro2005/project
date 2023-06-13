@@ -106,7 +106,7 @@ class Register(tkinter.Toplevel):
                        self.password.get()]
                 str_insert = ",".join(arr)
                 print(str_insert)
-                self.parent.send_msg(str_insert, self.parent.client_socket)
+                self.parent.send_msg(str_insert, self.parent.client_socket,"encrypted")
                 data = self.parent.recv_msg(self.parent.client_socket)
                 print(data)
                 if data == "success register":
@@ -142,7 +142,7 @@ class Register(tkinter.Toplevel):
                        self.password.get()]
                 str_insert = ",".join(arr)
                 print(str_insert)
-                self.parent.send_msg(str_insert, self.parent.client_socket)
+                self.parent.send_msg(str_insert, self.parent.client_socket,"encrypted")
                 data = self.parent.recv_msg(self.parent.client_socket)
                 print(data)
                 if data == "exist":

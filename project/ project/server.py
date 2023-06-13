@@ -8,8 +8,9 @@ from groups import groups
 from groupstime import groupstime
 from groupstudents import groupstudents
 from send_recv_messages import send_recv_messages
-# from Crypto.PublicKey import RSA
-# from Crypto.Cipher import PKCS1_OAEP
+import pickle
+from Cryptodome.PublicKey import RSA
+from Cryptodome.Cipher import PKCS1_OAEP
 
 # cores = multiprocessing.cpu_count()
 # print(cores)
@@ -25,10 +26,16 @@ class Server(object):
        self.studentdb = students()
        self.teacherdb = teachers()
        self.format = 'utf-8'
+
+       self.key = RSA.generate(2048)  # Generate RSA key pair
+       self.private_key = self.key.export_key()  # private key
+       self.public_key = self.key.publickey().export_key()  # public key
+
        self.dbgroups = groups()
        self.dbgroupstime = groupstime()
        self.groupstudents = groupstudents()
        self.send_recv_messages = send_recv_messages()
+
 
    def start(self):
        try:
@@ -50,7 +57,9 @@ class Server(object):
                print('waiting for a new client')
                clientSocket, client_addresses = self.sock.accept()
                print('new client entered')
-               self.send_msg('Hello this is server', clientSocket)
+               # self.send_msg('Hello this is server', clientSocket)
+               self.send_msg(self.public_key, clientSocket)
+               self.recv_msg(clientSocket)
                self.count += 1
                print(self.count)
                # clientSocket.sendall(public_key)
@@ -701,22 +710,6 @@ class Server(object):
                    #     print(f"client {adress} closed the connection")
                    #     break
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
                    else:
                        server_data = "False"
                except:
@@ -724,41 +717,110 @@ class Server(object):
                    not_crash = False
                    break
 
-   def send_msg(self, data, client_socket):
+   def encrypt(self, data):
        try:
-           print("the message is: " + str(data))
-           length = str(len(data)).zfill(SIZE)
+           public_key = RSA.import_key(self.public_key)
+           cipher = PKCS1_OAEP.new(public_key)
+           encrypted_data = cipher.encrypt(data)
+           return encrypted_data
+       except:
+           print("fail - encryption")
+           return False
+
+   def decrypt(self, encrypted_data):
+       try:
+           private_key = RSA.import_key(self.private_key)
+           cipher = PKCS1_OAEP.new(private_key)
+           decrypted_data = cipher.decrypt(encrypted_data)
+           return decrypted_data
+       except:
+           print("fail - decryption")
+           return False
+
+   # def send_msg(self, data, client_socket):
+   #     try:
+   #         print("the message is: " + str(data))
+   #         length = str(len(data)).zfill(SIZE)
+   #         length = length.encode(self.format)
+   #         print(length)
+   #         if type(data) != bytes:
+   #             data = data.encode()
+   #         print(data)
+   #         msg = length + data
+   #         print("message with length is " + str(msg))
+   #         client_socket.send(msg)
+   #     except:
+   #         print("error with sending msg")
+   def send_msg(self, data, client_socket, msg_type="string"):
+       try:
+           print("The message is: " + str(data))
+
+           if type(data) != bytes and type(data) != list:
+               data = data.encode()
+
+           if msg_type == "encrypted":
+               encrypted_data = self.encrypt(data)
+               msg = b"encrypted" + encrypted_data
+               print(msg)
+           elif msg_type == "list":
+               print(type(data))
+               msg = pickle.dumps(data)
+               print(msg)
+           else:
+               msg = data
+
+           length = str(len(msg)).zfill(SIZE)
            length = length.encode(self.format)
            print(length)
-           if type(data) != bytes:
-               data = data.encode()
-           print(data)
-           msg = length + data
-           print("message with length is " + str(msg))
-           client_socket.send(msg)
+           msg_with_length = length + msg
+           print("Message with length is: " + str(msg_with_length))
+           client_socket.send(msg_with_length)
        except:
-           print("error with sending msg")
+           print("Error with sending msg")
 
-
-
+   # def recv_msg(self, client_socket, ret_type="string"):
+   #     try:
+   #         length = client_socket.recv(SIZE).decode(self.format)
+   #         if not length:
+   #             print("no length!")
+   #             return None
+   #         print("the length is " + length)
+   #         data = client_socket.recv(int(length))
+   #         if not data:
+   #             print("no data!")
+   #             return None
+   #         print("the data is: " + str(data))
+   #         if ret_type == "string":
+   #             data = data.decode(self.format)
+   #         print(data)
+   #         return data
+   #     except:
+   #         print("error with receiving msg")
    def recv_msg(self, client_socket, ret_type="string"):
        try:
            length = client_socket.recv(SIZE).decode(self.format)
            if not length:
-               print("no length!")
+               print("NO LENGTH!")
                return None
-           print("the length is " + length)
+           print("The length is " + length)
            data = client_socket.recv(int(length))
            if not data:
                print("no data!")
                return None
            print("the data is: " + str(data))
-           if ret_type == "string":
-               data = data.decode(self.format)
-           print(data)
-           return data
+           if data.startswith(b"encrypted"):
+               encrypted_data = data[len(b"encrypted"):]
+               decrypted_data = self.decrypt(encrypted_data)
+               return decrypted_data.decode(self.format)
+           else:
+               if ret_type == "string":
+                   return data.decode(self.format)
+               else:
+                   return data
        except:
-           print("error with receiving msg")
+           print("Error with receiving msg")
+           return False
+
    # Sender
    # def send_msg(self, data, client_socket):
    #     try:
@@ -797,6 +859,6 @@ class Server(object):
 
 if __name__ == '__main__':
    ip = '127.0.0.1'
-   port = 1856
+   port = 1857
    s = Server(ip, port)
    s.start()

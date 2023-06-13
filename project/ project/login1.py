@@ -160,7 +160,7 @@ class Login(tkinter.Toplevel):
                        self.password.get()]
                 str_insert = ",".join(arr)
                 print(str_insert)
-                self.parent.send_msg(str_insert, self.parent.client_socket)
+                self.parent.send_msg(str_insert, self.parent.client_socket,"encrypted")
                 data = self.parent.recv_msg(self.parent.client_socket)
                 print(data)
                 if data == "not exist":
@@ -177,7 +177,7 @@ class Login(tkinter.Toplevel):
                     arr = ["get teacher name", self.email.get(), self.password.get()]
                     str_names = ",".join(arr)
                     print(str_names)
-                    self.parent.send_msg(str_names, self.parent.client_socket)
+                    self.parent.send_msg(str_names, self.parent.client_socket,"encrypted")
                     names = self.parent.recv_msg(self.parent.client_socket)
                     names = names.split(",")
                     print(names)
@@ -206,7 +206,7 @@ class Login(tkinter.Toplevel):
                         self.password.get()]
                 str_insert = ",".join(arr1)
                 print(str_insert)
-                self.parent.send_msg(str_insert, self.parent.client_socket)
+                self.parent.send_msg(str_insert, self.parent.client_socket,"encrypted")
                 data = self.parent.recv_msg(self.parent.client_socket)
                 print(data)
                 if data != "exist":
@@ -222,7 +222,7 @@ class Login(tkinter.Toplevel):
                     arr = ["get student name", self.email.get(), self.password.get()]
                     str_names = ",".join(arr)
                     print(str_names)
-                    self.parent.send_msg(str_names, self.parent.client_socket)
+                    self.parent.send_msg(str_names, self.parent.client_socket,"encrypted")
                     names = self.parent.recv_msg(self.parent.client_socket)
                     names = names.split(",")
                     print(names)
@@ -251,7 +251,7 @@ class Login(tkinter.Toplevel):
                             arr = ["forget password", user_type, email_user, password_user]
                             str_names = ",".join(arr)
                             print(str_names)
-                            self.parent.send_msg(str_names, self.parent.client_socket)
+                            self.parent.send_msg(str_names, self.parent.client_socket,"encrypted")
                             data = self.parent.recv_msg(self.parent.client_socket)
                             if data == "updated":
                                 messagebox.showinfo("Success", "Password updated successfully!")

@@ -10,7 +10,9 @@ import hashlib
 from login1 import Login
 from PIL import ImageTk, Image
 from tkmacosx import Button
-from cryptography.hazmat.primitives import serialization
+import pickle
+from Cryptodome.PublicKey import RSA
+from Cryptodome.Cipher import PKCS1_OAEP
 
 SIZE = 12
 from dbteachers import *
@@ -144,18 +146,47 @@ class App(tkinter.Tk):
     #         self.running = False
     #         self.destroy()
 
-    def send_msg(self, data, client_socket):
+    # def send_msg(self, data, client_socket):
+    #     try:
+    #         print("The message is: " + str(data))
+    #         length = str(len(data)).zfill(SIZE)
+    #         length = length.encode()
+    #         print(length)
+    #         if type(data) != bytes:
+    #             data = data.encode()
+    #         print(data)
+    #         msg = length + data
+    #         print("message with lenght is " + str(msg))
+    #         client_socket.send(msg)
+    #     except Exception as e:
+    #         print("error with sending msg", str(e))
+    #         error_message = "[Errno 32] Broken pipe"
+    #         if str(e) == error_message:
+    #             self.pops_error()
+    #         return None
+    def send_msg(self, data, client_socket, msg_type="string"):
         try:
             print("The message is: " + str(data))
-            length = str(len(data)).zfill(SIZE)
-            length = length.encode()
-            print(length)
-            if type(data) != bytes:
+
+            if type(data) != bytes and type(data) != list:
                 data = data.encode()
-            print(data)
-            msg = length + data
-            print("message with lenght is " + str(msg))
-            client_socket.send(msg)
+
+            if msg_type == "encrypted":
+                encrypted_data = self.encrypt(data)
+                msg = b"encrypted" + encrypted_data
+                print(msg)
+            elif msg_type == "list":
+                print(type(data))
+                msg = pickle.dumps(data)
+                print(msg)
+            else:
+                msg = data
+            length = str(len(msg)).zfill(SIZE)
+            length = length.encode(self.format)
+            print(length)
+            msg_with_length = length + msg
+            print("Message with length is: " + str(msg_with_length))
+            client_socket.send(msg_with_length)
         except Exception as e:
             print("error with sending msg", str(e))
             error_message = "[Errno 32] Broken pipe"
@@ -187,6 +218,17 @@ class App(tkinter.Tk):
             if str(e) == error_message:
                 self.pops_error()
             return None
+
+    def encrypt(self, data):
+        try:
+            public_key = RSA.import_key(self.public_key)
+            cipher = PKCS1_OAEP.new(public_key)
+            encrypted_data = cipher.encrypt(data)
+            print(encrypted_data)
+            return encrypted_data
+        except:
+            print("fail - encryption")
+            return False
 
     def pops_error(self):
         messagebox.showerror("connection error", "the server has disconnected.\nplease reconnect later")
@@ -241,12 +283,16 @@ class App(tkinter.Tk):
     def create_socket(self):
         self.client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         try:
-            self.client_socket.connect(('127.0.0.1', 1856))
+            self.client_socket.connect(('127.0.0.1', 1857))
             # data = self.client_socket.recv(1024).decode()
+            self.public_key = self.recv_msg(self.client_socket)  # Second step: SYN-ACK
+            # data = self.client_socket.recv(1024).decode()
+            print("Data is " + self.public_key)
+            self.send_msg("Hello Server!", self.client_socket, "encrypted")
 
-            data = self.recv_msg(self.client_socket)
-            print("data"+data)
-            print("hi", self.client_socket)
+            # data = self.recv_msg(self.client_socket)
+            # print("data"+data)
+            # print("hi", self.client_socket)
             # Receive the public key from the server
             # public_key_str = self.recv_msg(self.client_socket)
             #

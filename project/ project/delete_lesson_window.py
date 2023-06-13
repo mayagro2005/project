@@ -76,7 +76,7 @@ class delete_lesson(tkinter.Toplevel):
                        self.lessonday_var.get(), self.email,self.password]
             str_insert = ",".join(arr)
             print(str_insert)
-            self.parent.parent.parent.send_msg(str_insert, self.parent.parent.parent.client_socket)
+            self.parent.parent.parent.send_msg(str_insert, self.parent.parent.parent.client_socket,"encrypted")
             data = self.parent.parent.parent.recv_msg(self.parent.parent.parent.client_socket)
             print(data)
             if data == "not found":
