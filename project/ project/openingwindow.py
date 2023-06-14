@@ -279,7 +279,7 @@ class App(tkinter.Tk):
     def create_socket(self):
         self.client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         try:
-            self.client_socket.connect(('127.0.0.1', 1857))
+            self.client_socket.connect(('10.81.240.224', 1857))
             # data = self.client_socket.recv(1024).decode()
             self.public_key = self.recv_msg(self.client_socket)
             # data = self.client_socket.recv(1024).decode()
