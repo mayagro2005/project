@@ -122,7 +122,7 @@ class Payments(tkinter.Toplevel):
         print(arr_payment)
         str_payment = ",".join(arr_payment)
         print(str_payment)
-        self.parent.parent.parent.send_msg(str_payment, self.parent.parent.parent.client_socket,"encrypted")
+        self.parent.parent.parent.send_msg(str_payment, self.parent.parent.parent.client_socket)
         get_payment = self.parent.parent.parent.recv_msg(self.parent.parent.parent.client_socket)
         print(get_payment)
         pay_the_rest = 1500 - int(get_payment)
@@ -137,7 +137,7 @@ class Payments(tkinter.Toplevel):
         print(arr_payment)
         str_payment = ",".join(arr_payment)
         print(str_payment)
-        self.parent.parent.parent.send_msg(str_payment, self.parent.parent.parent.client_socket)
+        self.parent.parent.parent.send_msg(str_payment, self.parent.parent.parent.client_socket,"encrypted")
         get_payment = self.parent.parent.parent.recv_msg(self.parent.parent.parent.client_socket)
         print(get_payment)
         if get_payment == "Please pay the exact sum of money":

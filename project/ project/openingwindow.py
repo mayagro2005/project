@@ -168,7 +168,7 @@ class App(tkinter.Tk):
         try:
             print("The message is: " + str(data))
 
-            if type(data) != bytes and type(data) != list:
+            if type(data) != bytes:
                 data = data.encode()
 
             if msg_type == "encrypted":
